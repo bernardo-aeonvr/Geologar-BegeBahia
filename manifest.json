@@ -1,5 +1,4 @@
 {
- "theme_color": "#111111",
  "icons": [
   {
    "sizes": "150x150",
@@ -37,8 +36,9 @@
    "src": "misc/icon64.png"
   }
  ],
- "display": "fullscreen",
- "start_url": "index.htm?installed=true",
+ "name": "Geologar - Bege Bahia",
  "background_color": "#111111",
- "name": "Geologar - Bege Bahia"
+ "theme_color": "#111111",
+ "display": "fullscreen",
+ "start_url": "index.htm?installed=true"
 }
