@@ -39,7 +39,7 @@ const PROFILES = {
   image: {
     web: { width: 4096, height: 2048, quality: 3, suffix: "4096" },
     mobile: { sameAs: "web" },
-    high: { copy: true },
+    high: { copy: true, suffix: "orig" },
   },
   video: {
     web: { width: 4096, height: 2048, crf: 20, maxrate: "16M", bufsize: "32M", suffix: "4096" },

@@ -1,0 +1,751 @@
+{
+  "version": 1,
+  "assets": {
+    "audio/e0-intro": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 0 Intro.MP3",
+      "sourceBytes": 959266,
+      "variants": {
+        "web": {
+          "file": "audio/e0-intro.mp3",
+          "bytes": 959266,
+          "duration": 39.967,
+          "hasAudio": true,
+          "settingsHash": "d544608ff512"
+        },
+        "mobile": {
+          "file": "audio/e0-intro.mp3",
+          "bytes": 959266,
+          "duration": 39.967,
+          "hasAudio": true,
+          "settingsHash": "d544608ff512"
+        },
+        "high": {
+          "file": "audio/e0-intro.mp3",
+          "bytes": 959266,
+          "duration": 39.967,
+          "hasAudio": true,
+          "settingsHash": "d544608ff512"
+        }
+      }
+    },
+    "audio/e1-p1": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 1 Ponto 1.MP3",
+      "sourceBytes": 1097192,
+      "variants": {
+        "web": {
+          "file": "audio/e1-p1.mp3",
+          "bytes": 1097192,
+          "duration": 45.714,
+          "hasAudio": true,
+          "settingsHash": "0877e1a6e294"
+        },
+        "mobile": {
+          "file": "audio/e1-p1.mp3",
+          "bytes": 1097192,
+          "duration": 45.714,
+          "hasAudio": true,
+          "settingsHash": "0877e1a6e294"
+        },
+        "high": {
+          "file": "audio/e1-p1.mp3",
+          "bytes": 1097192,
+          "duration": 45.714,
+          "hasAudio": true,
+          "settingsHash": "0877e1a6e294"
+        }
+      }
+    },
+    "audio/e1-p2": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 1 Ponto 2.MP3",
+      "sourceBytes": 1069607,
+      "variants": {
+        "web": {
+          "file": "audio/e1-p2.mp3",
+          "bytes": 1069607,
+          "duration": 44.565,
+          "hasAudio": true,
+          "settingsHash": "b86dc6f4565b"
+        },
+        "mobile": {
+          "file": "audio/e1-p2.mp3",
+          "bytes": 1069607,
+          "duration": 44.565,
+          "hasAudio": true,
+          "settingsHash": "b86dc6f4565b"
+        },
+        "high": {
+          "file": "audio/e1-p2.mp3",
+          "bytes": 1069607,
+          "duration": 44.565,
+          "hasAudio": true,
+          "settingsHash": "b86dc6f4565b"
+        }
+      }
+    },
+    "audio/e2-p1": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 2 Ponto 1.MP3",
+      "sourceBytes": 754884,
+      "variants": {
+        "web": {
+          "file": "audio/e2-p1.mp3",
+          "bytes": 754884,
+          "duration": 31.451,
+          "hasAudio": true,
+          "settingsHash": "55ea4ed6be16"
+        },
+        "mobile": {
+          "file": "audio/e2-p1.mp3",
+          "bytes": 754884,
+          "duration": 31.451,
+          "hasAudio": true,
+          "settingsHash": "55ea4ed6be16"
+        },
+        "high": {
+          "file": "audio/e2-p1.mp3",
+          "bytes": 754884,
+          "duration": 31.451,
+          "hasAudio": true,
+          "settingsHash": "55ea4ed6be16"
+        }
+      }
+    },
+    "audio/e2-p2": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 2 Ponto 2.MP3",
+      "sourceBytes": 352389,
+      "variants": {
+        "web": {
+          "file": "audio/e2-p2.mp3",
+          "bytes": 352389,
+          "duration": 14.681,
+          "hasAudio": true,
+          "settingsHash": "9a1b02962ef8"
+        },
+        "mobile": {
+          "file": "audio/e2-p2.mp3",
+          "bytes": 352389,
+          "duration": 14.681,
+          "hasAudio": true,
+          "settingsHash": "9a1b02962ef8"
+        },
+        "high": {
+          "file": "audio/e2-p2.mp3",
+          "bytes": 352389,
+          "duration": 14.681,
+          "hasAudio": true,
+          "settingsHash": "9a1b02962ef8"
+        }
+      }
+    },
+    "audio/e3-p1": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 3 Ponto 1.MP3",
+      "sourceBytes": 531694,
+      "variants": {
+        "web": {
+          "file": "audio/e3-p1.mp3",
+          "bytes": 531694,
+          "duration": 22.152,
+          "hasAudio": true,
+          "settingsHash": "957e69d6130f"
+        },
+        "mobile": {
+          "file": "audio/e3-p1.mp3",
+          "bytes": 531694,
+          "duration": 22.152,
+          "hasAudio": true,
+          "settingsHash": "957e69d6130f"
+        },
+        "high": {
+          "file": "audio/e3-p1.mp3",
+          "bytes": 531694,
+          "duration": 22.152,
+          "hasAudio": true,
+          "settingsHash": "957e69d6130f"
+        }
+      }
+    },
+    "audio/e3-p2": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 3 Ponto 2.MP3",
+      "sourceBytes": 408180,
+      "variants": {
+        "web": {
+          "file": "audio/e3-p2.mp3",
+          "bytes": 408180,
+          "duration": 16.98,
+          "hasAudio": true,
+          "settingsHash": "fd2431594853"
+        },
+        "mobile": {
+          "file": "audio/e3-p2.mp3",
+          "bytes": 408180,
+          "duration": 16.98,
+          "hasAudio": true,
+          "settingsHash": "fd2431594853"
+        },
+        "high": {
+          "file": "audio/e3-p2.mp3",
+          "bytes": 408180,
+          "duration": 16.98,
+          "hasAudio": true,
+          "settingsHash": "fd2431594853"
+        }
+      }
+    },
+    "audio/e3-p3": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 3 Ponto 3.MP3",
+      "sourceBytes": 754250,
+      "variants": {
+        "web": {
+          "file": "audio/e3-p3.mp3",
+          "bytes": 754250,
+          "duration": 31.399,
+          "hasAudio": true,
+          "settingsHash": "92da553131c6"
+        },
+        "mobile": {
+          "file": "audio/e3-p3.mp3",
+          "bytes": 754250,
+          "duration": 31.399,
+          "hasAudio": true,
+          "settingsHash": "92da553131c6"
+        },
+        "high": {
+          "file": "audio/e3-p3.mp3",
+          "bytes": 754250,
+          "duration": 31.399,
+          "hasAudio": true,
+          "settingsHash": "92da553131c6"
+        }
+      }
+    },
+    "audio/e3-p4": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 3 Ponto 4.MP3",
+      "sourceBytes": 662091,
+      "variants": {
+        "web": {
+          "file": "audio/e3-p4.mp3",
+          "bytes": 662091,
+          "duration": 27.559,
+          "hasAudio": true,
+          "settingsHash": "cd0e048c8312"
+        },
+        "mobile": {
+          "file": "audio/e3-p4.mp3",
+          "bytes": 662091,
+          "duration": 27.559,
+          "hasAudio": true,
+          "settingsHash": "cd0e048c8312"
+        },
+        "high": {
+          "file": "audio/e3-p4.mp3",
+          "bytes": 662091,
+          "duration": 27.559,
+          "hasAudio": true,
+          "settingsHash": "cd0e048c8312"
+        }
+      }
+    },
+    "audio/e3-p5": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 3 Ponto 5.MP3",
+      "sourceBytes": 366175,
+      "variants": {
+        "web": {
+          "file": "audio/e3-p5.mp3",
+          "bytes": 366175,
+          "duration": 15.229,
+          "hasAudio": true,
+          "settingsHash": "65f82b38f581"
+        },
+        "mobile": {
+          "file": "audio/e3-p5.mp3",
+          "bytes": 366175,
+          "duration": 15.229,
+          "hasAudio": true,
+          "settingsHash": "65f82b38f581"
+        },
+        "high": {
+          "file": "audio/e3-p5.mp3",
+          "bytes": 366175,
+          "duration": 15.229,
+          "hasAudio": true,
+          "settingsHash": "65f82b38f581"
+        }
+      }
+    },
+    "audio/e3-p6": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 3 Ponto 6.MP3",
+      "sourceBytes": 1046404,
+      "variants": {
+        "web": {
+          "file": "audio/e3-p6.mp3",
+          "bytes": 1046404,
+          "duration": 43.572,
+          "hasAudio": true,
+          "settingsHash": "fe054acf37cf"
+        },
+        "mobile": {
+          "file": "audio/e3-p6.mp3",
+          "bytes": 1046404,
+          "duration": 43.572,
+          "hasAudio": true,
+          "settingsHash": "fe054acf37cf"
+        },
+        "high": {
+          "file": "audio/e3-p6.mp3",
+          "bytes": 1046404,
+          "duration": 43.572,
+          "hasAudio": true,
+          "settingsHash": "fe054acf37cf"
+        }
+      }
+    },
+    "audio/e4-p1": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 4 Ponto 1.MP3",
+      "sourceBytes": 715380,
+      "variants": {
+        "web": {
+          "file": "audio/e4-p1.mp3",
+          "bytes": 715380,
+          "duration": 29.78,
+          "hasAudio": true,
+          "settingsHash": "cf36a8e5d8fe"
+        },
+        "mobile": {
+          "file": "audio/e4-p1.mp3",
+          "bytes": 715380,
+          "duration": 29.78,
+          "hasAudio": true,
+          "settingsHash": "cf36a8e5d8fe"
+        },
+        "high": {
+          "file": "audio/e4-p1.mp3",
+          "bytes": 715380,
+          "duration": 29.78,
+          "hasAudio": true,
+          "settingsHash": "cf36a8e5d8fe"
+        }
+      }
+    },
+    "audio/e5-p1": {
+      "kind": "audio",
+      "source": "Narracao/Etapa 5 Ponto 1.MP3",
+      "sourceBytes": 1044523,
+      "variants": {
+        "web": {
+          "file": "audio/e5-p1.mp3",
+          "bytes": 1044523,
+          "duration": 43.494,
+          "hasAudio": true,
+          "settingsHash": "385e578b41c5"
+        },
+        "mobile": {
+          "file": "audio/e5-p1.mp3",
+          "bytes": 1044523,
+          "duration": 43.494,
+          "hasAudio": true,
+          "settingsHash": "385e578b41c5"
+        },
+        "high": {
+          "file": "audio/e5-p1.mp3",
+          "bytes": 1044523,
+          "duration": 43.494,
+          "hasAudio": true,
+          "settingsHash": "385e578b41c5"
+        }
+      }
+    },
+    "panoramas/e0-intro": {
+      "kind": "image",
+      "source": "4 - novos 360/Etapa 0 Introducao.jpg",
+      "sourceBytes": 2460650,
+      "variants": {
+        "web": {
+          "file": "panoramas/e0-intro.4096.jpg",
+          "bytes": 1161938,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "78cc6b389ac7"
+        },
+        "high": {
+          "file": "panoramas/e0-intro.orig.jpg",
+          "bytes": 2460650,
+          "width": 6528,
+          "height": 3264,
+          "settingsHash": "887e9f38ec7d"
+        },
+        "mobile": {
+          "file": "panoramas/e0-intro.4096.jpg",
+          "bytes": 1161938,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "78cc6b389ac7"
+        }
+      }
+    },
+    "panoramas/e1-p1": {
+      "kind": "image",
+      "source": "4 - novos 360/Etapa 1 Ponto 1.jpg",
+      "sourceBytes": 2169414,
+      "variants": {
+        "web": {
+          "file": "panoramas/e1-p1.4096.jpg",
+          "bytes": 967213,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "91613ca33ee9"
+        },
+        "high": {
+          "file": "panoramas/e1-p1.orig.jpg",
+          "bytes": 2169414,
+          "width": 6528,
+          "height": 3264,
+          "settingsHash": "67379e0c5bd9"
+        },
+        "mobile": {
+          "file": "panoramas/e1-p1.4096.jpg",
+          "bytes": 967213,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "91613ca33ee9"
+        }
+      }
+    },
+    "panoramas/e1-p2": {
+      "kind": "image",
+      "source": "4 - novos 360/Etapa 1 Ponto 2.jpg",
+      "sourceBytes": 2319728,
+      "variants": {
+        "web": {
+          "file": "panoramas/e1-p2.4096.jpg",
+          "bytes": 1048653,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "179f48cbb2bc"
+        },
+        "high": {
+          "file": "panoramas/e1-p2.orig.jpg",
+          "bytes": 2319728,
+          "width": 6528,
+          "height": 3264,
+          "settingsHash": "fdf557836ed3"
+        },
+        "mobile": {
+          "file": "panoramas/e1-p2.4096.jpg",
+          "bytes": 1048653,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "179f48cbb2bc"
+        }
+      }
+    },
+    "panoramas/e2-p1": {
+      "kind": "image",
+      "source": "4 - novos 360/Etapa 2 Ponto 1.jpg",
+      "sourceBytes": 1913126,
+      "variants": {
+        "web": {
+          "file": "panoramas/e2-p1.4096.jpg",
+          "bytes": 795878,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "6a7de4ff4647"
+        },
+        "high": {
+          "file": "panoramas/e2-p1.orig.jpg",
+          "bytes": 1913126,
+          "width": 6528,
+          "height": 3264,
+          "settingsHash": "3ea62d0dfc1e"
+        },
+        "mobile": {
+          "file": "panoramas/e2-p1.4096.jpg",
+          "bytes": 795878,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "6a7de4ff4647"
+        }
+      }
+    },
+    "panoramas/e5-p1": {
+      "kind": "image",
+      "source": "4 - novos 360/Etapa 5.jpg",
+      "sourceBytes": 2584479,
+      "variants": {
+        "web": {
+          "file": "panoramas/e5-p1.4096.jpg",
+          "bytes": 1231379,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "332b5dc63fd0"
+        },
+        "high": {
+          "file": "panoramas/e5-p1.orig.jpg",
+          "bytes": 2584479,
+          "width": 6528,
+          "height": 3264,
+          "settingsHash": "05f577611cb8"
+        },
+        "mobile": {
+          "file": "panoramas/e5-p1.4096.jpg",
+          "bytes": 1231379,
+          "width": 4096,
+          "height": 2048,
+          "settingsHash": "332b5dc63fd0"
+        }
+      }
+    },
+    "video/e2-p2": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 2 Ponto 2.mp4",
+      "sourceBytes": 762469804,
+      "variants": {
+        "web": {
+          "file": "video/e2-p2.4096.mp4",
+          "bytes": 86269290,
+          "width": 4096,
+          "height": 2048,
+          "duration": 42.6,
+          "hasAudio": true,
+          "settingsHash": "7182d9172bc1"
+        },
+        "mobile": {
+          "file": "video/e2-p2.2880.mp4",
+          "bytes": 37969568,
+          "width": 2880,
+          "height": 1440,
+          "duration": 42.6,
+          "hasAudio": true,
+          "settingsHash": "096cc59471d7"
+        }
+      }
+    },
+    "video/e3-p1-1": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 3 Ponto 1-1.mp4",
+      "sourceBytes": 485331653,
+      "variants": {
+        "web": {
+          "file": "video/e3-p1-1.4096.mp4",
+          "bytes": 50756194,
+          "width": 4096,
+          "height": 2048,
+          "duration": 26.16,
+          "hasAudio": true,
+          "settingsHash": "d8889bdce3e2"
+        },
+        "mobile": {
+          "file": "video/e3-p1-1.2880.mp4",
+          "bytes": 25408312,
+          "width": 2880,
+          "height": 1440,
+          "duration": 26.16,
+          "hasAudio": true,
+          "settingsHash": "4c2d99cb20f9"
+        }
+      }
+    },
+    "video/e3-p1-2": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 3 Ponto 1-2.mp4",
+      "sourceBytes": 155070451,
+      "variants": {
+        "web": {
+          "file": "video/e3-p1-2.4096.mp4",
+          "bytes": 14229988,
+          "width": 4096,
+          "height": 2048,
+          "duration": 7.84,
+          "hasAudio": true,
+          "settingsHash": "6f622f8c40cd"
+        },
+        "mobile": {
+          "file": "video/e3-p1-2.2880.mp4",
+          "bytes": 6824737,
+          "width": 2880,
+          "height": 1440,
+          "duration": 7.84,
+          "hasAudio": true,
+          "settingsHash": "1e11d5d47944"
+        }
+      }
+    },
+    "video/e3-p2": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 3 Ponto 2.mp4",
+      "sourceBytes": 376871745,
+      "variants": {
+        "web": {
+          "file": "video/e3-p2.4096.mp4",
+          "bytes": 38703039,
+          "width": 4096,
+          "height": 2048,
+          "duration": 20,
+          "hasAudio": true,
+          "settingsHash": "b1a19c858e6b"
+        },
+        "mobile": {
+          "file": "video/e3-p2.2880.mp4",
+          "bytes": 19245934,
+          "width": 2880,
+          "height": 1440,
+          "duration": 20,
+          "hasAudio": true,
+          "settingsHash": "e9acedde65f0"
+        }
+      }
+    },
+    "video/e3-p3": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 3 Ponto 3.mp4",
+      "sourceBytes": 428090059,
+      "variants": {
+        "web": {
+          "file": "video/e3-p3.4096.mp4",
+          "bytes": 44168057,
+          "width": 4096,
+          "height": 2048,
+          "duration": 23,
+          "hasAudio": true,
+          "settingsHash": "5097000a9036"
+        },
+        "mobile": {
+          "file": "video/e3-p3.2880.mp4",
+          "bytes": 21992930,
+          "width": 2880,
+          "height": 1440,
+          "duration": 23,
+          "hasAudio": true,
+          "settingsHash": "ce533892a3f7"
+        }
+      }
+    },
+    "video/e3-p4": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 3 Ponto 4.mp4",
+      "sourceBytes": 431018710,
+      "variants": {
+        "web": {
+          "file": "video/e3-p4.4096.mp4",
+          "bytes": 43912762,
+          "width": 4096,
+          "height": 2048,
+          "duration": 23.16,
+          "hasAudio": true,
+          "settingsHash": "d83036000192"
+        },
+        "mobile": {
+          "file": "video/e3-p4.2880.mp4",
+          "bytes": 19272927,
+          "width": 2880,
+          "height": 1440,
+          "duration": 23.16,
+          "hasAudio": true,
+          "settingsHash": "4e957cb72f35"
+        }
+      }
+    },
+    "video/e3-p5": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 3 Ponto 5.mp4",
+      "sourceBytes": 240935266,
+      "variants": {
+        "web": {
+          "file": "video/e3-p5.4096.mp4",
+          "bytes": 22320649,
+          "width": 4096,
+          "height": 2048,
+          "duration": 12.84,
+          "hasAudio": true,
+          "settingsHash": "df639ef7a78d"
+        },
+        "mobile": {
+          "file": "video/e3-p5.2880.mp4",
+          "bytes": 8557459,
+          "width": 2880,
+          "height": 1440,
+          "duration": 12.84,
+          "hasAudio": true,
+          "settingsHash": "5cd11e04878c"
+        }
+      }
+    },
+    "video/e3-p6": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 3 Ponto 6.mp4",
+      "sourceBytes": 442318602,
+      "variants": {
+        "web": {
+          "file": "video/e3-p6.4096.mp4",
+          "bytes": 44601690,
+          "width": 4096,
+          "height": 2048,
+          "duration": 24.4,
+          "hasAudio": true,
+          "settingsHash": "5d53bbe304f1"
+        },
+        "mobile": {
+          "file": "video/e3-p6.2880.mp4",
+          "bytes": 22257886,
+          "width": 2880,
+          "height": 1440,
+          "duration": 24.4,
+          "hasAudio": true,
+          "settingsHash": "c38ceaff2099"
+        }
+      }
+    },
+    "video/e4-p1": {
+      "kind": "video",
+      "source": "4 - novos 360/Etapa 4.mp4",
+      "sourceBytes": 543801464,
+      "variants": {
+        "web": {
+          "file": "video/e4-p1.4096.mp4",
+          "bytes": 57157072,
+          "width": 4096,
+          "height": 2048,
+          "duration": 29.6,
+          "hasAudio": true,
+          "settingsHash": "171e933c15b2"
+        },
+        "mobile": {
+          "file": "video/e4-p1.2880.mp4",
+          "bytes": 28340026,
+          "width": 2880,
+          "height": 1440,
+          "duration": 29.6,
+          "hasAudio": true,
+          "settingsHash": "1a173efbb94d"
+        }
+      }
+    }
+  },
+  "generatedAt": "2026-09-30T13:39:24.107Z",
+  "profiles": {
+    "image": [
+      "web",
+      "mobile",
+      "high"
+    ],
+    "video": [
+      "web",
+      "mobile"
+    ],
+    "audio": [
+      "web",
+      "mobile",
+      "high"
+    ]
+  }
+}
