@@ -146,6 +146,20 @@ describe("TourEngine", () => {
     expect(h.store.get().video).toBeNull();
   });
 
+  it("3c. `ended` duplicado do mesmo clip não gera ciclo extra", async () => {
+    const h = createHarness(tourOf([vid("v", ["v1"], "next"), img("next", null)]));
+    await h.engine.start();
+    await flush();
+    h.narration.duration = 44;
+    h.narration.currentTime = 10;
+    const first = h.video.active!.handlers;
+    first.onClipEnded(0);
+    first.onClipEnded(0); // duplicado
+    await flush();
+    expect(h.store.get().video?.videoCycle).toBe(1);
+    expect(h.video.loads).toHaveLength(2);
+  });
+
   it("5. pause: narração e vídeo pausam juntos; resume retoma os dois", async () => {
     const h = createHarness(tourOf([vid("v", ["v1"], null)]));
     await h.engine.start();

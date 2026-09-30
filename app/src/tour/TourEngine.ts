@@ -66,6 +66,8 @@ interface SceneRuntime {
   exiting: boolean;
   /** Clip carregado durante a pausa: tocar ao retomar. */
   playOnResume: boolean;
+  /** Incrementa a cada carregamento de clip; um `ended` só vale uma vez por carregamento. */
+  clipSeq: number;
   video: VideoRuntime | null;
 }
 
@@ -184,6 +186,14 @@ export class TourEngine {
     this.d.store.reset();
     this.d.store.set({ volume, muted, sceneCount: this.order.length });
     await this.goTo(this.d.tour.firstScene, "restart");
+  }
+
+  /** Encerra o motor (desmontagem do app). */
+  dispose(): void {
+    this.invalidateCurrentScene();
+    this.rt = null;
+    this.d.narration.stop();
+    this.d.video.stop();
   }
 
   /** Ação do painel de erro "Tentar novamente". */
@@ -309,6 +319,7 @@ export class TourEngine {
         exitRequested: false,
         exiting: false,
         playOnResume: false,
+        clipSeq: 0,
         video: isVideo(scene) ? createVideoRuntime(scene.media) : null,
       };
       this.rt = rt;
@@ -484,6 +495,8 @@ export class TourEngine {
 
   private clipOptions(rt: SceneRuntime, index: number, crossfade: boolean) {
     const media = rt.scene.media as VideoSceneMedia;
+    const seq = ++rt.clipSeq;
+    let ended = false;
     return {
       ambientVolume: media.clips[index].ambientVolume ?? media.ambientVolume,
       signal: rt.abort.signal,
@@ -491,10 +504,11 @@ export class TourEngine {
       handlers: {
         onClipEnded: (i: number) => {
           if (!this.isCurrent(rt, "video:clip-ended")) return;
-          if (!rt.video || i !== rt.video.clipIndex) {
-            this.d.log.info("video:clip-ended-ignored", { i, current: rt.video?.clipIndex });
+          if (!rt.video || i !== rt.video.clipIndex || seq !== rt.clipSeq || ended) {
+            this.d.log.info("video:clip-ended-ignored", { i, current: rt.video?.clipIndex, seq, currentSeq: rt.clipSeq });
             return;
           }
+          ended = true;
           rt.video.clipsCompleted[i] = true;
           this.d.log.info("video:clip-ended", { scene: rt.scene.id, clip: i, cycle: rt.video.videoCycle });
           this.d.store.set({ video: this.videoState(rt) });
