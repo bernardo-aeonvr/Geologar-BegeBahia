@@ -1,0 +1,96 @@
+# Publica o app no GitHub Pages.
+#
+# Este arquivo mora em app/.github/ no repositório completo (Geologar-BegeBahia), onde o GitHub
+# NÃO o executa. Ele só roda no repositório que tem o app na raiz (bernardo-aeonvr/Geologar-2,
+# gerado com `git subtree split --prefix=app`).
+#
+# Pré-requisito (uma vez, por quem é admin do repositório):
+#   Settings → Pages → Build and deployment → Source: "GitHub Actions".
+#
+# Git LFS é só versionamento: aqui os vídeos são baixados do LFS (com cache) e publicados como
+# arquivos comuns dentro de dist/media/. O Pages nunca serve LFS diretamente.
+#
+# Opcional: variável de repositório VITE_MEDIA_BASE_URL (Settings → Secrets and variables →
+# Actions → Variables) para servir a mídia de outro servidor. Vazia = mídia junto do app.
+
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Uma publicação por vez; não cancela a que está em andamento.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (sem LFS)
+        uses: actions/checkout@v7
+
+      # Cache do LFS pela lista de objetos: os ~590 MB de vídeo só são baixados de novo quando
+      # algum arquivo de mídia muda (economiza a cota de banda do LFS).
+      - name: Lista de objetos LFS
+        run: git lfs ls-files --long | cut -d ' ' -f1 | sort > .lfs-assets-id
+
+      - name: Cache do LFS
+        uses: actions/cache@v6
+        with:
+          path: .git/lfs
+          key: lfs-${{ hashFiles('.lfs-assets-id') }}
+
+      - name: Baixar mídia do LFS
+        run: git lfs pull
+
+      - name: Conferir que os vídeos são arquivos reais (não ponteiros LFS)
+        run: |
+          small=$(find public/media/video -name '*.mp4' -size -1024c | wc -l)
+          if [ "$small" -ne 0 ]; then
+            echo "::error::$small vídeo(s) ainda são ponteiros LFS"; exit 1
+          fi
+          du -sh public/media
+
+      - name: Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Testes (motor, roteiro e manifest)
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_MEDIA_BASE_URL: ${{ vars.VITE_MEDIA_BASE_URL }}
+
+      - name: "Tamanho do site (limite do Pages: 1 GB)"
+        run: du -sh dist
+
+      - uses: actions/configure-pages@v6
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v5

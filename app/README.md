@@ -74,8 +74,15 @@ O `MediaResolver` escolhe a variante (celular → mobile; desktop/Quest → web;
 O build é **autocontido** (sem CDN, APIs ou fontes externas) e usa `base: "./"`, então funciona em
 `localhost`, em `https://usuario.github.io/repositorio/` e num pacote local.
 
-- **GitHub Pages:** publicar `dist/` (inclui `media/` com as variantes). Git LFS é só versionamento —
-  o Pages não serve arquivos LFS, então o workflow precisa fazer checkout com LFS e publicar o artefato.
+- **GitHub Pages:** feito pelo workflow `.github/workflows/pages.yml`. Ele só roda no repositório que tem o app na raiz (`Geologar-2`); no repositório completo fica dentro de `app/` e não roda. Ele:
+  - baixa os vídeos do Git LFS, com cache para não gastar banda a cada publicação;
+  - confere que os vídeos não ficaram como ponteiros LFS;
+  - roda `npm ci`, os testes e o build;
+  - publica `dist/`, que inclui a pasta `media/` com os arquivos comuns.
+
+  Dispara em push na `main` ou manualmente, em Actions → "Deploy GitHub Pages" → Run workflow.
+
+  **Uma vez, por um admin do repositório:** Settings → Pages → Source: "GitHub Actions".
 - **Servidor próprio / CDN:** `VITE_MEDIA_BASE_URL=https://…/` no build (ver `.env.example`).
   O servidor deve aceitar HTTP Range e, se for outra origem, enviar CORS (vídeo vira textura WebGL
   e passa pelo Web Audio).
