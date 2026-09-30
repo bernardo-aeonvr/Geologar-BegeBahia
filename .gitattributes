@@ -1,0 +1,22 @@
+# Código do app novo com LF em todas as plataformas (regras binárias/LFS abaixo têm precedência).
+/app/** text=auto eol=lf
+
+# Git LFS — versionamento dos arquivos pesados (vídeos).
+# IMPORTANTE: LFS é só VERSIONAMENTO. A entrega em produção (GitHub Pages / servidor / offline)
+# nunca depende de LFS — ver AUDITORIA_360.md §9 "Deploy multi-target".
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.MP4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.MOV filter=lfs diff=lfs merge=lfs -text
+
+# Export 3DVista herdado da main: seus MP4 já são blobs Git normais (não LFS).
+# Sem esta exceção eles apareceriam como "modificados" após ativar o filtro acima.
+/media/** !filter !diff !merge
+
+# Imagens, MP3 e PDF ficam no Git normal (≤ 25 MB cada), marcados como binários.
+*.jpg binary
+*.JPG binary
+*.png binary
+*.mp3 binary
+*.MP3 binary
+*.pdf binary

@@ -1,0 +1,32 @@
+{
+  "$comment": "Mapa explícito id lógico → arquivo fonte original (relativo à raiz do repositório). As fontes nunca são alteradas; `npm run media` gera as variantes em public/media/ e o manifest.json.",
+  "panoramas/e0-intro": { "kind": "image", "source": "4 - novos 360/Etapa 0 Introducao.jpg" },
+  "panoramas/e1-p1":    { "kind": "image", "source": "4 - novos 360/Etapa 1 Ponto 1.jpg" },
+  "panoramas/e1-p2":    { "kind": "image", "source": "4 - novos 360/Etapa 1 Ponto 2.jpg" },
+  "panoramas/e2-p1":    { "kind": "image", "source": "4 - novos 360/Etapa 2 Ponto 1.jpg" },
+  "panoramas/e5-p1":    { "kind": "image", "source": "4 - novos 360/Etapa 5.jpg" },
+
+  "video/e2-p2":        { "kind": "video", "source": "4 - novos 360/Etapa 2 Ponto 2.mp4" },
+  "video/e3-p1-1":      { "kind": "video", "source": "4 - novos 360/Etapa 3 Ponto 1-1.mp4" },
+  "video/e3-p1-2":      { "kind": "video", "source": "4 - novos 360/Etapa 3 Ponto 1-2.mp4" },
+  "video/e3-p2":        { "kind": "video", "source": "4 - novos 360/Etapa 3 Ponto 2.mp4" },
+  "video/e3-p3":        { "kind": "video", "source": "4 - novos 360/Etapa 3 Ponto 3.mp4" },
+  "video/e3-p4":        { "kind": "video", "source": "4 - novos 360/Etapa 3 Ponto 4.mp4" },
+  "video/e3-p5":        { "kind": "video", "source": "4 - novos 360/Etapa 3 Ponto 5.mp4" },
+  "video/e3-p6":        { "kind": "video", "source": "4 - novos 360/Etapa 3 Ponto 6.mp4" },
+  "video/e4-p1":        { "kind": "video", "source": "4 - novos 360/Etapa 4.mp4" },
+
+  "audio/e0-intro":     { "kind": "audio", "source": "Narracao/Etapa 0 Intro.MP3" },
+  "audio/e1-p1":        { "kind": "audio", "source": "Narracao/Etapa 1 Ponto 1.MP3" },
+  "audio/e1-p2":        { "kind": "audio", "source": "Narracao/Etapa 1 Ponto 2.MP3" },
+  "audio/e2-p1":        { "kind": "audio", "source": "Narracao/Etapa 2 Ponto 1.MP3" },
+  "audio/e2-p2":        { "kind": "audio", "source": "Narracao/Etapa 2 Ponto 2.MP3" },
+  "audio/e3-p1":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 1.MP3" },
+  "audio/e3-p2":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 2.MP3" },
+  "audio/e3-p3":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 3.MP3" },
+  "audio/e3-p4":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 4.MP3" },
+  "audio/e3-p5":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 5.MP3" },
+  "audio/e3-p6":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 6.MP3" },
+  "audio/e4-p1":        { "kind": "audio", "source": "Narracao/Etapa 4 Ponto 1.MP3" },
+  "audio/e5-p1":        { "kind": "audio", "source": "Narracao/Etapa 5 Ponto 1.MP3" }
+}
