@@ -1,0 +1,15 @@
+# Vale quando o app é a raiz de um repositório (ex.: bernardo-aeonvr/Geologar-2) e aqui dentro.
+# Git LFS é só VERSIONAMENTO dos vídeos; a entrega em produção não depende de LFS.
+* text=auto eol=lf
+
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.MP4 filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
+*.MOV filter=lfs diff=lfs merge=lfs -text
+
+*.jpg binary
+*.JPG binary
+*.png binary
+*.mp3 binary
+*.MP3 binary
+*.pdf binary

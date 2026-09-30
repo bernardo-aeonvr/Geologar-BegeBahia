@@ -1,0 +1,28 @@
+# Dependências e builds
+node_modules/
+dist/
+dist-*/
+.vite/
+coverage/
+*.tsbuildinfo
+
+# Ambiente — NUNCA versionar credenciais. Use .env.example como modelo.
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Temporários do pipeline de mídia
+*.tmp.mp4
+*.tmp.jpg
+*.tmp.mp3
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.claude/

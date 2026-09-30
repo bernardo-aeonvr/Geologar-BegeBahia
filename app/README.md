@@ -1,7 +1,11 @@
 # Geologar 360 — app web
 
 Tour virtual 360° do Bege Bahia guiado por narração. Substitui o export 3DVista.
-Arquitetura e decisões estão em [`../AUDITORIA_360.md`](../AUDITORIA_360.md).
+
+**Onde está cada coisa**
+
+- **Repositório completo:** [`bernardo-aeonvr/Geologar-BegeBahia`](https://github.com/bernardo-aeonvr/Geologar-BegeBahia), branch `feature/geologar-360-web`. Tem o app em `app/`, a auditoria e as decisões em `AUDITORIA_360.md`, as mídias originais (`4 - novos 360/`, `Narracao/`) e o roteiro em PDF.
+- **Só o app, na raiz:** [`bernardo-aeonvr/Geologar-2`](https://github.com/bernardo-aeonvr/Geologar-2). É gerado a partir de `app/` com `git subtree split` e usado para os testes de GitHub Pages. Não edite direto nele.
 
 **Stack:** Vite · TypeScript · React (só UI) · Three.js (viewer, sem R3F) · Vitest.
 
@@ -52,8 +56,9 @@ Regras em `src/tour/sceneRules.ts`; orquestração em `src/tour/TourEngine.ts`.
 
 ## Mídia
 
-As fontes originais ficam em `../4 - novos 360/` e `../Narracao/` e nunca são alteradas.
-`npm run media` gera as variantes em `public/media/` e o `manifest.json`:
+As fontes originais ficam no repositório completo (`4 - novos 360/` e `Narracao/`, ao lado de `app/`) e nunca são alteradas.
+As variantes já geradas estão versionadas em `public/media/` (vídeos no Git LFS), então o app roda sem as fontes.
+Para regenerar, rode `npm run media` no repositório completo; ele grava as variantes em `public/media/` e atualiza o `manifest.json`:
 
 | Tipo | mobile | web | high |
 |---|---|---|---|
