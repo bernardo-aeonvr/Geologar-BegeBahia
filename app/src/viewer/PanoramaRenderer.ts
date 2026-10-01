@@ -38,7 +38,12 @@ interface Fade {
   start: number;
   ms: number;
   resolve: () => void;
+  /** Rede de segurança: conclui o fade mesmo se o navegador parar de entregar frames. */
+  safety: number;
 }
+
+/** Folga além da duração do fade antes da rede de segurança agir (ms). */
+const FADE_SAFETY_MARGIN_MS = 250;
 
 export class PanoramaRenderer implements ViewerPort {
   readonly renderer: WebGLRenderer;
@@ -135,7 +140,10 @@ export class PanoramaRenderer implements ViewerPort {
       return Promise.resolve();
     }
     return new Promise((resolve) => {
-      this.fade = { from: this.level, to: level, start: performance.now(), ms, resolve };
+      // requestAnimationFrame pode parar sem aviso (janela coberta, painel oculto, economia de
+      // energia) — sem esta rede o tour ficaria preso no meio da transição.
+      const safety = window.setTimeout(() => this.finishFade(), ms + FADE_SAFETY_MARGIN_MS);
+      this.fade = { from: this.level, to: level, start: performance.now(), ms, resolve, safety };
     });
   }
 
@@ -182,10 +190,7 @@ export class PanoramaRenderer implements ViewerPort {
       const eased = k * k * (3 - 2 * k);
       this.level = f.from + (f.to - f.from) * eased;
       this.applyLevel();
-      if (k >= 1) {
-        this.fade = null;
-        f.resolve();
-      }
+      if (k >= 1) this.cancelFade();
     }
 
     if (!this.renderer.xr.isPresenting) {
@@ -221,6 +226,7 @@ export class PanoramaRenderer implements ViewerPort {
     if (this.fade) {
       const f = this.fade;
       this.fade = null;
+      window.clearTimeout(f.safety);
       f.resolve();
     }
   }
