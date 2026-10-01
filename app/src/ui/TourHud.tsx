@@ -5,7 +5,7 @@ import { IconList, IconMuted, IconNext, IconPause, IconPlay, IconPrev, IconVolum
 import { SceneMenu } from "./SceneMenu";
 
 /**
- * Interface discreta sobre o panorama: etapa/título no topo, controles embaixo.
+ * Interface discreta sobre o panorama: só os controles embaixo (sem faixa no topo — a vista fica livre).
  * Some após alguns segundos sem interação durante a reprodução; qualquer toque/tecla a traz de volta
  * (não depende de hover).
  */
@@ -13,34 +13,18 @@ export function TourHud({ app, xrAvailable }: { app: TourApp; xrAvailable: boole
   const { engine, store, tour } = app;
   const sceneId = useStore(store, (s) => s.sceneId);
   const sceneIndex = useStore(store, (s) => s.sceneIndex);
-  const sceneCount = useStore(store, (s) => s.sceneCount);
   const phase = useStore(store, (s) => s.phase);
   const muted = useStore(store, (s) => s.muted);
   const volume = useStore(store, (s) => s.volume);
   const [menuOpen, setMenuOpen] = useState(false);
   const idle = useIdle(phase === "playing" && !menuOpen, 4000);
 
-  const scene = sceneId ? engine.getScene(sceneId) : null;
   const busy = phase === "transitioning" || phase === "loading";
   const paused = phase === "paused";
   const canToggle = phase === "playing" || phase === "paused";
 
   return (
     <div className={`hud ${idle ? "hud--idle" : ""}`}>
-      <header className="hud__top">
-        {scene && (
-          <div className="hud__title" aria-live="polite">
-            <span className="hud__stage">{scene.stage}</span>
-            <span className="hud__scene">{scene.title}</span>
-          </div>
-        )}
-        <div className="hud__progress" aria-label={`Cena ${sceneIndex + 1} de ${sceneCount}`}>
-          {Array.from({ length: sceneCount }, (_, i) => (
-            <span key={i} className={`dot ${i < sceneIndex ? "dot--done" : ""} ${i === sceneIndex ? "dot--current" : ""}`} />
-          ))}
-        </div>
-      </header>
-
       {busy && <div className="hud__spinner" role="status" aria-label="Carregando" />}
 
       <nav className="hud__controls" aria-label="Controles do tour">

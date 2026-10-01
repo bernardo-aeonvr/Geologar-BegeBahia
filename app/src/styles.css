@@ -226,61 +226,8 @@ button {
 .hud--idle {
   opacity: 0;
 }
-.hud--idle .hud__controls,
-.hud--idle .hud__title {
+.hud--idle .hud__controls {
   pointer-events: none;
-}
-.hud__top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: calc(14px + var(--safe-t)) calc(18px + var(--safe-r)) 28px calc(18px + var(--safe-l));
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.45), transparent);
-}
-.hud__title {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-}
-.hud__stage {
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--stone);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.hud__scene {
-  font-family: var(--font-display);
-  font-size: clamp(18px, 3.4vw, 24px);
-  line-height: 1.15;
-}
-.hud__progress {
-  display: flex;
-  gap: 5px;
-  padding-top: 6px;
-  flex-shrink: 0;
-}
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(244, 239, 230, 0.28);
-  transition: background 0.3s, transform 0.3s;
-}
-.dot--done {
-  background: rgba(217, 196, 160, 0.7);
-}
-.dot--current {
-  background: var(--stone-strong);
-  transform: scale(1.4);
 }
 .hud__controls {
   position: absolute;
@@ -313,11 +260,6 @@ button {
 @media (pointer: coarse), (max-width: 560px) {
   /* No toque o volume do aparelho é o controle natural; mantemos só o mudo. */
   .hud__volume {
-    display: none;
-  }
-}
-@media (max-width: 380px) {
-  .hud__progress {
     display: none;
   }
 }
