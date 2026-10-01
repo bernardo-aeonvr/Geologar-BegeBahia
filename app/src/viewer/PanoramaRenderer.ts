@@ -170,10 +170,23 @@ export class PanoramaRenderer implements ViewerPort {
     return { x: ((v.x + 1) / 2) * w, y: ((1 - v.y) / 2) * h };
   }
 
-  async enterXR(): Promise<void> {
-    if (!this.opts.enableXR || !navigator.xr) throw new Error("WebXR indisponível");
-    const session = await navigator.xr.requestSession("immersive-vr", { optionalFeatures: ["local-floor"] });
-    await this.renderer.xr.setSession(session);
+  /**
+   * Entra em VR imersivo. DEVE ser chamado dentro do gesto do usuário (clique/toque):
+   * `requestSession` é disparado de forma síncrona, antes de qualquer await.
+   * Espaço de referência "local": a cabeça fica no centro da esfera (certo para 360°).
+   */
+  enterXR(onEnd?: () => void): Promise<void> {
+    if (!this.opts.enableXR || !navigator.xr) return Promise.reject(new Error("WebXR indisponível"));
+    const request = navigator.xr.requestSession("immersive-vr");
+    return request.then(async (session) => {
+      session.addEventListener("end", () => onEnd?.(), { once: true });
+      this.renderer.xr.setReferenceSpaceType("local");
+      await this.renderer.xr.setSession(session);
+    });
+  }
+
+  get inXR(): boolean {
+    return this.renderer.xr.isPresenting;
   }
 
   dispose() {

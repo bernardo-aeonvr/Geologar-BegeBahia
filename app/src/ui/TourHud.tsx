@@ -60,7 +60,7 @@ export function TourHud({ app, xrAvailable }: { app: TourApp; xrAvailable: boole
           <IconList />
         </button>
         {xrAvailable && (
-          <button className="icon-btn" onClick={() => void app.renderer.enterXR()} aria-label="Entrar em VR">
+          <button className="icon-btn" onClick={() => app.renderer.enterXR().catch((e: unknown) => console.warn("[app] VR indisponível", e))} aria-label="Entrar em VR">
             <IconVR />
           </button>
         )}

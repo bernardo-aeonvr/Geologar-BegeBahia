@@ -47,8 +47,11 @@ export const appConfig = {
   /** Painel de debug: ?debug=1, Shift+D, ou sempre em desenvolvimento se VITE_DEBUG=1. */
   debug: params.has("debug") || env.VITE_DEBUG === "1",
 
-  /** WebXR fica desligado até a etapa 14 (?xr=1 para testar). */
-  enableXR: params.has("xr"),
+  /** WebXR habilitado (só tem efeito quando uma sessão VR começa). ?noxr desliga. */
+  enableXR: !params.has("noxr"),
+
+  /** Força o modo de abertura: ?mode=vr | ?mode=flat (testes). Padrão: detecção automática. */
+  forcedViewMode: params.get("mode"),
 };
 
 export type AppConfig = typeof appConfig;

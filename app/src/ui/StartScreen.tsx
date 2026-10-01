@@ -2,6 +2,8 @@ import { IconDrag, IconPlay } from "./Icons";
 
 interface Props {
   status: "loading" | "ready" | "error";
+  /** Headset: a experiência abre direto em VR ao iniciar. */
+  vr?: boolean;
   errorMessage?: string;
   onStart(): void;
   onRetry(): void;
@@ -11,7 +13,7 @@ interface Props {
  * Tela inicial. O clique/toque em "Iniciar experiência" é o gesto que libera o áudio
  * (política de autoplay dos navegadores) — depois dele, as narrações seguem sozinhas.
  */
-export function StartScreen({ status, errorMessage, onStart, onRetry }: Props) {
+export function StartScreen({ status, vr = false, errorMessage, onStart, onRetry }: Props) {
   return (
     <div className="start" role="dialog" aria-labelledby="start-title">
       <div className="start__inner">
@@ -38,7 +40,7 @@ export function StartScreen({ status, errorMessage, onStart, onRetry }: Props) {
 
         <ul className="start__hints">
           <li>
-            <IconDrag size={18} /> Arraste para olhar ao redor
+            <IconDrag size={18} /> {vr ? "Mova a cabeça para olhar ao redor" : "Arraste para olhar ao redor"}
           </li>
           <li>🎧 Melhor com fones de ouvido</li>
         </ul>

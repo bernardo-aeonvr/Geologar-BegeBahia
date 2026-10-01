@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createTourApp, type TourApp } from "../app/createTourApp";
+import { detectViewMode, type ViewMode } from "../app/deviceMode";
 import { appConfig } from "../config/appConfig";
 import { useStore } from "../lib/store";
 import { DebugPanel } from "./DebugPanel";
@@ -16,7 +17,8 @@ export function App() {
   const [boot, setBoot] = useState<Boot>({ status: "loading" });
   const [attempt, setAttempt] = useState(0);
   const [started, setStarted] = useState(false);
-  const [xrAvailable, setXrAvailable] = useState(false);
+  // Resolvido ANTES do clique: o pedido de sessão VR só é aceito dentro do gesto.
+  const [viewMode, setViewMode] = useState<ViewMode>("flat");
 
   useEffect(() => {
     let cancelled = false;
@@ -38,24 +40,40 @@ export function App() {
   }, [attempt]);
 
   useEffect(() => {
-    if (!appConfig.enableXR || !navigator.xr) return;
-    navigator.xr.isSessionSupported("immersive-vr").then(setXrAvailable, () => setXrAvailable(false));
+    if (!appConfig.enableXR) return;
+    void detectViewMode(navigator as Parameters<typeof detectViewMode>[0], appConfig.forcedViewMode).then((mode) => {
+      console.info("[app] modo de abertura", { mode });
+      setViewMode(mode);
+    });
   }, []);
 
+  /**
+   * "Iniciar": headset → entra direto em VR imersivo; celular/PC → panorama na tela.
+   * Tudo aqui roda DENTRO do gesto (desbloqueio de áudio e pedido da sessão VR).
+   * Se o VR falhar ou for recusado, o tour segue normalmente na tela.
+   */
   const start = useCallback(() => {
     if (boot.status !== "ready") return;
-    boot.app.unlockAudio(); // precisa acontecer DENTRO do gesto
+    const { app } = boot;
+    // Primeiro o pedido de VR: nada antes dele pode consumir a ativação do gesto.
+    if (viewMode === "vr") {
+      app.renderer
+        .enterXR(() => console.info("[app] saiu do VR — o tour continua na tela"))
+        .catch((e: unknown) => console.warn("[app] VR indisponível, seguindo na tela", e));
+    }
+    app.unlockAudio();
     setStarted(true);
-    void boot.app.engine.start();
-  }, [boot]);
+    void app.engine.start();
+  }, [boot, viewMode]);
 
   return (
     <div className="stage">
       <div className="viewer" ref={viewerRef} />
-      {boot.status === "ready" && started && <Running app={boot.app} xrAvailable={xrAvailable} />}
+      {boot.status === "ready" && started && <Running app={boot.app} xrAvailable={viewMode === "vr"} />}
       {!started && (
         <StartScreen
           status={boot.status}
+          vr={viewMode === "vr"}
           errorMessage={boot.status === "error" ? boot.message : undefined}
           onStart={start}
           onRetry={() => setAttempt((n) => n + 1)}
