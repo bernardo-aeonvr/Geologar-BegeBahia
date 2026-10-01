@@ -3,6 +3,9 @@
  *  - arrastar: gira (yaw/pitch)   - pinça (2 dedos) ou roda: zoom (FOV)
  *  - setas / + − no teclado       - inércia leve ao soltar
  */
+/** Velocidade máxima da inércia (graus/s). */
+const MAX_SPIN = 120;
+
 export interface LookState {
   /** graus; positivo = olhar para a direita */
   lon: number;
@@ -93,9 +96,11 @@ export class InputControls {
       this.state.lon -= dx * k;
       this.state.lat += dy * k;
       const now = performance.now();
-      const dt = Math.max(1, now - this.lastMove) / 1000;
+      // dt mínimo de 1 frame e velocidade limitada: eventos muito próximos (peteleco rápido,
+      // dispositivos com alta taxa de amostragem) não podem gerar um giro descontrolado.
+      const dt = Math.max(16, now - this.lastMove) / 1000;
       this.lastMove = now;
-      this.velocity = { lon: (-dx * k) / dt, lat: (dy * k) / dt };
+      this.velocity = { lon: clamp((-dx * k) / dt, -MAX_SPIN, MAX_SPIN), lat: clamp((dy * k) / dt, -MAX_SPIN, MAX_SPIN) };
     } else if (this.pointers.size === 2 && this.pinchStart) {
       const ratio = this.pinchStart.dist / Math.max(1, this.pinchDist());
       this.state.fov = clamp(this.pinchStart.fov * ratio, this.limits.fovMin, this.limits.fovMax);
