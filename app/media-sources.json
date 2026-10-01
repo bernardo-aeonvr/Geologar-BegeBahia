@@ -30,6 +30,8 @@
   "audio/e4-p1":        { "kind": "audio", "source": "Narracao/Etapa 4 Ponto 1.MP3" },
   "audio/e5-p1":        { "kind": "audio", "source": "Narracao/Etapa 5 Ponto 1.MP3" },
 
+  "audio/musica-ambiente": { "kind": "audio", "source": "Musica/GL_MusicaAmbiente_TheSims_VolumeBaixo.mp3" },
+
   "popups/e2-p1-fissuras":            { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa2_ponto3.png" },
   "popups/e3-p3-agua":                { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto3_Vreduzida.png" },
   "popups/e3-p4-politriz-manual":     { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto4.png" },

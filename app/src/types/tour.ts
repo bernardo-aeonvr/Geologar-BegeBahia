@@ -152,10 +152,30 @@ export interface CreditsConfig {
   displaySeconds: number;
 }
 
+/**
+ * Música de fundo contínua (não reinicia a cada cena), com "ducking": abaixa enquanto o narrador
+ * fala e volta nas pausas entre narrações. Ganhos em dB sobre o arquivo original.
+ */
+export interface MusicConfig {
+  /** id lógico de mídia (ex.: "audio/musica-ambiente"). */
+  src: string;
+  /** Ganho quando NÃO há narração (dB; pode ser positivo se o arquivo for muito baixo). */
+  gainDb: number;
+  /** Ganho enquanto o narrador fala (dB). */
+  duckedGainDb: number;
+  /** Tempo para abaixar quando a narração começa (ms). */
+  attackMs: number;
+  /** Tempo para voltar quando a narração para (ms). */
+  releaseMs: number;
+  /** Ponto (s) em que o loop volta ao início — corta silêncio no fim do arquivo. Omitido = fim do arquivo. */
+  loopEnd?: number;
+}
+
 export interface TourDefinition {
   id: string;
   title: string;
   firstScene: string;
   scenes: TourScene[];
   credits: CreditsConfig;
+  music?: MusicConfig;
 }

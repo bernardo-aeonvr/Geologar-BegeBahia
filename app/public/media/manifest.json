@@ -365,6 +365,34 @@
         }
       }
     },
+    "audio/musica-ambiente": {
+      "kind": "audio",
+      "source": "Musica/GL_MusicaAmbiente_TheSims_VolumeBaixo.mp3",
+      "sourceBytes": 3369792,
+      "variants": {
+        "web": {
+          "file": "audio/musica-ambiente.mp3",
+          "bytes": 3369792,
+          "duration": 150.024,
+          "hasAudio": true,
+          "settingsHash": "eed818e5c683"
+        },
+        "mobile": {
+          "file": "audio/musica-ambiente.mp3",
+          "bytes": 3369792,
+          "duration": 150.024,
+          "hasAudio": true,
+          "settingsHash": "eed818e5c683"
+        },
+        "high": {
+          "file": "audio/musica-ambiente.mp3",
+          "bytes": 3369792,
+          "duration": 150.024,
+          "hasAudio": true,
+          "settingsHash": "eed818e5c683"
+        }
+      }
+    },
     "panoramas/e0-intro": {
       "kind": "image",
       "source": "4 - novos 360/Etapa 0 Introducao.jpg",
@@ -899,7 +927,7 @@
       }
     }
   },
-  "generatedAt": "2026-10-01T18:36:34.410Z",
+  "generatedAt": "2026-10-01T19:13:06.525Z",
   "profiles": {
     "image": [
       "web",

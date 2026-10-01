@@ -7,6 +7,8 @@ import { AssetPreloader } from "../media/AssetPreloader";
 import { AudioBus } from "../media/AudioBus";
 import { loadManifest } from "../media/manifest";
 import { detectProfiles, MediaResolver } from "../media/MediaResolver";
+import { MusicController } from "../media/MusicController";
+import { musicTarget } from "../media/musicRules";
 import { NarrationController } from "../media/NarrationController";
 import { VideoController } from "../media/VideoController";
 import { tour } from "../tour/scenes";
@@ -36,8 +38,12 @@ export async function createTourApp(container: HTMLElement) {
   bus.setVolume(appConfig.initialVolume);
 
   let unsubscribeSpatial: (() => void) | undefined;
+  let unsubscribeMusic: (() => void) | undefined;
+  let music: MusicController | null = null;
   const dispose = () => {
     unsubscribeSpatial?.();
+    unsubscribeMusic?.();
+    music?.dispose();
     engine?.dispose();
     preloader?.clear();
     renderer.dispose();
@@ -93,6 +99,14 @@ export async function createTourApp(container: HTMLElement) {
       }
     });
 
+    // Música de fundo: contínua, com ducking enquanto o narrador fala (regra em musicRules).
+    if (tour.music) {
+      const m = new MusicController(bus, tour.music, resolver.url(tour.music.src));
+      m.attach();
+      music = m;
+      unsubscribeMusic = store.subscribe(() => m.apply(musicTarget(store.get())));
+    }
+
     // Adianta a primeira cena enquanto o usuário vê a tela inicial.
     const first = tour.scenes.find((s) => s.id === tour.firstScene)!;
     if (first.media.type === "image") void preloader.loadPanorama(first.media.src).catch(() => {});
@@ -110,7 +124,8 @@ export async function createTourApp(container: HTMLElement) {
       resolver,
       tour,
       /** Deve ser chamado DENTRO do gesto do usuário (clique/toque). */
-      unlockAudio: () => bus.unlock([narration.el, ...video.elements]),
+      music,
+      unlockAudio: () => bus.unlock([narration.el, ...video.elements, ...(music ? [music.el] : [])]),
       dispose,
     };
   } catch (e) {

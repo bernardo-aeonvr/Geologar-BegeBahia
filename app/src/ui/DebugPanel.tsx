@@ -50,6 +50,7 @@ export function DebugPanel({ app, initiallyOpen }: { app: TourApp; initiallyOpen
     ["transição", `${d.transitioning ? "sim" : "não"}${d.pendingTarget ? ` → fila: ${d.pendingTarget}` : ""}`],
     ["perfis", `img ${app.resolver.profiles.image} · vídeo ${app.resolver.profiles.video}`],
     ["audioctx", app.bus.state],
+    ["música", app.music ? (({ playing, ducked, time, gain }) => `${playing ? "tocando" : "parada"}${ducked ? " (abaixada)" : ""} · ${time}s · ganho ${gain}`)(app.music.debugInfo()) : "—"],
     ["erro", s.error ? `${s.error.kind}: ${s.error.message}` : "—"],
   ];
 

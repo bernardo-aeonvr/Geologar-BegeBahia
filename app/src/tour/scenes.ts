@@ -230,4 +230,18 @@ export const tour: TourDefinition = {
     overlays: [],
     displaySeconds: 8,
   },
+  // Música de fundo da experiência original (Musica/GL_MusicaAmbiente_TheSims_VolumeBaixo.mp3).
+  // O arquivo é muito baixo (−45 LUFS; narrações ≈ −11,5 LUFS), então o ganho é positivo:
+  //   sem narração  +15 dB → ≈ −30 LUFS (presente, mas de fundo)
+  //   com narração   +7 dB → ≈ −38 LUFS (~26 dB abaixo da voz, não disputa com o narrador)
+  // Pico do arquivo −28 dBFS → +15 dB fica em −13 dBFS, sem clipar.
+  // loopEnd: o arquivo termina com 1,4 s de silêncio (148,6 → 150 s); o loop volta antes dele.
+  music: {
+    src: "audio/musica-ambiente",
+    gainDb: 15,
+    duckedGainDb: 7,
+    attackMs: 600,
+    releaseMs: 1600,
+    loopEnd: 148.6,
+  },
 };

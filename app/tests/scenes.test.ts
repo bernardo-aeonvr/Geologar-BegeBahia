@@ -90,6 +90,10 @@ describe.skipIf(!manifest)("manifest de mídia", () => {
     }
   });
 
+  it("música de fundo existe no manifest", () => {
+    if (tour.music) expect(manifest.assets[tour.music.src], tour.music.src).toBeTruthy();
+  });
+
   it("vídeos têm perfis mobile e web; panoramas são 2:1", () => {
     for (const [id, a] of Object.entries<any>(manifest.assets)) {
       if (a.kind === "video") expect(Object.keys(a.variants).sort(), id).toEqual(["mobile", "web"]);
