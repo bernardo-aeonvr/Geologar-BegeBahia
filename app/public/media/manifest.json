@@ -505,6 +505,174 @@
         }
       }
     },
+    "popups/e2-p1-fissuras": {
+      "kind": "overlay",
+      "source": "Popups (experiencia original)/T_popup_Geologar_Etapa2_ponto3.png",
+      "sourceBytes": 852590,
+      "variants": {
+        "web": {
+          "file": "popups/e2-p1-fissuras.png",
+          "bytes": 852590,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "706b92501a78"
+        },
+        "mobile": {
+          "file": "popups/e2-p1-fissuras.png",
+          "bytes": 852590,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "706b92501a78"
+        },
+        "high": {
+          "file": "popups/e2-p1-fissuras.png",
+          "bytes": 852590,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "706b92501a78"
+        }
+      }
+    },
+    "popups/e3-p3-agua": {
+      "kind": "overlay",
+      "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto3_Vreduzida.png",
+      "sourceBytes": 850032,
+      "variants": {
+        "web": {
+          "file": "popups/e3-p3-agua.png",
+          "bytes": 850032,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "9a0d1863c09f"
+        },
+        "mobile": {
+          "file": "popups/e3-p3-agua.png",
+          "bytes": 850032,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "9a0d1863c09f"
+        },
+        "high": {
+          "file": "popups/e3-p3-agua.png",
+          "bytes": 850032,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "9a0d1863c09f"
+        }
+      }
+    },
+    "popups/e3-p4-politriz-manual": {
+      "kind": "overlay",
+      "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto4.png",
+      "sourceBytes": 780920,
+      "variants": {
+        "web": {
+          "file": "popups/e3-p4-politriz-manual.png",
+          "bytes": 780920,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "6e75108e01da"
+        },
+        "mobile": {
+          "file": "popups/e3-p4-politriz-manual.png",
+          "bytes": 780920,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "6e75108e01da"
+        },
+        "high": {
+          "file": "popups/e3-p4-politriz-manual.png",
+          "bytes": 780920,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "6e75108e01da"
+        }
+      }
+    },
+    "popups/e3-p5-politriz-semiauto": {
+      "kind": "overlay",
+      "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto5.png",
+      "sourceBytes": 754102,
+      "variants": {
+        "web": {
+          "file": "popups/e3-p5-politriz-semiauto.png",
+          "bytes": 754102,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "34bf42189e96"
+        },
+        "mobile": {
+          "file": "popups/e3-p5-politriz-semiauto.png",
+          "bytes": 754102,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "34bf42189e96"
+        },
+        "high": {
+          "file": "popups/e3-p5-politriz-semiauto.png",
+          "bytes": 754102,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "34bf42189e96"
+        }
+      }
+    },
+    "popups/e3-p6-politriz-automatica": {
+      "kind": "overlay",
+      "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto6.1.png",
+      "sourceBytes": 815817,
+      "variants": {
+        "web": {
+          "file": "popups/e3-p6-politriz-automatica.png",
+          "bytes": 815817,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "ab546d91820c"
+        },
+        "mobile": {
+          "file": "popups/e3-p6-politriz-automatica.png",
+          "bytes": 815817,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "ab546d91820c"
+        },
+        "high": {
+          "file": "popups/e3-p6-politriz-automatica.png",
+          "bytes": 815817,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "ab546d91820c"
+        }
+      }
+    },
+    "popups/e4-p1-produtos": {
+      "kind": "overlay",
+      "source": "Popups (experiencia original)/T_popup_Geologar_Etapa4_ponto1.png",
+      "sourceBytes": 910824,
+      "variants": {
+        "web": {
+          "file": "popups/e4-p1-produtos.png",
+          "bytes": 910824,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "02487a786e05"
+        },
+        "mobile": {
+          "file": "popups/e4-p1-produtos.png",
+          "bytes": 910824,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "02487a786e05"
+        },
+        "high": {
+          "file": "popups/e4-p1-produtos.png",
+          "bytes": 910824,
+          "width": 1024,
+          "height": 512,
+          "settingsHash": "02487a786e05"
+        }
+      }
+    },
     "video/e2-p2": {
       "kind": "video",
       "source": "4 - novos 360/Etapa 2 Ponto 2.mp4",
@@ -731,7 +899,7 @@
       }
     }
   },
-  "generatedAt": "2026-09-30T13:39:24.107Z",
+  "generatedAt": "2026-10-01T18:36:34.410Z",
   "profiles": {
     "image": [
       "web",
@@ -743,6 +911,11 @@
       "mobile"
     ],
     "audio": [
+      "web",
+      "mobile",
+      "high"
+    ],
+    "overlay": [
       "web",
       "mobile",
       "high"

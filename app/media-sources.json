@@ -28,5 +28,12 @@
   "audio/e3-p5":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 5.MP3" },
   "audio/e3-p6":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 6.MP3" },
   "audio/e4-p1":        { "kind": "audio", "source": "Narracao/Etapa 4 Ponto 1.MP3" },
-  "audio/e5-p1":        { "kind": "audio", "source": "Narracao/Etapa 5 Ponto 1.MP3" }
+  "audio/e5-p1":        { "kind": "audio", "source": "Narracao/Etapa 5 Ponto 1.MP3" },
+
+  "popups/e2-p1-fissuras":            { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa2_ponto3.png" },
+  "popups/e3-p3-agua":                { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto3_Vreduzida.png" },
+  "popups/e3-p4-politriz-manual":     { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto4.png" },
+  "popups/e3-p5-politriz-semiauto":   { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto5.png" },
+  "popups/e3-p6-politriz-automatica": { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto6.1.png" },
+  "popups/e4-p1-produtos":            { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa4_ponto1.png" }
 }

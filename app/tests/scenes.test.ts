@@ -20,6 +20,7 @@ function mediaIds() {
     if (media.type === "video") media.clips.forEach((c) => ids.push(c.src));
     else ids.push(media.src);
     if (s.narration) ids.push(s.narration);
+    for (const o of s.overlays) if (o.src) ids.push(o.src);
   }
   return ids;
 }
@@ -81,6 +82,24 @@ describe.skipIf(!manifest)("manifest de mídia", () => {
     for (const [id, a] of Object.entries<any>(manifest.assets)) {
       if (a.kind === "video") expect(Object.keys(a.variants).sort(), id).toEqual(["mobile", "web"]);
       if (a.kind === "image") for (const v of Object.values<any>(a.variants)) expect(v.width / v.height, id).toBe(2);
+    }
+  });
+
+  it("pop-ups: cada cue aponta para um overlay da cena, com mídia no manifest e tempos dentro da narração", () => {
+    for (const s of tour.scenes) {
+      const ids = new Set(s.overlays.map((o) => o.id));
+      for (const o of s.overlays) {
+        if (o.src) expect(manifest.assets[o.src], `${s.id}: overlay ${o.id} sem mídia "${o.src}"`).toBeTruthy();
+      }
+      const narration = s.narration ? manifest.assets[s.narration]?.variants?.web?.duration : undefined;
+      for (const c of s.cues) {
+        if (c.action.type === "showOverlay") expect(ids.has(c.action.overlayId), `${s.id}: cue ${c.id} → overlay inexistente`).toBe(true);
+        if (c.timeline === "narration") {
+          expect(narration, `${s.id}: cue de narração sem narração`).toBeTypeOf("number");
+          expect(c.from, `${s.id}: ${c.id} começa depois do fim da narração`).toBeLessThan(narration);
+          if (c.to !== undefined) expect(c.to, `${s.id}: ${c.id}`).toBeGreaterThan(c.from);
+        }
+      }
     }
   });
 });

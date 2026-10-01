@@ -1,6 +1,6 @@
 /** Formato de `public/media/manifest.json`, gerado por `scripts/build-media.mjs`. */
 export type MediaProfile = "mobile" | "web" | "high";
-export type MediaKind = "image" | "video" | "audio";
+export type MediaKind = "image" | "video" | "audio" | "overlay";
 
 export interface MediaVariant {
   file: string;

@@ -31,6 +31,19 @@ const clip = (id: string, required = true): VideoClip => ({ id, src: `video/${id
 
 const empty = { cues: [], hotspots: [], overlays: [] } as const satisfies Pick<TourScene, "cues" | "hotspots" | "overlays">;
 
+/**
+ * Pop-up da experiência original (PNG já com o cartão desenhado), sincronizado à NARRAÇÃO:
+ * aparece em `from` s e some em `to` s (omitido = fica até o fim da cena, inclusive nos loops).
+ * Tempos medidos por transcrição com timestamps de palavra das narrações (2026-10-01).
+ */
+function narrationPopup(id: string, alt: string, from: number, to?: number): Pick<TourScene, "cues" | "hotspots" | "overlays"> {
+  return {
+    hotspots: [],
+    overlays: [{ id, kind: "image", src: `popups/${id}`, alt, placement: "corner", bare: true }],
+    cues: [{ id: `${id}@narracao`, timeline: "narration", from, ...(to !== undefined ? { to } : {}), action: { type: "showOverlay", overlayId: id } }],
+  };
+}
+
 export const scenes: TourScene[] = [
   {
     id: "intro",
@@ -77,7 +90,8 @@ export const scenes: TourScene[] = [
     initialView: { ...DEFAULT_VIEW },
     next: "e2-p2",
     autoAdvance: true,
-    ...empty,
+    // "Fissuras, cavidades e heterogeneidades…" (9,0 s) até antes de "No passado…" (20,1 s).
+    ...narrationPopup("e2-p1-fissuras", "Fissuras: exemplos de fissuras e cavidades em blocos de Bege Bahia", 9.0, 19.8),
   },
   {
     id: "e2-p2",
@@ -125,8 +139,8 @@ export const scenes: TourScene[] = [
     initialView: { ...DEFAULT_VIEW },
     next: "e3-p4",
     autoAdvance: true,
-    // Roteiro: manter comparação de consumo de água 200.000 L × 13.000 L (pendente — D5).
-    ...empty,
+    // Roteiro: manter a comparação de consumo de água. "…e a sustentabilidade também evoluiu" (15,8 s) até o fim.
+    ...narrationPopup("e3-p3-agua", "Consumo de água por bloco: tear tradicional 200.000 litros; tear moderno 13.000 litros", 15.8),
   },
   {
     id: "e3-p4",
@@ -138,7 +152,8 @@ export const scenes: TourScene[] = [
     initialView: { ...DEFAULT_VIEW },
     next: "e3-p5",
     autoAdvance: true,
-    ...empty,
+    // "A primeira é totalmente manual…" (19,5 s) até o fim.
+    ...narrationPopup("e3-p4-politriz-manual", "Politrizes manuais: polimento e posicionamento de chapas feitos por um operador", 19.5),
   },
   {
     id: "e3-p5",
@@ -150,7 +165,8 @@ export const scenes: TourScene[] = [
     initialView: { ...DEFAULT_VIEW },
     next: "e3-p6",
     autoAdvance: true,
-    ...empty,
+    // "…o processo é semiautomático" (1,8 s) até o fim.
+    ...narrationPopup("e3-p5-politriz-semiauto", "Politrizes semiautomáticas: uma máquina realiza o polimento e o operador faz o posicionamento da chapa", 1.8),
   },
   {
     id: "e3-p6",
@@ -162,8 +178,9 @@ export const scenes: TourScene[] = [
     initialView: { ...DEFAULT_VIEW },
     next: "e4-p1",
     autoAdvance: true,
-    // Roteiro: aplicação de compósito (pendente — D5).
-    ...empty,
+    // "…totalmente automatizado" (1,2 s) até antes de "Durante o corte… pó fino" (16,4 s).
+    // Roteiro: aplicação de compósito, depois disso (material pendente — D5).
+    ...narrationPopup("e3-p6-politriz-automatica", "Politrizes automáticas: todo o processo é realizado por uma máquina, reduzindo o desperdício de material", 1.2, 16.2),
   },
   {
     id: "e4-p1",
@@ -175,8 +192,8 @@ export const scenes: TourScene[] = [
     initialView: { ...DEFAULT_VIEW },
     next: "e5-p1",
     autoAdvance: true,
-    // Roteiro: ladrilhos, placas, moledos, outros produtos (pendente — D5).
-    ...empty,
+    // "…pode resultar em ladrilhos, placas… e moledos" (8,7 s) até o fim. "Outros produtos": pendente (D5).
+    ...narrationPopup("e4-p1-produtos", "Produtos do reaproveitamento: moledo, placas de porcelanato e ladrilho", 8.7),
   },
   {
     id: "e5-p1",

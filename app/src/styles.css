@@ -450,7 +450,7 @@ button {
   font-size: 14px;
 }
 
-/* ── Pop-ups (infraestrutura) ───────────── */
+/* ── Pop-ups ───────────────────────────── */
 .popups {
   position: absolute;
   inset: 0;
@@ -465,12 +465,22 @@ button {
   overflow: hidden;
   background: var(--glass-strong);
   border: 1px solid var(--line);
-  animation: rise-in 0.4s ease-out;
+  animation: popup-in 0.45s ease-out both;
 }
-@keyframes rise-in {
+.popup--leaving {
+  animation: popup-out 0.35s ease-in both;
+}
+/* `translate` (propriedade própria) não briga com o `transform` de posicionamento. */
+@keyframes popup-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    translate: 0 -10px;
+  }
+}
+@keyframes popup-out {
+  to {
+    opacity: 0;
+    translate: 0 -6px;
   }
 }
 .popup img,
@@ -487,7 +497,7 @@ button {
 }
 .popup--corner {
   right: calc(16px + var(--safe-r));
-  top: calc(80px + var(--safe-t));
+  top: calc(16px + var(--safe-t));
 }
 .popup--center {
   left: 50%;
@@ -496,6 +506,34 @@ button {
 }
 .popup--compact {
   max-width: min(260px, 40vw);
+}
+/* Imagem já é o cartão completo (pop-ups da experiência original, 2:1 com cantos e transparência). */
+.popup--bare {
+  background: none;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+  width: clamp(300px, 32vw, 520px);
+  max-width: none;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.45));
+}
+/* Celular em retrato: centralizado no topo, largura quase total para o texto ficar legível. */
+@media (max-width: 640px) and (orientation: portrait) {
+  .popup--corner {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(12px + var(--safe-t));
+  }
+  .popup--bare {
+    width: min(92vw, 440px);
+  }
+}
+/* Celular deitado (pouca altura): menor, no canto, sem cobrir os controles. */
+@media (max-height: 480px) and (orientation: landscape) {
+  .popup--bare {
+    width: min(38vw, 360px);
+  }
 }
 
 /* ── Debug ─────────────────────────────── */

@@ -24,7 +24,7 @@ export class MediaResolver {
   constructor(
     private manifest: MediaManifest,
     private baseUrl: string,
-    public profiles: { image: MediaProfile; video: MediaProfile; audio: MediaProfile },
+    public profiles: { image: MediaProfile; video: MediaProfile; audio: MediaProfile; overlay?: MediaProfile },
   ) {}
 
   has(id: string): boolean {
@@ -39,7 +39,7 @@ export class MediaResolver {
 
   resolve(id: string): ResolvedMedia {
     const a = this.asset(id);
-    const wanted = this.profiles[a.kind];
+    const wanted = this.profiles[a.kind] ?? "web";
     for (const p of FALLBACK[wanted]) {
       const v = a.variants[p];
       if (v) return { id, url: this.urlFor(v.file), profile: p, variant: v };

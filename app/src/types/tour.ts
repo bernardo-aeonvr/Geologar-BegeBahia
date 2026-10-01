@@ -85,6 +85,10 @@ export interface Overlay {
   placement?: "center" | "top" | "bottom" | "left" | "right" | "corner";
   /** Não bloqueia a vista panorâmica (pop-up reduzido). */
   compact?: boolean;
+  /** A imagem já é o cartão completo (ex.: pop-ups PNG da experiência original): sem moldura extra. */
+  bare?: boolean;
+  /** Texto alternativo (leitores de tela) quando a informação está só na imagem. */
+  alt?: string;
 }
 
 export type TourAction =

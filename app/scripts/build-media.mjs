@@ -14,6 +14,7 @@
  *   imagem  mobile/web → 4096×2048 JPEG · high → original (cópia byte a byte)
  *   vídeo   mobile → 2880×1440 H.264 · web → 4096×2048 H.264 High · high → reservado (5,7K HEVC futuro)
  *   áudio   cópia do MP3 original (sem recodificar)
+ *   overlay pop-ups PNG copiados como estão (sem redimensionar)
  *
  * Requer ffmpeg/ffprobe no PATH.
  */
@@ -50,6 +51,12 @@ const PROFILES = {
     mobile: { sameAs: "web" },
     high: { sameAs: "web" },
   },
+  // Pop-ups/imagens de interface: cópia byte a byte (já vêm no tamanho certo, com transparência).
+  overlay: {
+    web: { copy: true },
+    mobile: { sameAs: "web" },
+    high: { sameAs: "web" },
+  },
 };
 
 const log = (...m) => console.log("[media]", ...m);
@@ -75,7 +82,7 @@ function hashOf(obj) {
 }
 
 function extOf(kind) {
-  return kind === "image" ? "jpg" : kind === "video" ? "mp4" : "mp3";
+  return { image: "jpg", video: "mp4", audio: "mp3", overlay: "png" }[kind];
 }
 
 function encodeImage(src, dst, p) {
@@ -161,7 +168,7 @@ function main() {
         file,
         bytes: statSync(outPath).size,
         ...(info.width ? { width: info.width, height: info.height } : {}),
-        ...(kind !== "image" ? { duration: info.duration, hasAudio: info.hasAudio } : {}),
+        ...(kind === "video" || kind === "audio" ? { duration: info.duration, hasAudio: info.hasAudio } : {}),
         settingsHash,
       };
     }
