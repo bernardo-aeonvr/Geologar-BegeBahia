@@ -37,11 +37,14 @@ Parâmetros de URL úteis:
 | volume do ambiente (`ambientVolume`), loop, clips obrigatórios | `src/tour/scenes.ts` |
 | sincronização narração × vídeo (`sync.narrationStartAt`) | `src/tour/scenes.ts` |
 | pop-ups temporizados (`cues` + `overlays`), hotspots, créditos | `src/tour/scenes.ts` |
+| posição de um pop-up no ambiente 360 (`anchor`: yaw, pitch, largura em graus) | `src/tour/scenes.ts` |
 | fades, origem da mídia, limites de FOV | `src/config/appConfig.ts` |
 | arquivo fonte de cada id de mídia | `media-sources.json` |
 | qualidade/resolução dos perfis | `scripts/build-media.mjs` (`PROFILES`) |
 
 O player **não** tem regras por cena: o comportamento vem só dos dados.
+
+**Pop-ups.** Os pop-ups com `anchor` são **espaciais**: painéis presos a um ponto do panorama, que o visitante vê quando olha naquela direção (funcionam também em VR). Usam a mesma convenção do `initialView`: yaw 0 é o centro da imagem, positivo para a direita; pitch positivo é para cima. Overlays sem `anchor` aparecem como HUD na tela, reservado para créditos e avisos. Quando cada pop-up aparece é definido pelos `cues`, no tempo da narração.
 
 ## Como a cena termina (resumo)
 

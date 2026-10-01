@@ -13,6 +13,7 @@ import { tour } from "../tour/scenes";
 import { TourEngine } from "../tour/TourEngine";
 import { createTourStore } from "../tour/tourStore";
 import { PanoramaRenderer } from "../viewer/PanoramaRenderer";
+import type { SpatialOverlaySpec } from "../viewer/SpatialOverlays";
 
 const log = createLogger("app");
 
@@ -34,7 +35,9 @@ export async function createTourApp(container: HTMLElement) {
   video.attach();
   bus.setVolume(appConfig.initialVolume);
 
+  let unsubscribeSpatial: (() => void) | undefined;
   const dispose = () => {
+    unsubscribeSpatial?.();
     engine?.dispose();
     preloader?.clear();
     renderer.dispose();
@@ -64,6 +67,30 @@ export async function createTourApp(container: HTMLElement) {
         loopMinNarrationRemaining: appConfig.loopMinNarrationRemaining,
       },
       log: createLogger("tour"),
+    });
+
+    // Pop-ups espaciais: a store diz QUAIS overlays estão ativos (cues do motor); o renderer
+    // desenha, presos ao panorama, os que têm `anchor`. Texturas da cena atual + próxima pré-carregadas.
+    const spatialSpecs = (sceneId: string | null, onlyIds?: string[]): SpatialOverlaySpec[] => {
+      const scene = sceneId ? tour.scenes.find((s) => s.id === sceneId) : undefined;
+      if (!scene) return [];
+      return scene.overlays
+        .filter((o) => o.anchor && o.src && (!onlyIds || onlyIds.includes(o.id)))
+        .map((o) => ({ id: o.id, url: resolver.url(o.src!), ...o.anchor! }));
+    };
+    let lastScene: string | null = null;
+    let lastActive: string[] | null = null;
+    unsubscribeSpatial = store.subscribe(() => {
+      const s = store.get();
+      if (s.sceneId !== lastScene) {
+        lastScene = s.sceneId;
+        const next = tour.scenes.find((x) => x.id === s.sceneId)?.next ?? null;
+        renderer.spatial.preload([...spatialSpecs(s.sceneId), ...spatialSpecs(next)]);
+      }
+      if (s.activeOverlays !== lastActive) {
+        lastActive = s.activeOverlays;
+        renderer.spatial.setActive(spatialSpecs(s.sceneId, s.activeOverlays));
+      }
     });
 
     // Adianta a primeira cena enquanto o usuário vê a tela inicial.

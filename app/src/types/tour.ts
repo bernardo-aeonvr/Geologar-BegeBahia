@@ -89,6 +89,21 @@ export interface Overlay {
   bare?: boolean;
   /** Texto alternativo (leitores de tela) quando a informação está só na imagem. */
   alt?: string;
+  /**
+   * Pop-up ESPACIAL: painel preso a um ponto do panorama (mesma convenção de yaw/pitch do
+   * initialView). O visitante olha para ele ou não; funciona também em VR.
+   * Sem `anchor`, o overlay é desenhado como HUD na tela (ex.: créditos).
+   */
+  anchor?: OverlayAnchor;
+}
+
+export interface OverlayAnchor {
+  yaw: number;
+  pitch: number;
+  /** Largura angular do painel, em graus (ex.: 40 ≈ um terço da tela no enquadramento padrão). */
+  width: number;
+  /** Inclinação no próprio plano, em graus. */
+  roll?: number;
 }
 
 export type TourAction =

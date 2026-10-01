@@ -11,7 +11,8 @@ interface Shown {
 }
 
 /**
- * Camada de pop-ups/overlays (cues da narração, créditos, hotspots).
+ * Camada de pop-ups em HUD (overlays SEM `anchor`: créditos, avisos). Os pop-ups com `anchor`
+ * ficam presos ao panorama e são desenhados pelo renderer (viewer/SpatialOverlays).
  * Quem decide QUANDO mostrar é o motor (cues em scenes.ts → store.activeOverlays);
  * aqui só se desenha, com entrada/saída suaves. Não captura toques: o arraste do panorama continua.
  */
@@ -24,7 +25,8 @@ export function PopupLayer({ app }: { app: TourApp }) {
   useEffect(() => {
     const scene = sceneId ? app.engine.getScene(sceneId) : null;
     const pool: Overlay[] = [...(scene?.overlays ?? []), ...app.tour.credits.overlays];
-    const current = active.map((id) => pool.find((o) => o.id === id)).filter((o): o is Overlay => !!o);
+    // Overlays com `anchor` são espaciais (desenhados no panorama pelo renderer), não HUD.
+    const current = active.map((id) => pool.find((o) => o.id === id)).filter((o): o is Overlay => !!o && !o.anchor);
 
     setShown((prev) => [
       ...current.map((overlay) => ({ overlay, leaving: false })),

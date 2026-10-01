@@ -50,6 +50,18 @@ describe("roteiro (scenes.ts)", () => {
     expect(seen).toHaveLength(tour.scenes.length);
   });
 
+  it("pop-ups espaciais têm âncora válida (yaw/pitch/largura em graus)", () => {
+    for (const s of tour.scenes)
+      for (const o of s.overlays) {
+        if (!o.anchor) continue;
+        expect(o.anchor.yaw, `${s.id}/${o.id} yaw`).toBeGreaterThanOrEqual(-180);
+        expect(o.anchor.yaw, `${s.id}/${o.id} yaw`).toBeLessThanOrEqual(180);
+        expect(Math.abs(o.anchor.pitch), `${s.id}/${o.id} pitch`).toBeLessThanOrEqual(80);
+        expect(o.anchor.width, `${s.id}/${o.id} largura`).toBeGreaterThan(5);
+        expect(o.anchor.width, `${s.id}/${o.id} largura`).toBeLessThan(120);
+      }
+  });
+
   it("cenas de vídeo têm clips e volume ambiente válidos", () => {
     for (const s of tour.scenes) {
       if (!isVideo(s)) continue;

@@ -7,6 +7,7 @@
  *  - initialView.yaw gira a ESFERA (não a câmera): o mesmo dado vale no 2D e em VR.
  *  - `setAnimationLoop` desde já (compatível com WebXR). pixelRatio limitado.
  *  - Não descarta texturas que não criou: dono da textura (preloader/vídeo) faz o dispose.
+ *  - Pop-ups espaciais (SpatialOverlays) são filhos da esfera: presos ao panorama.
  */
 import {
   Color,
@@ -24,6 +25,8 @@ import {
 import type { TextureHandle, ViewerPort } from "../tour/ports";
 import type { InitialView } from "../types/tour";
 import { InputControls } from "./InputControls";
+import { SpatialOverlays } from "./SpatialOverlays";
+import { directionFromYawPitch, sphereRotationForYaw } from "./sphericalCoords";
 
 export interface RendererOptions {
   maxPixelRatio: number;
@@ -48,6 +51,7 @@ const FADE_SAFETY_MARGIN_MS = 250;
 export class PanoramaRenderer implements ViewerPort {
   readonly renderer: WebGLRenderer;
   readonly controls: InputControls;
+  readonly spatial: SpatialOverlays;
   private scene = new Scene();
   private camera: PerspectiveCamera;
   private sphere: Mesh<SphereGeometry, MeshBasicMaterial>;
@@ -79,6 +83,7 @@ export class PanoramaRenderer implements ViewerPort {
     const material = new MeshBasicMaterial({ color: new Color(0, 0, 0) });
     this.sphere = new Mesh(geometry, material);
     this.scene.add(this.sphere);
+    this.spatial = new SpatialOverlays(this.sphere, this);
 
     this.controls = new InputControls(canvas, { fovMin: opts.fovMin, fovMax: opts.fovMax });
 
@@ -92,7 +97,10 @@ export class PanoramaRenderer implements ViewerPort {
   }
 
   private onVisibility = () => {
-    if (document.hidden) this.finishFade();
+    if (document.hidden) {
+      this.finishFade();
+      this.spatial.settle();
+    }
   };
 
   get maxTextureSize(): number {
@@ -123,12 +131,13 @@ export class PanoramaRenderer implements ViewerPort {
     this.sphere.material.map = null;
     this.sphere.material.needsUpdate = true;
     this.currentKind = null;
+    this.spatial.clear();
   }
 
   applyInitialView(view: InitialView): void {
     // Com a geometria espelhada, o centro da equiretangular (u = 0,5) fica em −X; −90° o traz para
     // a frente (−Z). Somar o yaw traz para a frente o ponto `yaw` graus à direita do centro.
-    this.sphere.rotation.y = MathUtils.degToRad(-90 + view.yaw);
+    this.sphere.rotation.y = sphereRotationForYaw(view.yaw);
     this.controls.set({ yaw: 0, pitch: view.pitch, fov: view.fov });
   }
 
@@ -153,10 +162,8 @@ export class PanoramaRenderer implements ViewerPort {
 
   /** Projeta yaw/pitch da imagem para coordenadas de tela (hotspots). null = atrás da câmera. */
   project(yaw: number, pitch: number): { x: number; y: number } | null {
-    const phi = MathUtils.degToRad(90 - pitch);
-    const theta = MathUtils.degToRad(yaw);
-    const v = new Vector3(Math.sin(phi) * Math.sin(theta), Math.cos(phi), -Math.sin(phi) * Math.cos(theta));
-    v.applyAxisAngle(new Vector3(0, 1, 0), this.sphere.rotation.y + Math.PI / 2).multiplyScalar(400);
+    const d = directionFromYawPitch(yaw, pitch);
+    const v = new Vector3(d.x, d.y, d.z).multiplyScalar(400).applyMatrix4(this.sphere.matrixWorld);
     v.project(this.camera);
     if (v.z > 1) return null;
     const { clientWidth: w, clientHeight: h } = this.container;
@@ -174,6 +181,7 @@ export class PanoramaRenderer implements ViewerPort {
     document.removeEventListener("visibilitychange", this.onVisibility);
     this.resizeObs.disconnect();
     this.controls.dispose();
+    this.spatial.clear();
     this.sphere.geometry.dispose();
     this.sphere.material.dispose();
     this.renderer.dispose();
@@ -208,11 +216,13 @@ export class PanoramaRenderer implements ViewerPort {
       this.target.set(Math.sin(lon) * Math.cos(lat), Math.sin(lat), -Math.cos(lon) * Math.cos(lat));
       this.camera.lookAt(this.target);
     }
+    this.spatial.update(dt); // também em VR
     this.renderer.render(this.scene, this.camera);
   };
 
   private applyLevel() {
     this.sphere.material.color.setScalar(this.level);
+    this.spatial.setLevel(this.level);
   }
 
   private finishFade() {
