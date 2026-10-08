@@ -81,8 +81,10 @@ function hashOf(obj) {
   return createHash("sha1").update(JSON.stringify(obj)).digest("hex").slice(0, 12);
 }
 
-function extOf(kind) {
-  return { image: "jpg", video: "mp4", audio: "mp3", overlay: "png" }[kind];
+function extOf(kind, source = "") {
+  // Overlays mantêm o formato do arquivo original (PNG com transparência, MP4 de animação…).
+  if (kind === "overlay") return (source.split(".").pop() || "png").toLowerCase();
+  return { image: "jpg", video: "mp4", audio: "mp3" }[kind];
 }
 
 function encodeImage(src, dst, p) {
@@ -139,7 +141,7 @@ function main() {
       const settings = { kind, def, srcBytes };
       const settingsHash = hashOf(settings);
       const name = id.split("/").pop();
-      const file = `${dirname(id)}/${name}${def.suffix ? "." + def.suffix : ""}.${extOf(kind)}`;
+      const file = `${dirname(id)}/${name}${def.suffix ? "." + def.suffix : ""}.${extOf(kind, source)}`;
       const outPath = join(OUT_DIR, file);
       const prevVariant = prev?.variants?.[profile];
       const upToDate = !FORCE && existsSync(outPath) && prevVariant?.settingsHash === settingsHash;
@@ -153,7 +155,7 @@ function main() {
 
       if (!upToDate) {
         mkdirSync(dirname(outPath), { recursive: true });
-        const tmp = outPath + ".tmp." + extOf(kind);
+        const tmp = outPath + ".tmp." + extOf(kind, source);
         const t0 = Date.now();
         log(`${id} [${profile}] ← ${relative(REPO_ROOT, srcPath)}`);
         if (def.copy) copyFileSync(srcPath, tmp);
@@ -168,7 +170,7 @@ function main() {
         file,
         bytes: statSync(outPath).size,
         ...(info.width ? { width: info.width, height: info.height } : {}),
-        ...(kind === "video" || kind === "audio" ? { duration: info.duration, hasAudio: info.hasAudio } : {}),
+        ...(kind === "video" || kind === "audio" || info.duration ? { duration: info.duration, hasAudio: info.hasAudio } : {}),
         settingsHash,
       };
     }

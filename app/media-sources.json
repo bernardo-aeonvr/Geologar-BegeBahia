@@ -37,5 +37,17 @@
   "popups/e3-p4-politriz-manual":     { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto4.png" },
   "popups/e3-p5-politriz-semiauto":   { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto5.png" },
   "popups/e3-p6-politriz-automatica": { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto6.1.png" },
-  "popups/e4-p1-produtos":            { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa4_ponto1.png" }
+  "popups/e4-p1-produtos":            { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa4_ponto1.png" },
+
+  "popups/g2-salvador-ourolandia":   { "kind": "overlay", "source": "Popups (Geologar 2)/1_Salvador to Ourolândia_ 406 km.png" },
+  "popups/g2-bege-x-travertino":     { "kind": "overlay", "source": "Popups (Geologar 2)/2_BegeBahiaXTravertinoRomano.png" },
+  "popups/g2-fotomicrografia-01":    { "kind": "overlay", "source": "Popups (Geologar 2)/3_Fotomicrografia_do_Bege_Bahia_01.png" },
+  "popups/g2-fotomicrografia-02":    { "kind": "overlay", "source": "Popups (Geologar 2)/4_Fotomicrografia_do_Bege_Bahia_02.png" },
+  "popups/g2-fotomicrografia-03":    { "kind": "overlay", "source": "Popups (Geologar 2)/6_Fotomicrografia_do_Bege_Bahia_03.png" },
+  "popups/g2-fotomicrografia-04":    { "kind": "overlay", "source": "Popups (Geologar 2)/6_Fotomicrografia_do_Bege_Bahia_04.png" },
+  "popups/g2-fio-cortando-pedra":    { "kind": "overlay", "source": "Popups (Geologar 2)/7_fio_cortando_pedra.mp4" },
+  "popups/g2-aplicacao-01":          { "kind": "overlay", "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (1).png" },
+  "popups/g2-aplicacao-02":          { "kind": "overlay", "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (2).png" },
+  "popups/g2-aplicacao-03":          { "kind": "overlay", "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (3).png" },
+  "popups/g2-aplicacao-04":          { "kind": "overlay", "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (4).png" }
 }

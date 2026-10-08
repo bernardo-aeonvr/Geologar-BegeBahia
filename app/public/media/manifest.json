@@ -701,6 +701,320 @@
         }
       }
     },
+    "popups/g2-aplicacao-01": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (1).png",
+      "sourceBytes": 2269889,
+      "variants": {
+        "web": {
+          "file": "popups/g2-aplicacao-01.png",
+          "bytes": 2269889,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "bbe3ecd85403"
+        },
+        "mobile": {
+          "file": "popups/g2-aplicacao-01.png",
+          "bytes": 2269889,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "bbe3ecd85403"
+        },
+        "high": {
+          "file": "popups/g2-aplicacao-01.png",
+          "bytes": 2269889,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "bbe3ecd85403"
+        }
+      }
+    },
+    "popups/g2-aplicacao-02": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (2).png",
+      "sourceBytes": 2102275,
+      "variants": {
+        "web": {
+          "file": "popups/g2-aplicacao-02.png",
+          "bytes": 2102275,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "c7d1a5d5a551"
+        },
+        "mobile": {
+          "file": "popups/g2-aplicacao-02.png",
+          "bytes": 2102275,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "c7d1a5d5a551"
+        },
+        "high": {
+          "file": "popups/g2-aplicacao-02.png",
+          "bytes": 2102275,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "c7d1a5d5a551"
+        }
+      }
+    },
+    "popups/g2-aplicacao-03": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (3).png",
+      "sourceBytes": 2094823,
+      "variants": {
+        "web": {
+          "file": "popups/g2-aplicacao-03.png",
+          "bytes": 2094823,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "7236d9716ce9"
+        },
+        "mobile": {
+          "file": "popups/g2-aplicacao-03.png",
+          "bytes": 2094823,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "7236d9716ce9"
+        },
+        "high": {
+          "file": "popups/g2-aplicacao-03.png",
+          "bytes": 2094823,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "7236d9716ce9"
+        }
+      }
+    },
+    "popups/g2-aplicacao-04": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (4).png",
+      "sourceBytes": 2169312,
+      "variants": {
+        "web": {
+          "file": "popups/g2-aplicacao-04.png",
+          "bytes": 2169312,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "615806b98583"
+        },
+        "mobile": {
+          "file": "popups/g2-aplicacao-04.png",
+          "bytes": 2169312,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "615806b98583"
+        },
+        "high": {
+          "file": "popups/g2-aplicacao-04.png",
+          "bytes": 2169312,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "615806b98583"
+        }
+      }
+    },
+    "popups/g2-bege-x-travertino": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/2_BegeBahiaXTravertinoRomano.png",
+      "sourceBytes": 3032440,
+      "variants": {
+        "web": {
+          "file": "popups/g2-bege-x-travertino.png",
+          "bytes": 3032440,
+          "width": 1746,
+          "height": 887,
+          "settingsHash": "7b305df45b02"
+        },
+        "mobile": {
+          "file": "popups/g2-bege-x-travertino.png",
+          "bytes": 3032440,
+          "width": 1746,
+          "height": 887,
+          "settingsHash": "7b305df45b02"
+        },
+        "high": {
+          "file": "popups/g2-bege-x-travertino.png",
+          "bytes": 3032440,
+          "width": 1746,
+          "height": 887,
+          "settingsHash": "7b305df45b02"
+        }
+      }
+    },
+    "popups/g2-fio-cortando-pedra": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/7_fio_cortando_pedra.mp4",
+      "sourceBytes": 3590370,
+      "variants": {
+        "web": {
+          "file": "popups/g2-fio-cortando-pedra.mp4",
+          "bytes": 3590370,
+          "width": 1920,
+          "height": 1080,
+          "duration": 9.042,
+          "hasAudio": true,
+          "settingsHash": "2abceccbf0f3"
+        },
+        "mobile": {
+          "file": "popups/g2-fio-cortando-pedra.mp4",
+          "bytes": 3590370,
+          "width": 1920,
+          "height": 1080,
+          "duration": 9.042,
+          "hasAudio": true,
+          "settingsHash": "2abceccbf0f3"
+        },
+        "high": {
+          "file": "popups/g2-fio-cortando-pedra.mp4",
+          "bytes": 3590370,
+          "width": 1920,
+          "height": 1080,
+          "duration": 9.042,
+          "hasAudio": true,
+          "settingsHash": "2abceccbf0f3"
+        }
+      }
+    },
+    "popups/g2-fotomicrografia-01": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/3_Fotomicrografia_do_Bege_Bahia_01.png",
+      "sourceBytes": 2086067,
+      "variants": {
+        "web": {
+          "file": "popups/g2-fotomicrografia-01.png",
+          "bytes": 2086067,
+          "width": 1536,
+          "height": 1024,
+          "settingsHash": "f87602b99a92"
+        },
+        "mobile": {
+          "file": "popups/g2-fotomicrografia-01.png",
+          "bytes": 2086067,
+          "width": 1536,
+          "height": 1024,
+          "settingsHash": "f87602b99a92"
+        },
+        "high": {
+          "file": "popups/g2-fotomicrografia-01.png",
+          "bytes": 2086067,
+          "width": 1536,
+          "height": 1024,
+          "settingsHash": "f87602b99a92"
+        }
+      }
+    },
+    "popups/g2-fotomicrografia-02": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/4_Fotomicrografia_do_Bege_Bahia_02.png",
+      "sourceBytes": 2699382,
+      "variants": {
+        "web": {
+          "file": "popups/g2-fotomicrografia-02.png",
+          "bytes": 2699382,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "7d38ff9fc4ff"
+        },
+        "mobile": {
+          "file": "popups/g2-fotomicrografia-02.png",
+          "bytes": 2699382,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "7d38ff9fc4ff"
+        },
+        "high": {
+          "file": "popups/g2-fotomicrografia-02.png",
+          "bytes": 2699382,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "7d38ff9fc4ff"
+        }
+      }
+    },
+    "popups/g2-fotomicrografia-03": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/6_Fotomicrografia_do_Bege_Bahia_03.png",
+      "sourceBytes": 2539390,
+      "variants": {
+        "web": {
+          "file": "popups/g2-fotomicrografia-03.png",
+          "bytes": 2539390,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "bbb43c30efb1"
+        },
+        "mobile": {
+          "file": "popups/g2-fotomicrografia-03.png",
+          "bytes": 2539390,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "bbb43c30efb1"
+        },
+        "high": {
+          "file": "popups/g2-fotomicrografia-03.png",
+          "bytes": 2539390,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "bbb43c30efb1"
+        }
+      }
+    },
+    "popups/g2-fotomicrografia-04": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/6_Fotomicrografia_do_Bege_Bahia_04.png",
+      "sourceBytes": 2632939,
+      "variants": {
+        "web": {
+          "file": "popups/g2-fotomicrografia-04.png",
+          "bytes": 2632939,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "e00ffb5f3ba9"
+        },
+        "mobile": {
+          "file": "popups/g2-fotomicrografia-04.png",
+          "bytes": 2632939,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "e00ffb5f3ba9"
+        },
+        "high": {
+          "file": "popups/g2-fotomicrografia-04.png",
+          "bytes": 2632939,
+          "width": 1672,
+          "height": 941,
+          "settingsHash": "e00ffb5f3ba9"
+        }
+      }
+    },
+    "popups/g2-salvador-ourolandia": {
+      "kind": "overlay",
+      "source": "Popups (Geologar 2)/1_Salvador to Ourolândia_ 406 km.png",
+      "sourceBytes": 1890326,
+      "variants": {
+        "web": {
+          "file": "popups/g2-salvador-ourolandia.png",
+          "bytes": 1890326,
+          "width": 1774,
+          "height": 887,
+          "settingsHash": "ecb228d6ee29"
+        },
+        "mobile": {
+          "file": "popups/g2-salvador-ourolandia.png",
+          "bytes": 1890326,
+          "width": 1774,
+          "height": 887,
+          "settingsHash": "ecb228d6ee29"
+        },
+        "high": {
+          "file": "popups/g2-salvador-ourolandia.png",
+          "bytes": 1890326,
+          "width": 1774,
+          "height": 887,
+          "settingsHash": "ecb228d6ee29"
+        }
+      }
+    },
     "video/e2-p2": {
       "kind": "video",
       "source": "4 - novos 360/Etapa 2 Ponto 2.mp4",
@@ -927,7 +1241,7 @@
       }
     }
   },
-  "generatedAt": "2026-10-01T19:13:06.525Z",
+  "generatedAt": "2026-10-08T14:48:14.355Z",
   "profiles": {
     "image": [
       "web",
