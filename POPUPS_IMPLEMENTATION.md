@@ -61,7 +61,7 @@ Os tempos foram medidos por **transcrição com timestamp de cada palavra** (fas
 
 | Cena (duração) | Trecho falado | Popup | Janela |
 |---|---|---|---|
-| Intro (39,97 s) | "…nossa viagem começa agora, direto da cidade de Ourolândia…" | Salvador → Ourolândia | 31,8 s → fim |
+| Intro (39,97 s) | "Bem-vindo a uma jornada imersiva." → "…direto da cidade de Ourolândia, no coração do sertão baiano." | Salvador → Ourolândia | 17,1 s → fim |
 | E1 · P1 (45,71 s) | "…o material lembrava o famoso travertino romano…" | Bege × Travertino | 35,5 s → fim |
 | E1 · P2 (44,56 s) | "Ele é um calcrete, uma rocha sedimentar…" | Calcrete × Bege (ausente) | 4,1 → 12,0 s |
 | E1 · P2 | "Ao longo de milhares de anos…" → "…textura brechoide." | Fotomicrografias (sequência) | 12,0 s → fim |
@@ -82,7 +82,7 @@ Os tempos foram medidos por **transcrição com timestamp de cada palavra** (fas
 
 | id | Arquivo de origem | Janela |
 |---|---|---|
-| `salvador-ourolandia` | `1_Salvador to Ourolândia_ 406 km.png` (recorte das faixas pretas laterais) | Intro 31,8 s → fim |
+| `salvador-ourolandia` | `1_Salvador to Ourolândia_ 406 km.png` (recorte das faixas pretas laterais) | Intro 17,1 s → fim |
 | `bege-x-travertino` | `2_BegeBahiaXTravertinoRomano.png` | E1 · P1 35,5 s → fim |
 | `fio-cortando-pedra` | `7_fio_cortando_pedra.mp4` (vídeo 1920×1080, chroma key verde) | E2 · P2 0,3 → 9,35 s |
 | `agua` | `8_comparacao_agua.png` (= `T_popup_…_Etapa3_ponto3_Vreduzida.png`) | E3 · P3 15,8 s → fim |

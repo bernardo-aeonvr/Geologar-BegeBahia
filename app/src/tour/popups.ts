@@ -72,12 +72,12 @@ export const popupTimeline: Record<string, PopupDef[]> = {
   // ── Introdução ────────────────────────────────────────────────────────────────────────────
   intro: [
     {
-      // "…nossa viagem começa agora, direto da cidade de Ourolândia, no coração do sertão baiano."
+      // A partir de "Bem-vindo a uma jornada imersiva." (17,2 s) até o fim da cena.
       type: "single",
       id: "salvador-ourolandia",
       image: "popups/g2-salvador-ourolandia",
       alt: "Mapa da Bahia: de Salvador a Ourolândia, cerca de 406 km",
-      start: 31.8,
+      start: 17.1,
       position: { yaw: 30, pitch: 14, width: 40 },
       // O PNG tem faixas pretas de exportação nas laterais (colunas 0–86 e 1687–1773 de 1774):
       // exibe só o cartão. Remova esta linha se vier uma versão com transparência.
