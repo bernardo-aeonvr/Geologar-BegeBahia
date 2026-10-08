@@ -51,6 +51,7 @@
   "popups/g2-aplicacao-03":          { "kind": "overlay", "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (3).png" },
   "popups/g2-aplicacao-04":          { "kind": "overlay", "source": "Popups (Geologar 2)/9_Aplicacao_begeBahia (4).png" },
 
+  "creditos/0-referencia":  { "kind": "overlay", "source": "Creditos/derivados/cartao_0_referencia.png" },
   "creditos/1-geologar":   { "kind": "overlay", "source": "Creditos/derivados/cartao_1_geologar.png" },
   "creditos/2-mgb":        { "kind": "overlay", "source": "Creditos/derivados/cartao_2_mgb_museu-geologico-da-bahia.png" },
   "creditos/3-expogeo":    { "kind": "overlay", "source": "Creditos/derivados/cartao_3_expogeo-virtual.png" },

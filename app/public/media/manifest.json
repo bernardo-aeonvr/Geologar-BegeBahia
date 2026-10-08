@@ -393,6 +393,34 @@
         }
       }
     },
+    "creditos/0-referencia": {
+      "kind": "overlay",
+      "source": "Creditos/derivados/cartao_0_referencia.png",
+      "sourceBytes": 157796,
+      "variants": {
+        "web": {
+          "file": "creditos/0-referencia.png",
+          "bytes": 157796,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "ef6f27c18eb6"
+        },
+        "mobile": {
+          "file": "creditos/0-referencia.png",
+          "bytes": 157796,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "ef6f27c18eb6"
+        },
+        "high": {
+          "file": "creditos/0-referencia.png",
+          "bytes": 157796,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "ef6f27c18eb6"
+        }
+      }
+    },
     "creditos/1-geologar": {
       "kind": "overlay",
       "source": "Creditos/derivados/cartao_1_geologar.png",
@@ -1383,7 +1411,7 @@
       }
     }
   },
-  "generatedAt": "2026-10-08T19:14:37.012Z",
+  "generatedAt": "2026-10-08T19:25:22.426Z",
   "profiles": {
     "image": [
       "web",

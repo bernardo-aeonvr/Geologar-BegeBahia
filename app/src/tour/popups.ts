@@ -253,17 +253,29 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       ],
     },
     {
-      // Créditos logo depois das aplicações, até o fim da narração (43,49 s): 4 logos de ~3,9 s.
-      // Cartões gerados por scripts/credits-from-video.py a partir do vídeo de encerramento antigo.
+      // Créditos, parte 1: referência bibliográfica logo depois das aplicações (5,5 s de leitura).
+      // Painel na largura das aplicações (42°): texto corrido precisa de mais área que os logos.
+      // Cartão gerado por scripts/reference-card.py.
+      type: "single",
+      id: "referencia",
+      image: "creditos/0-referencia",
+      alt: "Referência bibliográfica: SANTOS, R. M. O.; RODRIGUES, A. G.; DAL' BÓ, P. F. Caracterização Petrográfica dos Calcários Ornamentais da Formação Caatinga (BA). Anuário do Instituto de Geociências, v. 43, n. 2, p. 139–149, 2020. DOI 10.11137/2020_2_139_149",
+      start: 27.8,
+      end: 33.3,
+      position: { yaw: 0, pitch: 14, width: W },
+    },
+    {
+      // Créditos, parte 2: os 4 logos em ~2,5 s cada, até o fim da narração (43,49 s).
+      // Cartões gerados por scripts/credits-from-video.py.
       type: "sequence",
       id: "creditos",
       alt: "Créditos: GeoLogar, Museu Geológico da Bahia, ExpoGeo Virtual e CNPq",
       position: { yaw: 0, pitch: 12, width: 30 },
       slides: [
-        { image: "creditos/1-geologar", start: 27.8, end: 31.7, note: "GeoLogar" },
-        { image: "creditos/2-mgb", start: 31.7, end: 35.6, note: "Museu Geológico da Bahia" },
-        { image: "creditos/3-expogeo", start: 35.6, end: 39.5, note: "ExpoGeo Virtual" },
-        { image: "creditos/4-cnpq", start: 39.5, note: "CNPq — até o fim da cena" },
+        { image: "creditos/1-geologar", start: 33.3, end: 35.85, note: "GeoLogar" },
+        { image: "creditos/2-mgb", start: 35.85, end: 38.4, note: "Museu Geológico da Bahia" },
+        { image: "creditos/3-expogeo", start: 38.4, end: 40.95, note: "ExpoGeo Virtual" },
+        { image: "creditos/4-cnpq", start: 40.95, note: "CNPq — até o fim da cena" },
       ],
     },
   ],

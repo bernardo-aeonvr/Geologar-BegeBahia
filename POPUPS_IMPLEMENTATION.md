@@ -107,16 +107,19 @@ Etapa 1 · Ponto 2: um único painel em yaw −32°, pitch 15°, largura 44°. F
 
 Etapa 5 · Ponto 1: um único painel em yaw 0°, pitch 14°, largura 42°.
 
-**Créditos (Etapa 5 · Ponto 1):** sequência `creditos`, 27,8 s → fim da narração, no mesmo lugar das aplicações:
+**Créditos (Etapa 5 · Ponto 1):** de 27,8 s até o fim da narração, no mesmo lugar das aplicações. Primeiro vem a referência bibliográfica, um popup próprio de 42° de largura para o texto ficar legível; depois, a sequência de logos `creditos`, com 30°:
 
-| Slide | Logo | Narração |
+| Ordem | Conteúdo | Narração |
 |---|---|---|
-| 1 | GeoLogar (logo oficial) | 27,8 – 31,7 s |
-| 2 | Museu Geológico da Bahia | 31,7 – 35,6 s |
-| 3 | ExpoGeo Virtual | 35,6 – 39,5 s |
-| 4 | CNPq | 39,5 s – fim |
+| 1 | Referência bibliográfica (Santos, Rodrigues e Dal' Bó, 2020) | 27,8 – 33,3 s |
+| 2 | GeoLogar (logo oficial) | 33,3 – 35,85 s |
+| 3 | Museu Geológico da Bahia | 35,85 – 38,4 s |
+| 4 | ExpoGeo Virtual | 38,4 – 40,95 s |
+| 5 | CNPq | 40,95 s – fim |
 
-Os cartões são gerados por `app/scripts/credits-from-video.py` a partir de `Creditos/T_encerramento.mp4`. Na experiência antiga, esse era um MP4 com chroma key.
+Os cartões são gerados por scripts em `app/scripts/`:
+- `reference-card.py`: a referência, com o texto no próprio script;
+- `credits-from-video.py`: os logos, a partir de `Creditos/T_encerramento.mp4`. Na experiência antiga, esse era um MP4 com chroma key.
 
 | Slide | Arquivo | Início | Fim | Conteúdo |
 |------|---------|--------|-----|-----|
@@ -140,7 +143,8 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 | Animação do corte | −32° | −11° | 48° | **No chão da pedreira, em primeiro plano**, como um bloco sendo cortado, à esquerda, sem tampar o operador que corta o bloco real ao fundo (+5° a +15°) (pedido do cliente) |
 | Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Céu à esquerda, logo depois da animação |
 | Aplicações | 0° | 14° | 42° | Centralizado na vista inicial da cena final (pedido do cliente) |
-| Créditos | 0° | 12° | 30° | Mesmo lugar das aplicações, logo depois delas; cartões brancos 3:2 |
+| Referência bibliográfica | 0° | 14° | 42° | Mesmo lugar das aplicações, logo depois delas; cartão branco 3:2 |
+| Créditos (logos) | 0° | 12° | 30° | Mesmo lugar, depois da referência; cartões brancos 3:2 |
 | Água (tear multifio) | 133° | 6° | 28° | Ao lado do bloco, no vão entre ele e o tear multifio; a cena abre de frente para o tear (`initialView.yaw` 155°) (pedido do cliente) |
 | (já existentes) Fissuras, Politrizes, Produtos | −42° a −32° | 8–16° | 42° | Ver `app/src/tour/popups.ts` |
 
