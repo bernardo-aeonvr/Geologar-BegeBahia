@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { TourApp } from "../app/createTourApp";
 import { useStore } from "../lib/store";
 import { IconList, IconMuted, IconNext, IconPause, IconPlay, IconPrev, IconVolume, IconVR } from "./Icons";
+import { DownloadStatus } from "./DownloadStatus";
 import { SceneMenu } from "./SceneMenu";
 
 /**
@@ -75,6 +76,7 @@ export function TourHud({ app, xrAvailable }: { app: TourApp; xrAvailable: boole
             void engine.goToScene(id);
           }}
           onClose={() => setMenuOpen(false)}
+          footer={<DownloadStatus app={app} />}
         />
       )}
     </div>

@@ -6,6 +6,7 @@ import { createLogger, setLogLevel } from "../lib/log";
 import { AssetPreloader } from "../media/AssetPreloader";
 import { AudioBus } from "../media/AudioBus";
 import { loadManifest } from "../media/manifest";
+import { MediaCache, mediaDownloadOrder, waitForServiceWorker } from "../media/MediaCache";
 import { detectProfiles, MediaResolver } from "../media/MediaResolver";
 import { MusicController } from "../media/MusicController";
 import { musicTarget } from "../media/musicRules";
@@ -43,7 +44,14 @@ export async function createTourApp(container: HTMLElement) {
   let unsubscribeSpatial: (() => void) | undefined;
   let unsubscribeMusic: (() => void) | undefined;
   let music: MusicController | null = null;
+  const offline = new MediaCache({
+    caches: typeof caches !== "undefined" ? caches : undefined,
+    fetch: (...a) => fetch(...a),
+    storage: navigator.storage,
+    serviceWorkerReady: () => waitForServiceWorker(),
+  });
   const dispose = () => {
+    offline.dispose();
     unsubscribeSpatial?.();
     unsubscribeMusic?.();
     music?.dispose();
@@ -169,6 +177,24 @@ export async function createTourApp(container: HTMLElement) {
       music,
       unlockAudio: () => bus.unlock([narration.el, ...video.elements, ...(music ? [music.el] : [])]),
       /** Fim do tour: escurece, sai do VR, zera o motor (fase "idle") e remonta o fundo do menu inicial. */
+      /** Estado do download da experiência para o aparelho (menu de cenas / debug). */
+      download: offline.store,
+      /**
+       * Baixa toda a mídia do tour para o aparelho, na ordem do roteiro (idempotente). Chamado no
+       * "Iniciar". A reprodução não espera: o que ainda não baixou continua vindo da rede.
+       */
+      startOfflineDownload: () => {
+        const items = mediaDownloadOrder(tour)
+          .filter((id) => resolver.has(id))
+          .map((id) => {
+            const r = resolver.resolve(id);
+            return { url: r.url, bytes: r.variant.bytes };
+          });
+        void offline.start(items).then(
+          () => log.info("offline", { ...offline.store.get() }),
+          (e: unknown) => log.warn("offline:falhou", { error: String(e) }),
+        );
+      },
       returnToStart: async () => {
         await renderer.fadeTo(0, appConfig.fadeOutMs);
         await renderer.exitXR();

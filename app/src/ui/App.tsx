@@ -65,6 +65,8 @@ export function App() {
     if (viewMode !== "vr") requestFullscreen();
     setStarted(true);
     void app.engine.start();
+    // Baixa o resto da experiência para o aparelho enquanto ela já roda (ver MediaCache).
+    app.startOfflineDownload();
   }, [boot, viewMode]);
 
   // Fim do tour (D10, revisada): volta direto ao menu inicial, com a primeira vista ao fundo.

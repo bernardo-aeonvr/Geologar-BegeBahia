@@ -340,6 +340,8 @@ button {
   color: var(--ui-accent);
 }
 .menu__list {
+  flex: 1 1 auto;
+  min-height: 0;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -390,6 +392,30 @@ button {
   border: 1px solid var(--ui-line);
   border-radius: 999px;
   padding: 2px 8px;
+}
+
+.download {
+  margin-top: auto;
+  padding: 12px 8px 4px;
+  border-top: 1px solid var(--ui-line);
+}
+.download__text {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ui-muted);
+}
+.download__bar {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--ui-accent-soft);
+  overflow: hidden;
+}
+.download__bar span {
+  display: block;
+  height: 100%;
+  background: var(--ui-accent);
+  transition: width 0.3s ease-out;
 }
 
 /* ── Avisos de erro ─────────────────────── */
