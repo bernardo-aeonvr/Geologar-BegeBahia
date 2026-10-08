@@ -54,14 +54,10 @@ Os testes avisam se um asset reservado chegou e o `pending` ficou esquecido, e t
 
 **Posição reservada:** yaw −42°, pitch 16°, largura 42°.
 
-## Etapa 5 — Ponto 1 (Vista final): créditos e logos
-**Esperado:** créditos e logos institucionais "em pop-up reduzido, sem bloquear a vista panorâmica".
+## Etapa 5 — Ponto 1 (Vista final): créditos e logos — **resolvido**
+Os logos (GeoLogar, Museu Geológico da Bahia, ExpoGeo Virtual e CNPq) foram extraídos do vídeo de encerramento da experiência antiga (`Assets/Vídeo/T_encerramento.mp4`, copiado em `Creditos/`) por `app/scripts/credits-from-video.py`, que gera um cartão branco por logo. Eles aparecem em sequência na Etapa 5, logo depois das aplicações (ver `POPUPS_IMPLEMENTATION.md`).
 
-**Status:** asset não encontrado. A infraestrutura existe (`tour.credits.overlays` em `scenes.ts`, exibida ao fim da narração por `credits.displaySeconds`). Com a lista vazia, o tour vai direto para a tela de conclusão.
-
-**Trecho do roteiro:** "Ao final da mesma cena, apresentar os créditos e logos institucionais em pop-up reduzido, sem bloquear a vista panorâmica." / "Materiais necessários: Logos institucionais atualizadas e em boa resolução."
-
-**Arquivo sugerido:** `popup_creditos_logos.png`.
+**Pendente:** os logos de MGB, ExpoGeo e CNPq vieram de um vídeo 1080p (cerca de 700–850 px de largura). Arquivos vetoriais ou PNG originais dariam mais nitidez; para usá-los, troque as fontes no script.
 
 ## Etapa 4 — Ponto 1 (Reaproveitamento): "outros produtos"
 **Esperado:** "Outros produtos feitos a partir do reaproveitamento", além de ladrilhos, placas e moledos.

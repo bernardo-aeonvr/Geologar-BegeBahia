@@ -393,6 +393,118 @@
         }
       }
     },
+    "creditos/1-geologar": {
+      "kind": "overlay",
+      "source": "Creditos/derivados/cartao_1_geologar.png",
+      "sourceBytes": 185132,
+      "variants": {
+        "web": {
+          "file": "creditos/1-geologar.png",
+          "bytes": 185132,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "673ee8d76f2b"
+        },
+        "mobile": {
+          "file": "creditos/1-geologar.png",
+          "bytes": 185132,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "673ee8d76f2b"
+        },
+        "high": {
+          "file": "creditos/1-geologar.png",
+          "bytes": 185132,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "673ee8d76f2b"
+        }
+      }
+    },
+    "creditos/2-mgb": {
+      "kind": "overlay",
+      "source": "Creditos/derivados/cartao_2_mgb_museu-geologico-da-bahia.png",
+      "sourceBytes": 131662,
+      "variants": {
+        "web": {
+          "file": "creditos/2-mgb.png",
+          "bytes": 131662,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "a4796838fcb3"
+        },
+        "mobile": {
+          "file": "creditos/2-mgb.png",
+          "bytes": 131662,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "a4796838fcb3"
+        },
+        "high": {
+          "file": "creditos/2-mgb.png",
+          "bytes": 131662,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "a4796838fcb3"
+        }
+      }
+    },
+    "creditos/3-expogeo": {
+      "kind": "overlay",
+      "source": "Creditos/derivados/cartao_3_expogeo-virtual.png",
+      "sourceBytes": 532288,
+      "variants": {
+        "web": {
+          "file": "creditos/3-expogeo.png",
+          "bytes": 532288,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "8dddcd2f4590"
+        },
+        "mobile": {
+          "file": "creditos/3-expogeo.png",
+          "bytes": 532288,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "8dddcd2f4590"
+        },
+        "high": {
+          "file": "creditos/3-expogeo.png",
+          "bytes": 532288,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "8dddcd2f4590"
+        }
+      }
+    },
+    "creditos/4-cnpq": {
+      "kind": "overlay",
+      "source": "Creditos/derivados/cartao_4_cnpq.png",
+      "sourceBytes": 149718,
+      "variants": {
+        "web": {
+          "file": "creditos/4-cnpq.png",
+          "bytes": 149718,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "84898640e7ba"
+        },
+        "mobile": {
+          "file": "creditos/4-cnpq.png",
+          "bytes": 149718,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "84898640e7ba"
+        },
+        "high": {
+          "file": "creditos/4-cnpq.png",
+          "bytes": 149718,
+          "width": 1200,
+          "height": 800,
+          "settingsHash": "84898640e7ba"
+        }
+      }
+    },
     "panoramas/e0-intro": {
       "kind": "image",
       "source": "4 - novos 360/Etapa 0 Introducao.jpg",
@@ -1271,7 +1383,7 @@
       }
     }
   },
-  "generatedAt": "2026-10-08T15:59:26.524Z",
+  "generatedAt": "2026-10-08T19:14:37.012Z",
   "profiles": {
     "image": [
       "web",

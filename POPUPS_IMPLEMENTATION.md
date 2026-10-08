@@ -105,7 +105,18 @@ Etapa 1 · Ponto 2: um único painel em yaw −32°, pitch 15°, largura 44°. F
 
 ## Sequência de aplicações do Bege Bahia
 
-Etapa 5 · Ponto 1: um único painel em yaw 30°, pitch 14°, largura 42°.
+Etapa 5 · Ponto 1: um único painel em yaw 0°, pitch 14°, largura 42°.
+
+**Créditos (Etapa 5 · Ponto 1):** sequência `creditos`, 27,8 s → fim da narração, no mesmo lugar das aplicações:
+
+| Slide | Logo | Narração |
+|---|---|---|
+| 1 | GeoLogar (logo oficial) | 27,8 – 31,7 s |
+| 2 | Museu Geológico da Bahia | 31,7 – 35,6 s |
+| 3 | ExpoGeo Virtual | 35,6 – 39,5 s |
+| 4 | CNPq | 39,5 s – fim |
+
+Os cartões são gerados por `app/scripts/credits-from-video.py` a partir de `Creditos/T_encerramento.mp4`. Na experiência antiga, esse era um MP4 com chroma key.
 
 | Slide | Arquivo | Início | Fim | Conteúdo |
 |------|---------|--------|-----|-----|
@@ -128,7 +139,8 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 | Fotomicrografias | −32° | 15° | 44° | Céu à esquerda; a cava da pedreira fica livre (mais largo para os detalhes) |
 | Animação do corte | −32° | −11° | 48° | **No chão da pedreira, em primeiro plano**, como um bloco sendo cortado, à esquerda, sem tampar o operador que corta o bloco real ao fundo (+5° a +15°) (pedido do cliente) |
 | Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Céu à esquerda, logo depois da animação |
-| Aplicações | 30° | 14° | 42° | Céu à direita da vista final |
+| Aplicações | 0° | 14° | 42° | Centralizado na vista inicial da cena final (pedido do cliente) |
+| Créditos | 0° | 12° | 30° | Mesmo lugar das aplicações, logo depois delas; cartões brancos 3:2 |
 | Água (tear multifio) | 133° | 6° | 28° | Ao lado do bloco, no vão entre ele e o tear multifio; a cena abre de frente para o tear (`initialView.yaw` 155°) (pedido do cliente) |
 | (já existentes) Fissuras, Politrizes, Produtos | −42° a −32° | 8–16° | 42° | Ver `app/src/tour/popups.ts` |
 

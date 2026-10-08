@@ -243,12 +243,27 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       type: "sequence",
       id: "aplicacoes",
       alt: "Aplicações arquitetônicas do Bege Bahia",
-      position: { yaw: 30, pitch: 14, width: W },
+      // Centralizado na vista inicial da cena (pedido do cliente).
+      position: { yaw: 0, pitch: 14, width: W },
       slides: [
         { image: "popups/g2-aplicacao-01", start: 0.3, end: 7.2, note: "Moledo — revestimento externo (fachada)" },
         { image: "popups/g2-aplicacao-02", start: 7.2, end: 14.1, note: "Moledo — ambientes internos" },
         { image: "popups/g2-aplicacao-03", start: 14.1, end: 20.9, note: "Placas — piscina e área de lazer" },
         { image: "popups/g2-aplicacao-04", start: 20.9, end: 27.8, note: "Placas — área externa" },
+      ],
+    },
+    {
+      // Créditos logo depois das aplicações, até o fim da narração (43,49 s): 4 logos de ~3,9 s.
+      // Cartões gerados por scripts/credits-from-video.py a partir do vídeo de encerramento antigo.
+      type: "sequence",
+      id: "creditos",
+      alt: "Créditos: GeoLogar, Museu Geológico da Bahia, ExpoGeo Virtual e CNPq",
+      position: { yaw: 0, pitch: 12, width: 30 },
+      slides: [
+        { image: "creditos/1-geologar", start: 27.8, end: 31.7, note: "GeoLogar" },
+        { image: "creditos/2-mgb", start: 31.7, end: 35.6, note: "Museu Geológico da Bahia" },
+        { image: "creditos/3-expogeo", start: 35.6, end: 39.5, note: "ExpoGeo Virtual" },
+        { image: "creditos/4-cnpq", start: 39.5, note: "CNPq — até o fim da cena" },
       ],
     },
   ],
