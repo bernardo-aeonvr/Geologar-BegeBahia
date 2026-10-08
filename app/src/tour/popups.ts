@@ -154,7 +154,7 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       // A animação ocupa x 25–79% do quadro 16:9 (medido em todos os quadros): enquadra essa área.
       crop: { x: 0.23, y: 0, w: 0.58, h: 1 },
       // No chão da pedreira, como um bloco sendo cortado (à esquerda do operador real).
-      position: { yaw: -16, pitch: -6, width: 34 },
+      position: { yaw: -14, pitch: -11, width: 48 },
     },
     {
       // "…reduziu perdas, aumentou o aproveitamento dos blocos…" — mesmo lugar, após a animação.

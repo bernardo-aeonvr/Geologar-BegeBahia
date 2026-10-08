@@ -88,7 +88,7 @@ Os tempos foram medidos por **transcrição com timestamp de cada palavra** (fas
 | `agua` | `8_comparacao_agua.png` (= `T_popup_…_Etapa3_ponto3_Vreduzida.png`) | E3 · P3 15,8 s → fim |
 | `fissuras`, `politriz-*`, `produtos` | `Popups (experiencia original)/` | ver tabela acima |
 
-**Vídeo sincronizado:** o tempo do vídeo é sempre `narration.currentTime − 0,3 s`. Se a diferença passar de 0,25 s, o vídeo é reposicionado. Ele pausa junto com o tour e, num seek, salta para o quadro certo. O fundo verde é removido no shader (chroma key em CbCr, com supressão de verde nas bordas). Só a região onde a animação acontece é exibida (x 23–81% do quadro, medida em todos os quadros), sem deformar.
+**Vídeo sincronizado:** o tempo do vídeo é sempre `narration.currentTime − 0,3 s`. Se a diferença passar de 0,25 s, o vídeo é reposicionado. Ele pausa junto com o tour e, num seek, salta para o quadro certo. O fundo verde é removido no shader: chroma key em CbCr, calibrado no próprio vídeo (o fundo fica em d≈0, as bordas de transição ainda verdes vão até d≈0,40, e os pixels da pedra e do fio têm sempre d≥0,49), então a chave é transparente até 0,36 e opaca a partir de 0,48. Há também um despill: o verde de um pixel nunca passa do maior entre vermelho e azul, o que tira o halo sem afetar a pedra marrom. Só a região onde a animação acontece é exibida (x 23–81% do quadro, medida em todos os quadros), sem deformar.
 
 ## Sequência de fotomicrografias
 
@@ -126,7 +126,7 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 | Bege × Travertino | 32° | 13° | 42° | Acima das casas à direita; a estrada fica livre no centro e o caminhão à esquerda |
 | Calcrete × Bege (reservado) | 32° | 15° | 42° | Céu à direita, oposto às fotomicrografias |
 | Fotomicrografias | −32° | 15° | 44° | Céu à esquerda; a cava da pedreira fica livre (mais largo para os detalhes) |
-| Animação do corte | −16° | −6° | 34° | **No chão da pedreira**, como um bloco sendo cortado, à esquerda do operador real e ao lado dos blocos de verdade (pedido do cliente) |
+| Animação do corte | −14° | −11° | 48° | **No chão da pedreira, em primeiro plano**, como um bloco sendo cortado, à esquerda do operador real e ao lado dos blocos de verdade (pedido do cliente) |
 | Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Céu à esquerda, logo depois da animação |
 | Aplicações | 30° | 14° | 42° | Céu à direita da vista final |
 | (já existentes) Fissuras, Água, Politrizes, Produtos | −42° a 36° | 8–16° | 42° | Ver `app/src/tour/popups.ts` |

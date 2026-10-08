@@ -335,10 +335,12 @@ const FRAG = /* glsl */ `
       vec2 cc = vec2(dot(c.rgb, vec3(-0.169, -0.331, 0.5)), dot(c.rgb, vec3(0.5, -0.419, -0.081)));
       vec2 kc = vec2(dot(keyColor, vec3(-0.169, -0.331, 0.5)), dot(keyColor, vec3(0.5, -0.419, -0.081)));
       float d = distance(cc, kc);
-      a *= smoothstep(0.12, 0.22, d);
-      // Remove o verde que vaza nas bordas.
-      float spill = max(c.g - max(c.r, c.b), 0.0);
-      c.g -= spill * (1.0 - smoothstep(0.12, 0.3, d));
+      // Calibrado no vídeo do corte: fundo d≈0; bordas de transição ainda verdes até d≈0,40;
+      // pixels reais (pedra, fio, contorno) sempre d≥0,49.
+      a *= smoothstep(0.36, 0.48, d);
+      // Despill: o verde nunca passa do maior entre vermelho e azul (tira o halo verde das bordas
+      // sem afetar a pedra, que é marrom: r > g).
+      c.g = min(c.g, max(c.r, c.b));
     }
     gl_FragColor = vec4(c.rgb * level, a * opacity);
     #include <colorspace_fragment>
