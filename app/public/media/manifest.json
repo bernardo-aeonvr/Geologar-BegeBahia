@@ -989,29 +989,29 @@
     },
     "popups/g2-salvador-ourolandia": {
       "kind": "overlay",
-      "source": "Popups (Geologar 2)/1_Salvador to Ourolândia_ 406 km.png",
-      "sourceBytes": 1890326,
+      "source": "Popups (Geologar 2)/derivados/1_Salvador to Ourolândia_ 406 km_alpha.png",
+      "sourceBytes": 1958045,
       "variants": {
         "web": {
           "file": "popups/g2-salvador-ourolandia.png",
-          "bytes": 1890326,
-          "width": 1774,
+          "bytes": 1958045,
+          "width": 1600,
           "height": 887,
-          "settingsHash": "ecb228d6ee29"
+          "settingsHash": "d9287acb6a39"
         },
         "mobile": {
           "file": "popups/g2-salvador-ourolandia.png",
-          "bytes": 1890326,
-          "width": 1774,
+          "bytes": 1958045,
+          "width": 1600,
           "height": 887,
-          "settingsHash": "ecb228d6ee29"
+          "settingsHash": "d9287acb6a39"
         },
         "high": {
           "file": "popups/g2-salvador-ourolandia.png",
-          "bytes": 1890326,
-          "width": 1774,
+          "bytes": 1958045,
+          "width": 1600,
           "height": 887,
-          "settingsHash": "ecb228d6ee29"
+          "settingsHash": "d9287acb6a39"
         }
       }
     },
@@ -1241,7 +1241,7 @@
       }
     }
   },
-  "generatedAt": "2026-10-08T14:48:14.355Z",
+  "generatedAt": "2026-10-08T15:11:16.399Z",
   "profiles": {
     "image": [
       "web",

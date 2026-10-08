@@ -82,5 +82,5 @@ Os testes avisam se um asset reservado chegou e o `pending` ficou esquecido, e t
 | `8_comparacao_agua.png` | Idêntico, byte a byte, ao popup de água que já estava no tour (`popups/e3-p3-agua`). Já está em uso. |
 
 ## Ajuste de arte sugerido
-- `1_Salvador to Ourolândia_ 406 km.png` não tem transparência e tem faixas pretas nas laterais. O app mostra só o cartão (recorte configurado em `popups.ts`), mas os 4 cantos fora do arredondado ainda aparecem pretos. Uma versão com fundo transparente resolve; depois é só remover o `crop`.
+- ~~`1_Salvador to Ourolândia_ 406 km.png` sem transparência~~ **resolvido no app**: é usada uma versão derivada com alpha correto (ver `POPUPS_IMPLEMENTATION.md`). Uma exportação com transparência vinda da arte continua sendo bem-vinda.
 - O nome `6_Fotomicrografia_do_Bege_Bahia_03.png` tem o prefixo duplicado (deveria ser `5_`). A ordem usada segue o sufixo `_01…_04`.

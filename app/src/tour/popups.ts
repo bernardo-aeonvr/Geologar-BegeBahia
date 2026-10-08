@@ -79,9 +79,8 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       alt: "Mapa da Bahia: de Salvador a Ourolândia, cerca de 406 km",
       start: 17.1,
       position: { yaw: 30, pitch: 14, width: 40 },
-      // O PNG tem faixas pretas de exportação nas laterais (colunas 0–86 e 1687–1773 de 1774):
-      // exibe só o cartão. Remova esta linha se vier uma versão com transparência.
-      crop: { x: 87 / 1774, y: 0, w: 1600 / 1774, h: 1 },
+      // Usa a versão derivada com alpha correto (o original veio com fundo preto fora do cartão
+      // arredondado): Popups (Geologar 2)/derivados/, gerada por scripts/black-to-alpha.py.
     },
   ],
 

@@ -82,7 +82,7 @@ Os tempos foram medidos por **transcrição com timestamp de cada palavra** (fas
 
 | id | Arquivo de origem | Janela |
 |---|---|---|
-| `salvador-ourolandia` | `1_Salvador to Ourolândia_ 406 km.png` (recorte das faixas pretas laterais) | Intro 17,1 s → fim |
+| `salvador-ourolandia` | `1_Salvador to Ourolândia_ 406 km.png` → versão derivada com alpha correto (`derivados/…_alpha.png`) | Intro 17,1 s → fim |
 | `bege-x-travertino` | `2_BegeBahiaXTravertinoRomano.png` | E1 · P1 35,5 s → fim |
 | `fio-cortando-pedra` | `7_fio_cortando_pedra.mp4` (vídeo 1920×1080, chroma key verde) | E2 · P2 0,3 → 9,35 s |
 | `agua` | `8_comparacao_agua.png` (= `T_popup_…_Etapa3_ponto3_Vreduzida.png`) | E3 · P3 15,8 s → fim |
@@ -141,7 +141,7 @@ Ver [`MISSING_POPUPS.md`](MISSING_POPUPS.md): Calcrete × Bege Bahia, fio helico
 
 1. **Etapa 2 · Ponto 2 avança no fim da narração:** a pedido do cliente, a cena não espera o vídeo 360 de 42,6 s terminar (`finishCurrentClipAfterNarration: false`, `requireAllClipsOnce: false` em `scenes.ts`). A animação fica no chão, como um bloco sendo cortado.
 1. **Animação do corte como vídeo com chroma key:** o roteiro pede "manter a animação". O arquivo entregue é um vídeo sobre fundo verde, e removê-lo em tempo real (shader) é o uso previsto desse tipo de asset. O arquivo original não é alterado. Toca uma passada inteira (9,04 s), alinhada a "O fio diamantado trouxe…", sem repetir para não terminar no meio de um corte.
-2. **Recorte do `1_Salvador…`:** o PNG não tem transparência e tem faixas pretas de exportação nas laterais. O app mostra só a área do cartão, sem deformar nem mudar cores. É configurável e removível.
+2. **Alpha corrigido no `1_Salvador…` (pedido do cliente):** o PNG original veio sem transparência, com fundo preto fora do cartão arredondado (faixas laterais e cantos). O app usa uma versão derivada, `Popups (Geologar 2)/derivados/1_Salvador to Ourolândia_ 406 km_alpha.png`, gerada por `app/scripts/black-to-alpha.py`. O script faz um balde de tinta a partir das bordas (só o preto conectado à borda vira transparente; o interior escuro do cartão continua 100% opaco), aplica alpha gradual no antialias do contorno e recorta ao tamanho do cartão. O original não foi alterado. Se vier uma versão com transparência, aponte `media-sources.json` para ela.
 3. **Arquivos de `Arrumar/` não usados:** são rascunhos (sem transparência, com selos "IMAGEM 03–06") das mesmas fotomicrografias que existem em versão final.
 4. **Reservas para assets ausentes:** os intervalos e posições ficam definidos desde já. Quando o arquivo chegar, basta registrá-lo, sem refazer a implementação.
 5. **Crossfade de 220 ms entre slides:** é curto e discreto, e a troca acontece no instante decidido pela narração (o fade não atrasa a sincronização).

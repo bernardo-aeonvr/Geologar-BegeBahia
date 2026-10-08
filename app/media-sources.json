@@ -39,7 +39,7 @@
   "popups/e3-p6-politriz-automatica": { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa3_ponto6.1.png" },
   "popups/e4-p1-produtos":            { "kind": "overlay", "source": "Popups (experiencia original)/T_popup_Geologar_Etapa4_ponto1.png" },
 
-  "popups/g2-salvador-ourolandia":   { "kind": "overlay", "source": "Popups (Geologar 2)/1_Salvador to Ourolândia_ 406 km.png" },
+  "popups/g2-salvador-ourolandia":   { "kind": "overlay", "source": "Popups (Geologar 2)/derivados/1_Salvador to Ourolândia_ 406 km_alpha.png" },
   "popups/g2-bege-x-travertino":     { "kind": "overlay", "source": "Popups (Geologar 2)/2_BegeBahiaXTravertinoRomano.png" },
   "popups/g2-fotomicrografia-01":    { "kind": "overlay", "source": "Popups (Geologar 2)/3_Fotomicrografia_do_Bege_Bahia_01.png" },
   "popups/g2-fotomicrografia-02":    { "kind": "overlay", "source": "Popups (Geologar 2)/4_Fotomicrografia_do_Bege_Bahia_02.png" },
