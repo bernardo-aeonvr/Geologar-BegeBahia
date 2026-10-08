@@ -6,6 +6,7 @@ import { createLogger, setLogLevel } from "../lib/log";
 import { AssetPreloader } from "../media/AssetPreloader";
 import { AudioBus } from "../media/AudioBus";
 import { loadManifest } from "../media/manifest";
+import { MediaCache, mediaDownloadOrder, waitForServiceWorker } from "../media/MediaCache";
 import { detectProfiles, MediaResolver } from "../media/MediaResolver";
 import { MusicController } from "../media/MusicController";
 import { musicTarget } from "../media/musicRules";
@@ -43,7 +44,14 @@ export async function createTourApp(container: HTMLElement) {
   let unsubscribeSpatial: (() => void) | undefined;
   let unsubscribeMusic: (() => void) | undefined;
   let music: MusicController | null = null;
+  const offline = new MediaCache({
+    caches: typeof caches !== "undefined" ? caches : undefined,
+    fetch: (...a) => fetch(...a),
+    storage: navigator.storage,
+    serviceWorkerReady: () => waitForServiceWorker(),
+  });
   const dispose = () => {
+    offline.dispose();
     unsubscribeSpatial?.();
     unsubscribeMusic?.();
     music?.dispose();
@@ -136,6 +144,25 @@ export async function createTourApp(container: HTMLElement) {
     // Adianta a primeira cena enquanto o usuário vê a tela inicial — e a usa como FUNDO do menu:
     // a mesma vista em que a pessoa vai entrar, escurecida. Ao iniciar, o motor só clareia a
     // mesma textura (sem corte), porque ela já está no cache do preloader.
+    // Download para uso offline (opcional, pelo botão do menu inicial).
+    const offlineSupported = "serviceWorker" in navigator && typeof caches !== "undefined" && window.isSecureContext;
+    const offlineItems = mediaDownloadOrder(tour)
+      .filter((id) => resolver.has(id))
+      .map((id) => {
+        const r = resolver.resolve(id);
+        return { url: r.url, bytes: r.variant.bytes };
+      });
+    if (offlineSupported) {
+      if (new URLSearchParams(location.search).has("nosw")) {
+        // Escape para testes: remove o worker e o que ele guardou.
+        void navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((r) => void r.unregister()));
+        void caches.keys().then((names) => names.filter((n) => n.startsWith("geologar-")).forEach((n) => void caches.delete(n)));
+      } else {
+        // Quem já baixou (ou parou no meio): confere o que está no aparelho e completa o que faltar.
+        void navigator.serviceWorker.getRegistration().then((reg) => reg && offline.start(offlineItems));
+      }
+    }
+
     const first = tour.scenes.find((s) => s.id === tour.firstScene)!;
     const loader = preloader;
     const tourEngine = engine;
@@ -169,6 +196,26 @@ export async function createTourApp(container: HTMLElement) {
       music,
       unlockAudio: () => bus.unlock([narration.el, ...video.elements, ...(music ? [music.el] : [])]),
       /** Fim do tour: escurece, sai do VR, zera o motor (fase "idle") e remonta o fundo do menu inicial. */
+      /** Estado do download da experiência para o aparelho (botão do menu inicial, menu de cenas). */
+      download: offline.store,
+      /** Navegador capaz de guardar a experiência (service worker + Cache Storage; exige HTTPS). */
+      offlineSupported,
+      /** Tamanho total do download neste aparelho (bytes, perfil de mídia escolhido). */
+      offlineBytes: offlineItems.reduce((a, i) => a + i.bytes, 0),
+      /**
+       * Botão "Baixar para usar offline": instala o service worker e baixa toda a mídia na ordem
+       * do roteiro. Pode ser chamado de novo para tentar outra vez depois de uma falha.
+       */
+      startOfflineDownload: () => {
+        if (!offlineSupported) return;
+        void navigator.serviceWorker
+          .register(`${import.meta.env.BASE_URL}sw.js`, { scope: import.meta.env.BASE_URL })
+          .then(() => offline.start(offlineItems))
+          .then(
+            () => log.info("offline", { ...offline.store.get() }),
+            (e: unknown) => log.warn("offline:falhou", { error: String(e) }),
+          );
+      },
       returnToStart: async () => {
         await renderer.fadeTo(0, appConfig.fadeOutMs);
         await renderer.exitXR();

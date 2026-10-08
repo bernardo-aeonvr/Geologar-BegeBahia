@@ -9,6 +9,8 @@ export interface MediaVariant {
   height?: number;
   duration?: number;
   hasAudio?: boolean;
+  /** Hash das configurações de geração (muda quando a variante é regenerada). */
+  settingsHash?: string;
 }
 
 export interface MediaAsset {

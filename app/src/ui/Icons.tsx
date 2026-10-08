@@ -25,3 +25,5 @@ export const IconVR = ({ size = 22 }: P) =>
   svg(size, <path d="M3 8.5A1.5 1.5 0 0 1 4.5 7h15A1.5 1.5 0 0 1 21 8.5v7a1.5 1.5 0 0 1-1.5 1.5h-4l-2-2.5h-3L8.5 17h-4A1.5 1.5 0 0 1 3 15.5z" />);
 export const IconDrag = ({ size = 22 }: P) =>
   svg(size, <><path d="M12 3v18M3 12h18" /><path d="m9 6 3-3 3 3M9 18l3 3 3-3M6 9l-3 3 3 3M18 9l3 3-3 3" /></>);
+export const IconDownload = ({ size = 22 }: P) => svg(size, <><path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5" /><path d="M5 19h14" /></>);
+export const IconCheck = ({ size = 22 }: P) => svg(size, <path d="m5 12.5 4.5 4.5L19 7.5" />);

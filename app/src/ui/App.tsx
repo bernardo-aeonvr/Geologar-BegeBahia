@@ -4,6 +4,7 @@ import { detectViewMode, type ViewMode } from "../app/deviceMode";
 import { appConfig } from "../config/appConfig";
 import { useStore } from "../lib/store";
 import { DebugPanel } from "./DebugPanel";
+import { OfflineButton } from "./DownloadStatus";
 import { ErrorPanel } from "./ErrorPanel";
 import { PopupLayer } from "./PopupLayer";
 import { StartScreen } from "./StartScreen";
@@ -92,6 +93,7 @@ export function App() {
           errorMessage={boot.status === "error" ? boot.message : undefined}
           onStart={start}
           onRetry={() => setAttempt((n) => n + 1)}
+          footer={boot.status === "ready" ? <OfflineButton app={boot.app} /> : undefined}
         />
       )}
       {boot.status === "ready" && <DebugPanel app={boot.app} initiallyOpen={appConfig.debug} />}

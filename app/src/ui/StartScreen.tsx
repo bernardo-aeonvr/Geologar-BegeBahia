@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { IconDrag, IconPlay } from "./Icons";
 
 interface Props {
@@ -7,13 +8,15 @@ interface Props {
   errorMessage?: string;
   onStart(): void;
   onRetry(): void;
+  /** Rodapé discreto (botão de download para uso offline). */
+  footer?: ReactNode;
 }
 
 /**
  * Tela inicial. O clique/toque em "Iniciar experiência" é o gesto que libera o áudio
  * (política de autoplay dos navegadores) — depois dele, as narrações seguem sozinhas.
  */
-export function StartScreen({ status, vr = false, errorMessage, onStart, onRetry }: Props) {
+export function StartScreen({ status, vr = false, errorMessage, onStart, onRetry, footer }: Props) {
   return (
     <div className="start" role="dialog" aria-labelledby="start-title">
       <div className="start__inner">
@@ -44,6 +47,7 @@ export function StartScreen({ status, vr = false, errorMessage, onStart, onRetry
           <li>🎧 Melhor com fones de ouvido</li>
         </ul>
       </div>
+      {footer}
     </div>
   );
 }
