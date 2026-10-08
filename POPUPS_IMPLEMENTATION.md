@@ -126,7 +126,7 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 | Bege × Travertino | 32° | 13° | 42° | Acima das casas à direita; a estrada fica livre no centro e o caminhão à esquerda |
 | Calcrete × Bege (reservado) | 32° | 15° | 42° | Céu à direita, oposto às fotomicrografias |
 | Fotomicrografias | −32° | 15° | 44° | Céu à esquerda; a cava da pedreira fica livre (mais largo para os detalhes) |
-| Animação do corte | −14° | −11° | 48° | **No chão da pedreira, em primeiro plano**, como um bloco sendo cortado, à esquerda do operador real e ao lado dos blocos de verdade (pedido do cliente) |
+| Animação do corte | −32° | −11° | 48° | **No chão da pedreira, em primeiro plano**, como um bloco sendo cortado, à esquerda, sem tampar o operador que corta o bloco real ao fundo (+5° a +15°) (pedido do cliente) |
 | Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Céu à esquerda, logo depois da animação |
 | Aplicações | 30° | 14° | 42° | Céu à direita da vista final |
 | (já existentes) Fissuras, Água, Politrizes, Produtos | −42° a 36° | 8–16° | 42° | Ver `app/src/tour/popups.ts` |
