@@ -180,6 +180,7 @@ export function createHarness(tour: TourDefinition, opts: { loopMinNarrationRema
   const audio = new FakeAudio();
   const store = createTourStore();
   const scheduled: { fn: () => void; ms: number }[] = [];
+  const ticks: (() => void)[] = [];
   const logs: { event: string; data?: Record<string, unknown> }[] = [];
   const base = createLogger("test");
   const log = {
@@ -202,9 +203,17 @@ export function createHarness(tour: TourDefinition, opts: { loopMinNarrationRema
       scheduled.push({ fn, ms });
       return () => {};
     },
-    interval: () => () => {},
+    interval: (fn) => {
+      ticks.push(fn);
+      return () => {
+        const i = ticks.indexOf(fn);
+        if (i >= 0) ticks.splice(i, 1);
+      };
+    },
   });
-  return { engine, narration, video, viewer, preloader, audio, store, scheduled, logs };
+  /** Executa os relógios periódicos ativos (ex.: avaliação dos pop-ups pelo tempo da narração). */
+  const tick = () => ticks.slice().forEach((fn) => fn());
+  return { engine, narration, video, viewer, preloader, audio, store, scheduled, logs, tick };
 }
 
 /** Deixa promessas pendentes do motor se resolverem. */

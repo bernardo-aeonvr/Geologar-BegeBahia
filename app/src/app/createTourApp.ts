@@ -75,17 +75,39 @@ export async function createTourApp(container: HTMLElement) {
       log: createLogger("tour"),
     });
 
-    // Pop-ups espaciais: a store diz QUAIS overlays estão ativos (cues do motor); o renderer
-    // desenha, presos ao panorama, os que têm `anchor`. Texturas da cena atual + próxima pré-carregadas.
-    const spatialSpecs = (sceneId: string | null, onlyIds?: string[]): SpatialOverlaySpec[] => {
+    // Pop-ups espaciais: o motor decide QUAIS estão ativos e QUAL slide (store, a partir do tempo
+    // da narração); o renderer desenha os que têm `anchor`. Mídias da cena atual + próxima são
+    // pré-carregadas (inclusive todas as imagens das sequências). Asset ausente no manifest → null
+    // (o pop-up não aparece; nada de placeholder).
+    const mediaUrl = (id: string | undefined): string | null => (id && resolver.has(id) ? resolver.url(id) : null);
+    const spatialSpecs = (sceneId: string | null, onlyIds?: string[], slides: Record<string, number> = {}): SpatialOverlaySpec[] => {
       const scene = sceneId ? tour.scenes.find((s) => s.id === sceneId) : undefined;
       if (!scene) return [];
-      return scene.overlays
-        .filter((o) => o.anchor && o.src && (!onlyIds || onlyIds.includes(o.id)))
-        .map((o) => ({ id: o.id, url: resolver.url(o.src!), ...o.anchor! }));
+      const specs: SpatialOverlaySpec[] = [];
+      for (const o of scene.overlays) {
+        if (!o.anchor || (onlyIds && !onlyIds.includes(o.id))) continue;
+        const slideSrc = o.slides ? o.slides[slides[o.id] ?? 0]?.src : o.src;
+        const videoUrl = o.kind === "video" ? mediaUrl(o.src) : null;
+        if (o.kind === "video" && !videoUrl) continue; // vídeo ausente: não exibe
+        specs.push({
+          id: o.id,
+          url: o.kind === "video" ? null : mediaUrl(slideSrc),
+          preloadUrls: (o.slides ? o.slides.map((s) => s.src) : o.kind === "video" ? [] : [o.src]).map(mediaUrl).filter((u): u is string => !!u),
+          ...(videoUrl ? { video: { url: videoUrl, start: o.videoStart ?? 0, ...(o.chromaKey ? { chromaKey: o.chromaKey } : {}) } } : {}),
+          ...o.anchor,
+          ...(o.crop ? { crop: o.crop } : {}),
+        });
+      }
+      return specs;
     };
+    renderer.spatial.setClock(() => {
+      const s = store.get();
+      const started = s.narration !== "idle" && s.narration !== "loading" && s.narration !== "none";
+      return { narrationTime: started ? narration.currentTime : null, running: s.phase === "playing" };
+    });
     let lastScene: string | null = null;
     let lastActive: string[] | null = null;
+    let lastSlides: Record<string, number> | null = null;
     unsubscribeSpatial = store.subscribe(() => {
       const s = store.get();
       if (s.sceneId !== lastScene) {
@@ -93,9 +115,10 @@ export async function createTourApp(container: HTMLElement) {
         const next = tour.scenes.find((x) => x.id === s.sceneId)?.next ?? null;
         renderer.spatial.preload([...spatialSpecs(s.sceneId), ...spatialSpecs(next)]);
       }
-      if (s.activeOverlays !== lastActive) {
+      if (s.activeOverlays !== lastActive || s.overlaySlides !== lastSlides) {
         lastActive = s.activeOverlays;
-        renderer.spatial.setActive(spatialSpecs(s.sceneId, s.activeOverlays));
+        lastSlides = s.overlaySlides;
+        renderer.spatial.setActive(spatialSpecs(s.sceneId, s.activeOverlays, s.overlaySlides));
       }
     });
 

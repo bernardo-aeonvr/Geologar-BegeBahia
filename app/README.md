@@ -36,8 +36,8 @@ Parâmetros de URL úteis:
 | enquadramento inicial (`initialView` yaw/pitch/fov) | `src/tour/scenes.ts` |
 | volume do ambiente (`ambientVolume`), loop, clips obrigatórios | `src/tour/scenes.ts` |
 | sincronização narração × vídeo (`sync.narrationStartAt`) | `src/tour/scenes.ts` |
-| pop-ups temporizados (`cues` + `overlays`), hotspots, créditos | `src/tour/scenes.ts` |
-| posição de um pop-up no ambiente 360 (`anchor`: yaw, pitch, largura em graus) | `src/tour/scenes.ts` |
+| **pop-ups**: imagem, tempos, posição, escala, sequências (slides), vídeos | `src/tour/popups.ts` (ver `POPUPS_IMPLEMENTATION.md` no repositório completo) |
+| hotspots, créditos | `src/tour/scenes.ts` |
 | fades, origem da mídia, limites de FOV | `src/config/appConfig.ts` |
 | arquivo fonte de cada id de mídia | `media-sources.json` |
 | qualidade/resolução dos perfis | `scripts/build-media.mjs` (`PROFILES`) |

@@ -75,9 +75,36 @@ export interface Cue {
 }
 
 /** Conteúdo exibível (pop-up, imagem comparativa, animação, créditos…). */
+/** Um slide de uma sequência: imagem exibida enquanto a narração está em [from, to). */
+export interface OverlaySlide {
+  src: string;
+  from: number;
+  /** Omitido = até o fim da janela do overlay. */
+  to?: number;
+}
+
+/** Recorte normalizado (0–1, a partir do canto superior esquerdo) da imagem exibida. */
+export interface OverlayCrop {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
 export interface Overlay {
   id: string;
   kind: "image" | "video" | "text" | "html";
+  /**
+   * Sequência (slideshow) no MESMO painel: o slide visível é decidido pelo tempo da narração
+   * (determinístico: pausa, seek e reinício mostram sempre o slide certo). Substitui `src`.
+   */
+  slides?: OverlaySlide[];
+  /** Vídeo sincronizado: instante da narração (s) que corresponde ao início do vídeo. */
+  videoStart?: number;
+  /** Vídeo com fundo de chroma key (ex.: "#00ff00"): a cor-chave vira transparente. */
+  chromaKey?: string;
+  /** Mostra só esta região da imagem (ex.: cortar faixas de exportação), sem deformar. */
+  crop?: OverlayCrop;
   /** id lógico de mídia (image/video) — resolvido pelo MediaResolver. */
   src?: string;
   title?: string;

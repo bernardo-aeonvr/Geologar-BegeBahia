@@ -18,7 +18,7 @@ import type { Logger } from "../lib/log";
 import type { TourAction, TourDefinition, TourScene, VideoSceneMedia } from "../types/tour";
 import type { AudioPort, NarrationPort, PreloaderPort, TextureHandle, VideoPort, ViewerPort } from "./ports";
 import {
-  activeCueOverlays,
+  evaluateOverlays,
   createVideoRuntime,
   decideOnClipEnded,
   decideOnNarrationEnded,
@@ -299,7 +299,7 @@ export class TourEngine {
     this.d.log.info("scene:leave→enter", { to: targetId, reason, token });
 
     this.d.narration.stop();
-    this.d.store.set({ phase: "transitioning", token, error: null, activeOverlays: [] });
+    this.d.store.set({ phase: "transitioning", token, error: null, activeOverlays: [], overlaySlides: {} });
 
     let shown = false;
     try {
@@ -605,10 +605,10 @@ export class TourEngine {
     if (rt.scene.onEnd === "credits" && credits.overlays.length > 0) {
       this.d.store.set({ phase: "credits", activeOverlays: credits.overlays.map((o) => o.id) });
       this.schedule(() => {
-        if (token === this.token) this.d.store.set({ phase: "finished", activeOverlays: [] });
+        if (token === this.token) this.d.store.set({ phase: "finished", activeOverlays: [], overlaySlides: {} });
       }, credits.displaySeconds * 1000);
     } else {
-      this.d.store.set({ phase: "finished", activeOverlays: [] });
+      this.d.store.set({ phase: "finished", activeOverlays: [], overlaySlides: {} });
     }
   }
 
@@ -660,20 +660,31 @@ export class TourEngine {
 
   // ───────────────────────────── Cues ─────────────────────────────
 
+  /**
+   * Relógio dos pop-ups: lê o tempo REAL da narração (e do clip) e decide overlays ativos e
+   * slide de cada sequência. Sem timers de sequência: pausa, seek, volta e reinício da narração
+   * mostram sempre o estado correto. A store só muda quando algo muda.
+   */
   private startCues(rt: SceneRuntime) {
     this.stopCues?.();
     this.stopCues = null;
     if (rt.scene.cues.length === 0) return;
-    this.stopCues = this.interval(() => {
+    const tick = () => {
       if (this.rt !== rt) return;
-      const active = activeCueOverlays(rt.scene.cues, {
+      const { active, slides } = evaluateOverlays(rt.scene.cues, rt.scene.overlays, {
         narration: rt.narrationStarted ? this.d.narration.currentTime : null,
         clip: rt.video ? this.d.video.currentTime : null,
         clipIndex: rt.video?.clipIndex ?? null,
       });
-      const prev = this.d.store.get().activeOverlays;
-      if (active.length !== prev.length || active.some((a, i) => a !== prev[i])) this.d.store.set({ activeOverlays: active });
-    }, 250);
+      const s = this.d.store.get();
+      const sameActive = active.length === s.activeOverlays.length && active.every((a, i) => a === s.activeOverlays[i]);
+      const keys = Object.keys(slides);
+      const sameSlides =
+        keys.length === Object.keys(s.overlaySlides).length && keys.every((k) => slides[k] === s.overlaySlides[k]);
+      if (!sameActive || !sameSlides) this.d.store.set({ activeOverlays: active, overlaySlides: slides });
+    };
+    tick();
+    this.stopCues = this.interval(tick, 100);
   }
 
   // ───────────────────────────── Estado / erros ─────────────────────────────

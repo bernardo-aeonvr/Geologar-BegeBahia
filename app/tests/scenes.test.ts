@@ -7,7 +7,12 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { tour } from "../src/tour/scenes";
+import { popupMediaIds } from "../src/tour/popups";
 import { isVideo } from "../src/tour/sceneRules";
+
+/** Assets de pop-up ainda não entregues (marcados `pending` em popups.ts; ver MISSING_POPUPS.md). */
+const PENDING = new Set(popupMediaIds().filter((m) => m.pending).map((m) => m.id));
+const overlayMedia = (o: { src?: string; slides?: { src: string }[] }) => [...(o.src ? [o.src] : []), ...(o.slides ?? []).map((x) => x.src)];
 
 const MEDIA_DIR = join(__dirname, "..", "public", "media");
 const manifestPath = join(MEDIA_DIR, "manifest.json");
@@ -20,7 +25,7 @@ function mediaIds() {
     if (media.type === "video") media.clips.forEach((c) => ids.push(c.src));
     else ids.push(media.src);
     if (s.narration) ids.push(s.narration);
-    for (const o of s.overlays) if (o.src) ids.push(o.src);
+    for (const o of s.overlays) for (const id of overlayMedia(o)) if (!PENDING.has(id)) ids.push(id);
   }
   return ids;
 }
@@ -104,9 +109,9 @@ describe.skipIf(!manifest)("manifest de mídia", () => {
   it("pop-ups: cada cue aponta para um overlay da cena, com mídia no manifest e tempos dentro da narração", () => {
     for (const s of tour.scenes) {
       const ids = new Set(s.overlays.map((o) => o.id));
-      for (const o of s.overlays) {
-        if (o.src) expect(manifest.assets[o.src], `${s.id}: overlay ${o.id} sem mídia "${o.src}"`).toBeTruthy();
-      }
+      for (const o of s.overlays)
+        for (const id of overlayMedia(o))
+          if (!PENDING.has(id)) expect(manifest.assets[id], `${s.id}: overlay ${o.id} sem mídia "${id}"`).toBeTruthy();
       const narration = s.narration ? manifest.assets[s.narration]?.variants?.web?.duration : undefined;
       for (const c of s.cues) {
         if (c.action.type === "showOverlay") expect(ids.has(c.action.overlayId), `${s.id}: cue ${c.id} → overlay inexistente`).toBe(true);

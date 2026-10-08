@@ -47,6 +47,8 @@ export interface TourState {
   error: TourError | null;
   preload: { sceneId: string | null; status: "idle" | "loading" | "ready" | "error" };
   activeOverlays: string[];
+  /** Slide visível de cada overlay em sequência (derivado do tempo da narração). */
+  overlaySlides: Record<string, number>;
 }
 
 export const initialTourState: TourState = {
@@ -66,6 +68,7 @@ export const initialTourState: TourState = {
   error: null,
   preload: { sceneId: null, status: "idle" },
   activeOverlays: [],
+  overlaySlides: {},
 };
 
 export function createTourStore() {

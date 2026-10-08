@@ -7,7 +7,7 @@
  * Imagem:  narração acabou → avança.
  * Vídeo:   narração acabou ∧ clips obrigatórios exibidos inteiros ∧ ponto natural de saída → avança.
  */
-import type { Cue, TourScene, VideoSceneMedia } from "../types/tour";
+import type { Cue, Overlay, OverlaySlide, TourScene, VideoSceneMedia } from "../types/tour";
 
 export interface VideoRuntime {
   /** Clip em reprodução (ou o último exibido). */
@@ -102,18 +102,58 @@ export function decideOnClipEnded(scene: TourScene, rt: SceneRuntimeView, cfg: R
   return { type: "playClip", index: 0, cycle: video.videoCycle + 1 };
 }
 
-/** Overlays ativos pelos cues da cena, dado o tempo atual das linhas do tempo. */
-export function activeCueOverlays(
-  cues: Cue[],
-  times: { narration: number | null; clip: number | null; clipIndex: number | null },
-): string[] {
+/** Tempos atuais das linhas do tempo da cena (null = linha ainda não começou). */
+export interface CueTimes {
+  narration: number | null;
+  clip: number | null;
+  clipIndex: number | null;
+}
+
+export interface OverlayEvaluation {
+  /** Overlays visíveis agora, na ordem dos cues. */
+  active: string[];
+  /** Para overlays com `slides`: índice do slide visível. */
+  slides: Record<string, number>;
+}
+
+function cueTime(timeline: Cue["timeline"], times: CueTimes): number | null {
+  return timeline === "narration" ? times.narration : times.clipIndex === timeline.clip ? times.clip : null;
+}
+
+/**
+ * Slide visível de uma sequência no instante `t` (mesma linha do tempo dos slides):
+ * o último slide cujo `from` ≤ t e (sem `to` ou t < `to`). −1 = nenhum (entre/antes dos slides).
+ * Determinístico: depende só de `t` — pausa, seek para frente/trás e reinício funcionam sozinhos.
+ */
+export function slideIndexAt(slides: OverlaySlide[], t: number): number {
+  for (let i = slides.length - 1; i >= 0; i--) {
+    const s = slides[i];
+    if (t >= s.from) return s.to === undefined || t < s.to ? i : -1;
+  }
+  return -1;
+}
+
+/** Avalia cues + sequências da cena para os tempos atuais. */
+export function evaluateOverlays(cues: Cue[], overlays: Overlay[], times: CueTimes): OverlayEvaluation {
   const active: string[] = [];
+  const slides: Record<string, number> = {};
   for (const cue of cues) {
     if (cue.action.type !== "showOverlay") continue;
-    const t =
-      cue.timeline === "narration" ? times.narration : times.clipIndex === cue.timeline.clip ? times.clip : null;
-    if (t === null) continue;
-    if (t >= cue.from && (cue.to === undefined || t < cue.to)) active.push(cue.action.overlayId);
+    const t = cueTime(cue.timeline, times);
+    if (t === null || t < cue.from || (cue.to !== undefined && t >= cue.to)) continue;
+    const id = cue.action.overlayId;
+    const ov = overlays.find((o) => o.id === id);
+    if (ov?.slides) {
+      const i = slideIndexAt(ov.slides, t);
+      if (i < 0) continue;
+      slides[id] = i;
+    }
+    if (!active.includes(id)) active.push(id);
   }
-  return active;
+  return { active, slides };
+}
+
+/** Overlays ativos pelos cues da cena (sem informação de slide). */
+export function activeCueOverlays(cues: Cue[], times: CueTimes): string[] {
+  return evaluateOverlays(cues, [], times).active;
 }
