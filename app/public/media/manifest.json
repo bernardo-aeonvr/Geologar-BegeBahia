@@ -403,6 +403,8 @@
           "bytes": 1161938,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "78cc6b389ac7"
         },
         "high": {
@@ -410,6 +412,8 @@
           "bytes": 2460650,
           "width": 6528,
           "height": 3264,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "887e9f38ec7d"
         },
         "mobile": {
@@ -417,6 +421,8 @@
           "bytes": 1161938,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "78cc6b389ac7"
         }
       }
@@ -431,6 +437,8 @@
           "bytes": 967213,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "91613ca33ee9"
         },
         "high": {
@@ -438,6 +446,8 @@
           "bytes": 2169414,
           "width": 6528,
           "height": 3264,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "67379e0c5bd9"
         },
         "mobile": {
@@ -445,6 +455,8 @@
           "bytes": 967213,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "91613ca33ee9"
         }
       }
@@ -459,6 +471,8 @@
           "bytes": 1048653,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "179f48cbb2bc"
         },
         "high": {
@@ -466,6 +480,8 @@
           "bytes": 2319728,
           "width": 6528,
           "height": 3264,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "fdf557836ed3"
         },
         "mobile": {
@@ -473,6 +489,8 @@
           "bytes": 1048653,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "179f48cbb2bc"
         }
       }
@@ -487,6 +505,8 @@
           "bytes": 795878,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "6a7de4ff4647"
         },
         "high": {
@@ -494,6 +514,8 @@
           "bytes": 1913126,
           "width": 6528,
           "height": 3264,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "3ea62d0dfc1e"
         },
         "mobile": {
@@ -501,6 +523,8 @@
           "bytes": 795878,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "6a7de4ff4647"
         }
       }
@@ -515,6 +539,8 @@
           "bytes": 1231379,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "332b5dc63fd0"
         },
         "high": {
@@ -522,6 +548,8 @@
           "bytes": 2584479,
           "width": 6528,
           "height": 3264,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "05f577611cb8"
         },
         "mobile": {
@@ -529,6 +557,8 @@
           "bytes": 1231379,
           "width": 4096,
           "height": 2048,
+          "duration": 0.04,
+          "hasAudio": false,
           "settingsHash": "332b5dc63fd0"
         }
       }
@@ -1047,21 +1077,21 @@
       "variants": {
         "web": {
           "file": "video/e3-p1-1.4096.mp4",
-          "bytes": 50756194,
+          "bytes": 49419997,
           "width": 4096,
           "height": 2048,
-          "duration": 26.16,
+          "duration": 24.28,
           "hasAudio": true,
-          "settingsHash": "d8889bdce3e2"
+          "settingsHash": "22ab1d9bdc71"
         },
         "mobile": {
           "file": "video/e3-p1-1.2880.mp4",
-          "bytes": 25408312,
+          "bytes": 24801660,
           "width": 2880,
           "height": 1440,
-          "duration": 26.16,
+          "duration": 24.28,
           "hasAudio": true,
-          "settingsHash": "4c2d99cb20f9"
+          "settingsHash": "5eabdf148802"
         }
       }
     },
@@ -1072,21 +1102,21 @@
       "variants": {
         "web": {
           "file": "video/e3-p1-2.4096.mp4",
-          "bytes": 14229988,
+          "bytes": 12163728,
           "width": 4096,
           "height": 2048,
-          "duration": 7.84,
+          "duration": 5.96,
           "hasAudio": true,
-          "settingsHash": "6f622f8c40cd"
+          "settingsHash": "782d4cdfaca7"
         },
         "mobile": {
           "file": "video/e3-p1-2.2880.mp4",
-          "bytes": 6824737,
+          "bytes": 5945451,
           "width": 2880,
           "height": 1440,
-          "duration": 7.84,
+          "duration": 5.96,
           "hasAudio": true,
-          "settingsHash": "1e11d5d47944"
+          "settingsHash": "537eeada8b42"
         }
       }
     },
@@ -1097,21 +1127,21 @@
       "variants": {
         "web": {
           "file": "video/e3-p2.4096.mp4",
-          "bytes": 38703039,
+          "bytes": 37109261,
           "width": 4096,
           "height": 2048,
-          "duration": 20,
+          "duration": 18.12,
           "hasAudio": true,
-          "settingsHash": "b1a19c858e6b"
+          "settingsHash": "f062422af2fb"
         },
         "mobile": {
           "file": "video/e3-p2.2880.mp4",
-          "bytes": 19245934,
+          "bytes": 18583617,
           "width": 2880,
           "height": 1440,
-          "duration": 20,
+          "duration": 18.12,
           "hasAudio": true,
-          "settingsHash": "e9acedde65f0"
+          "settingsHash": "06bf74b6bf54"
         }
       }
     },
@@ -1122,21 +1152,21 @@
       "variants": {
         "web": {
           "file": "video/e3-p3.4096.mp4",
-          "bytes": 44168057,
+          "bytes": 42846970,
           "width": 4096,
           "height": 2048,
-          "duration": 23,
+          "duration": 21.16,
           "hasAudio": true,
-          "settingsHash": "5097000a9036"
+          "settingsHash": "813d22c278c4"
         },
         "mobile": {
           "file": "video/e3-p3.2880.mp4",
-          "bytes": 21992930,
+          "bytes": 21458271,
           "width": 2880,
           "height": 1440,
-          "duration": 23,
+          "duration": 21.16,
           "hasAudio": true,
-          "settingsHash": "ce533892a3f7"
+          "settingsHash": "e630fc2f6571"
         }
       }
     },
@@ -1147,21 +1177,21 @@
       "variants": {
         "web": {
           "file": "video/e3-p4.4096.mp4",
-          "bytes": 43912762,
+          "bytes": 42282739,
           "width": 4096,
           "height": 2048,
-          "duration": 23.16,
+          "duration": 21.32,
           "hasAudio": true,
-          "settingsHash": "d83036000192"
+          "settingsHash": "3a1f0f565b39"
         },
         "mobile": {
           "file": "video/e3-p4.2880.mp4",
-          "bytes": 19272927,
+          "bytes": 18671342,
           "width": 2880,
           "height": 1440,
-          "duration": 23.16,
+          "duration": 21.32,
           "hasAudio": true,
-          "settingsHash": "4e957cb72f35"
+          "settingsHash": "21bc3026c960"
         }
       }
     },
@@ -1172,21 +1202,21 @@
       "variants": {
         "web": {
           "file": "video/e3-p5.4096.mp4",
-          "bytes": 22320649,
+          "bytes": 21361719,
           "width": 4096,
           "height": 2048,
-          "duration": 12.84,
+          "duration": 11,
           "hasAudio": true,
-          "settingsHash": "df639ef7a78d"
+          "settingsHash": "314043b3486f"
         },
         "mobile": {
           "file": "video/e3-p5.2880.mp4",
-          "bytes": 8557459,
+          "bytes": 8317780,
           "width": 2880,
           "height": 1440,
-          "duration": 12.84,
+          "duration": 11,
           "hasAudio": true,
-          "settingsHash": "5cd11e04878c"
+          "settingsHash": "2fcdc088bb33"
         }
       }
     },
@@ -1197,21 +1227,21 @@
       "variants": {
         "web": {
           "file": "video/e3-p6.4096.mp4",
-          "bytes": 44601690,
+          "bytes": 43729817,
           "width": 4096,
           "height": 2048,
-          "duration": 24.4,
+          "duration": 22.56,
           "hasAudio": true,
-          "settingsHash": "5d53bbe304f1"
+          "settingsHash": "f7f26e8931de"
         },
         "mobile": {
           "file": "video/e3-p6.2880.mp4",
-          "bytes": 22257886,
+          "bytes": 21888800,
           "width": 2880,
           "height": 1440,
-          "duration": 24.4,
+          "duration": 22.56,
           "hasAudio": true,
-          "settingsHash": "c38ceaff2099"
+          "settingsHash": "03ce54b915e7"
         }
       }
     },
@@ -1222,26 +1252,26 @@
       "variants": {
         "web": {
           "file": "video/e4-p1.4096.mp4",
-          "bytes": 57157072,
+          "bytes": 55560197,
           "width": 4096,
           "height": 2048,
-          "duration": 29.6,
+          "duration": 27.76,
           "hasAudio": true,
-          "settingsHash": "171e933c15b2"
+          "settingsHash": "6d88270bf586"
         },
         "mobile": {
           "file": "video/e4-p1.2880.mp4",
-          "bytes": 28340026,
+          "bytes": 27582215,
           "width": 2880,
           "height": 1440,
-          "duration": 29.6,
+          "duration": 27.76,
           "hasAudio": true,
-          "settingsHash": "1a173efbb94d"
+          "settingsHash": "fefffb51f2e8"
         }
       }
     }
   },
-  "generatedAt": "2026-10-08T15:11:16.399Z",
+  "generatedAt": "2026-10-08T15:59:26.524Z",
   "profiles": {
     "image": [
       "web",

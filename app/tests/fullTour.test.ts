@@ -17,9 +17,10 @@ const NARRATION: Record<string, number> = {
   "audio/e5-p1": 43.494,
 };
 const VIDEO: Record<string, number> = {
-  "media/video/e2-p2.mp4": 42.6, "media/video/e3-p1-1.mp4": 26.16, "media/video/e3-p1-2.mp4": 7.84,
-  "media/video/e3-p2.mp4": 20.0, "media/video/e3-p3.mp4": 23.0, "media/video/e3-p4.mp4": 23.16,
-  "media/video/e3-p5.mp4": 12.84, "media/video/e3-p6.mp4": 24.4, "media/video/e4-p1.mp4": 29.6,
+  // Variantes geradas, já sem o fade para preto embutido no fim (outPoint em media-sources.json).
+  "media/video/e2-p2.mp4": 42.6, "media/video/e3-p1-1.mp4": 24.28, "media/video/e3-p1-2.mp4": 5.96,
+  "media/video/e3-p2.mp4": 18.12, "media/video/e3-p3.mp4": 21.16, "media/video/e3-p4.mp4": 21.32,
+  "media/video/e3-p5.mp4": 11.0, "media/video/e3-p6.mp4": 22.56, "media/video/e4-p1.mp4": 27.76,
 };
 
 interface SceneLog {
@@ -100,21 +101,21 @@ describe("Tour completo (13 cenas, automático)", () => {
     expect(r(byId["intro"].seconds)).toBe(39.97);
     // e2-p2: configurada para avançar no fim da narração (14,68 s), sem esperar o vídeo de 42,6 s.
     expect(r(byId["e2-p2"].seconds)).toBe(14.68);
-    // Caso C (D1): 1-1 + 1-2 inteiros, nessa ordem, apesar da narração de 22 s.
-    expect(byId["e3-p1"].clips).toEqual(["e3-p1-1", "e3-p1-2"]);
-    expect(r(byId["e3-p1"].seconds)).toBe(34);
+    // Caso C (D1): 1-2 (caminhão) + 1-1 (ponte rolante → tear) inteiros, nessa ordem, apesar da narração de 22 s.
+    expect(byId["e3-p1"].clips).toEqual(["e3-p1-2", "e3-p1-1"]);
+    expect(r(byId["e3-p1"].seconds)).toBe(30.24);
     // Caso A (D2): loops até a narração acabar + término do ciclo atual.
     expect(byId["e3-p3"]).toMatchObject({ cycles: 1 });
-    expect(r(byId["e3-p3"].seconds)).toBe(46); // 2 × 23,0
-    expect(r(byId["e3-p4"].seconds)).toBe(46.32); // 2 × 23,16
-    expect(r(byId["e3-p5"].seconds)).toBe(25.68); // 2 × 12,84
-    expect(r(byId["e3-p6"].seconds)).toBe(48.8); // 2 × 24,4
-    // A3: faltam 0,18 s de narração → não faz ciclo extra; termina com a narração.
+    expect(r(byId["e3-p3"].seconds)).toBe(42.32); // 2 × 21,16
+    expect(r(byId["e3-p4"].seconds)).toBe(42.64); // 2 × 21,32
+    expect(r(byId["e3-p5"].seconds)).toBe(22); // 2 × 11,0
+    expect(r(byId["e3-p6"].seconds)).toBe(45.12); // 2 × 22,56
+    // A3: faltam ~2 s de narração (< loopMinNarrationRemaining 3 da cena) → segura o último quadro; termina com a narração.
     expect(byId["e4-p1"].cycles).toBe(0);
     expect(r(byId["e4-p1"].seconds)).toBe(29.78);
 
-    // Duração total do tour (sem os fades): ~7 min 50 s.
+    // Duração total do tour (sem os fades): ~7 min 30 s.
     const total = logs.reduce((a, l) => a + l.seconds, 0);
-    expect(total).toBeCloseTo(470.45, 1);
+    expect(total).toBeCloseTo(450.09, 1);
   });
 });

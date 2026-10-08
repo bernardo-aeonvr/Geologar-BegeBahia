@@ -4,7 +4,6 @@ import { detectViewMode, type ViewMode } from "../app/deviceMode";
 import { appConfig } from "../config/appConfig";
 import { useStore } from "../lib/store";
 import { DebugPanel } from "./DebugPanel";
-import { EndScreen } from "./EndScreen";
 import { ErrorPanel } from "./ErrorPanel";
 import { PopupLayer } from "./PopupLayer";
 import { StartScreen } from "./StartScreen";
@@ -48,9 +47,9 @@ export function App() {
   }, []);
 
   /**
-   * "Iniciar": headset → entra direto em VR imersivo; celular/PC → panorama na tela.
-   * Tudo aqui roda DENTRO do gesto (desbloqueio de áudio e pedido da sessão VR).
-   * Se o VR falhar ou for recusado, o tour segue normalmente na tela.
+   * "Iniciar": headset → entra direto em VR imersivo; celular/PC → panorama em tela cheia.
+   * Tudo aqui roda DENTRO do gesto (pedido da sessão VR, desbloqueio de áudio, tela cheia).
+   * Se o VR ou a tela cheia falharem ou forem recusados, o tour segue normalmente na janela.
    */
   const start = useCallback(() => {
     if (boot.status !== "ready") return;
@@ -62,9 +61,25 @@ export function App() {
         .catch((e: unknown) => console.warn("[app] VR indisponível, seguindo na tela", e));
     }
     app.unlockAudio();
+    // A tela cheia consome a ativação do gesto, por isso vem depois do desbloqueio de áudio.
+    if (viewMode !== "vr") requestFullscreen();
     setStarted(true);
     void app.engine.start();
   }, [boot, viewMode]);
+
+  // Fim do tour (D10, revisada): volta direto ao menu inicial, com a primeira vista ao fundo.
+  useEffect(() => {
+    if (boot.status !== "ready" || !started) return;
+    const { app } = boot;
+    let leaving = false;
+    const check = () => {
+      if (leaving || app.store.get().phase !== "finished") return;
+      leaving = true;
+      void app.returnToStart().then(() => setStarted(false));
+    };
+    check();
+    return app.store.subscribe(check);
+  }, [boot, started]);
 
   return (
     <div className="stage">
@@ -91,7 +106,18 @@ function Running({ app, xrAvailable }: { app: TourApp; xrAvailable: boolean }) {
       <PopupLayer app={app} />
       {phase !== "finished" && phase !== "credits" && <TourHud app={app} xrAvailable={xrAvailable} />}
       <ErrorPanel app={app} />
-      <EndScreen app={app} />
     </>
   );
+}
+
+/** Pede tela cheia do documento (com prefixo do Safari). Falha silenciosa: o tour segue na janela. */
+function requestFullscreen() {
+  const el = document.documentElement as HTMLElement & { webkitRequestFullscreen?: () => void };
+  if (document.fullscreenElement) return;
+  try {
+    if (el.requestFullscreen) void el.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+    else el.webkitRequestFullscreen?.();
+  } catch {
+    /* sem suporte */
+  }
 }

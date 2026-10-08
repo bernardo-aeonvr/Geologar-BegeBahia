@@ -243,6 +243,33 @@ describe("TourEngine", () => {
     expect(h.narration.url).toBe("blob:audio/a");
   });
 
+  it("fim do tour → volta ao estado inicial (menu) e um novo início funciona", async () => {
+    const h = createHarness(tourOf([img("a", "b"), img("b", null)]));
+    await h.engine.start();
+    await flush();
+    h.narration.end();
+    await flush();
+    h.narration.end();
+    await flush();
+    expect(h.store.get().phase).toBe("finished");
+
+    h.engine.toggleMute();
+    h.engine.resetToIdle();
+    let s = h.store.get();
+    expect(s.phase).toBe("idle");
+    expect(s.sceneId).toBeNull();
+    expect(s.activeOverlays).toEqual([]);
+    expect(s.muted).toBe(true);
+    expect(h.preloader.cleared).toBe(1);
+
+    await h.engine.start();
+    await flush();
+    s = h.store.get();
+    expect(s.sceneId).toBe("a");
+    expect(s.phase).toBe("playing");
+    expect(h.narration.url).toBe("blob:audio/a");
+  });
+
   it("não reinicia sozinho na última cena e não navega para cena inexistente", async () => {
     const t = tourOf([img("a", "nao-existe")]);
     const h = createHarness(t);

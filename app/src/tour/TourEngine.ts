@@ -4,7 +4,7 @@
  *   start() → goTo(cena) → carrega panorama/vídeo → fade-in → narração (+ vídeo)
  *           → evento REAL de término (narração `ended`, clip `ended`)
  *           → sceneRules decide (avançar / esperar / próximo clip / loop / congelar)
- *           → goTo(próxima) … → créditos → conclusão
+ *           → goTo(próxima) … → créditos → fim (o app volta ao menu inicial)
  *
  * Garantias:
  *  - Nenhum timer baseado em duração de áudio: só eventos reais das mídias.
@@ -174,7 +174,18 @@ export class TourEngine {
   /** "Recomeçar": limpa estado, para áudio/vídeo, descarta mídia e volta limpo à primeira cena. */
   async restart(): Promise<void> {
     this.d.log.info("tour:restart");
+    this.resetToIdle();
+    await this.goTo(this.d.tour.firstScene, "restart");
+  }
+
+  /**
+   * Volta ao estado anterior ao "Iniciar" (fase "idle"): para áudio/vídeo, descarta mídia e
+   * limpa o estado, mantendo volume/mudo. Usado no fim do tour para voltar ao menu inicial.
+   */
+  resetToIdle(): void {
+    this.d.log.info("tour:reset");
     this.invalidateCurrentScene();
+    this.rt = null;
     this.transitioning = false;
     this.pendingTarget = null;
     this.d.narration.stop();
@@ -185,7 +196,6 @@ export class TourEngine {
     const { volume, muted } = this.d.store.get();
     this.d.store.reset();
     this.d.store.set({ volume, muted, sceneCount: this.order.length });
-    await this.goTo(this.d.tour.firstScene, "restart");
   }
 
   /** Encerra o motor (desmontagem do app). */

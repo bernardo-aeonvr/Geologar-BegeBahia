@@ -12,7 +12,7 @@ export type TourPhase =
   | "transitioning" // fade-out/troca/fade-in
   | "error" // erro que exige ação do usuário
   | "credits" // créditos da última cena
-  | "finished"; // tela de conclusão
+  | "finished"; // tour concluído (o app volta ao menu inicial)
 
 export type ErrorKind = "manifest" | "panorama" | "video" | "narration" | "narration-stalled" | "autoplay";
 

@@ -52,10 +52,11 @@ export class MusicController {
   apply(target: MusicTarget) {
     const prev = this.current;
     this.current = target;
-    window.clearTimeout(this.pauseTimer);
 
     if (!target.playing) {
+      // Já parando/parada: não mexe no timer (notificações repetidas não podem cancelar a pausa).
       if (!prev.playing) return;
+      window.clearTimeout(this.pauseTimer);
       this.channel?.set(0, STOP_FADE_MS);
       this.pauseTimer = window.setTimeout(() => {
         if (!this.current.playing) this.el.pause();
@@ -63,6 +64,7 @@ export class MusicController {
       return;
     }
 
+    window.clearTimeout(this.pauseTimer);
     const gain = dbToGain(target.ducked ? this.cfg.duckedGainDb : this.cfg.gainDb);
     const ramp = !prev.playing ? this.cfg.releaseMs : target.ducked ? this.cfg.attackMs : this.cfg.releaseMs;
     if (this.el.paused) {

@@ -95,9 +95,10 @@ function encodeImage(src, dst, p) {
   ]);
 }
 
-function encodeVideo(src, dst, p) {
+function encodeVideo(src, dst, p, outPoint) {
   // H.264 High, CRF limitado por maxrate (qualidade constante com teto de bitrate), keyframe a cada 2 s,
   // moov no início (+faststart) para streaming por HTTP Range. Mantém o áudio ambiente (D3).
+  // outPoint: a variante termina ali (a fonte não é alterada) — remove o fade para preto embutido.
   run(
     "ffmpeg",
     [
@@ -108,6 +109,7 @@ function encodeVideo(src, dst, p) {
       "-pix_fmt", "yuv420p", "-crf", String(p.crf), "-maxrate", p.maxrate, "-bufsize", p.bufsize,
       "-g", "50", "-keyint_min", "25",
       "-c:a", "aac", "-b:a", "128k", "-ac", "2",
+      ...(outPoint ? ["-t", String(outPoint)] : []),
       "-movflags", "+faststart", dst,
     ],
     { stdio: ["ignore", "inherit", "inherit"] },
@@ -125,7 +127,7 @@ function main() {
   const ids = Object.keys(SOURCES).filter((k) => !k.startsWith("$") && (ONLY.length === 0 || ONLY.includes(k)));
 
   for (const id of ids) {
-    const { kind, source } = SOURCES[id];
+    const { kind, source, outPoint } = SOURCES[id];
     const srcPath = join(REPO_ROOT, source);
     if (!existsSync(srcPath)) {
       problems.push(`${id}: fonte ausente → ${source}`);
@@ -138,7 +140,7 @@ function main() {
 
     for (const [profile, def] of Object.entries(profiles)) {
       if (def.sameAs) continue;
-      const settings = { kind, def, srcBytes };
+      const settings = { kind, def, srcBytes, ...(outPoint ? { outPoint } : {}) };
       const settingsHash = hashOf(settings);
       const name = id.split("/").pop();
       const file = `${dirname(id)}/${name}${def.suffix ? "." + def.suffix : ""}.${extOf(kind, source)}`;
@@ -160,7 +162,7 @@ function main() {
         log(`${id} [${profile}] ← ${relative(REPO_ROOT, srcPath)}`);
         if (def.copy) copyFileSync(srcPath, tmp);
         else if (kind === "image") encodeImage(srcPath, tmp, def);
-        else if (kind === "video") encodeVideo(srcPath, tmp, def);
+        else if (kind === "video") encodeVideo(srcPath, tmp, def, outPoint);
         renameSync(tmp, outPath);
         log(`  ok em ${((Date.now() - t0) / 1000).toFixed(1)} s`);
       }

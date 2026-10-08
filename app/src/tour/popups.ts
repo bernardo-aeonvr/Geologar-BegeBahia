@@ -176,7 +176,8 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       image: "popups/e3-p3-agua",
       alt: "Consumo de água por bloco: tear tradicional 200.000 litros; tear moderno 13.000 litros",
       start: 15.8,
-      position: { yaw: 36, pitch: 12, width: W },
+      // Ao lado do bloco, no vão entre ele (yaw ≈ 118°) e o tear multifio (yaw ≈ 148°).
+      position: { yaw: 133, pitch: 6, width: 28 },
     },
   ],
   "e3-p4": [

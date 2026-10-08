@@ -10,7 +10,7 @@
 
 | # | Tema | Decisão |
 |---|---|---|
-| D1 | Etapa 3 · Ponto 1 | Usar **os dois vídeos**, `1-1` → `1-2`, **inteiros**, sem cortes. A cena só avança depois que os dois terminarem, mesmo com a narração (22 s) já encerrada. |
+| D1 | Etapa 3 · Ponto 1 | Usar **os dois vídeos** inteiros, sem cortes. A cena só avança depois que os dois terminarem, mesmo com a narração (22 s) já encerrada. **Revisado (2026-10-08):** a ordem é `1-2` → `1-1`, que é a ordem da ação: primeiro o bloco desce do caminhão, depois a ponte rolante o leva até o tear. |
 | D2 | Vídeo mais curto que a narração | `loop` enquanto a narração toca. Quando a narração termina, **o ciclo atual do vídeo é concluído** e só então há o fade para a próxima cena. `hold` não é usado. |
 | D3 | Áudio ambiente dos vídeos | Mantido, **baixo por baixo da narração**, com `ambientVolume` inicial de **0,15**, configurável por cena e por clip. Vídeo sem ambiente útil (Etapa 3 · Ponto 6) fica em silêncio, sem ruído artificial. |
 | D4 | Stack | **Vite + TypeScript + React + Three.js**. O Three.js é usado diretamente, dentro de um componente React e sem R3F, para manter controle explícito de textura, `VideoTexture`, descarte, preload, renderer, WebXR e memória de GPU. |
@@ -19,7 +19,7 @@
 | D7 | Localização | App em `D:\Git\Geologar2\app\`. As pastas originais ficam intactas na raiz. |
 | D8 | Versionamento | Repositório único com raiz em `D:\Git\Geologar2`, no remoto `bernardo-aeonvr/Geologar-BegeBahia` e na branch `feature/geologar-360-web` (criada a partir de `main`). Vídeos (`*.mp4`, `*.mov`) vão no **Git LFS**. **Versionamento ≠ entrega:** o build publicado nunca depende de LFS. |
 | D9 | Deploy multi-target | GitHub Pages (agora), servidor próprio (depois) e offline no Quest (depois). Caminhos lógicos em `scenes.ts`, `mediaBaseUrl` configurável, um `manifest.json` com **perfis de mídia** e um `MediaResolver` que escolhe a variante. |
-| D10 | Final | A narração da Etapa 5 termina → créditos/logos em pop-up reduzido → tela de conclusão → **"Recomeçar"**, que limpa estado, áudio, vídeos e mídia e volta limpo à primeira cena. Sem reinício automático. |
+| D10 | Final | A narração da Etapa 5 termina → créditos/logos em pop-up reduzido (quando houver material) → **volta direto ao menu inicial**, que limpa estado, áudio, vídeos e mídia, sai do VR e mostra de novo a primeira vista ao fundo. Sem reinício automático. **Revisado (2026-10-08):** a tela de conclusão com "Recomeçar" foi removida a pedido do cliente. |
 
 ### Pontos em aberto (surgiram na execução)
 
@@ -27,6 +27,7 @@
 |---|---|---|
 | A1 | **GitHub Pages do repositório** | O Pages do repo **já está ativo** e serve o tour 3DVista antigo (build legado, a partir de `main /`). Um repositório tem **um só site Pages**, então publicar a versão nova nele **substitui o site antigo**. Mudar a origem para "GitHub Actions" exige permissão de **admin**, e a conta `BernardoHille` tem só `push`. É preciso decidir entre substituir o site atual (com o dono do repo alterando a origem do Pages) ou publicar em outro repositório/URL. O build já está pronto para qualquer uma das duas. |
 | A2 | Etapa 2 · Ponto 2 inteiro (42,6 s) — **resolvido:** a cena agora avança no fim da narração | Pela regra do caso B, o vídeo toca até o fim: 28 s além da narração. Por volta dos 40 s, **o operador aparece na frente da câmera**. |
+| A4 | Fade para preto embutido nos vídeos | Todos os vídeos da Etapa 3 e da Etapa 4 terminam com cerca de 1 s de fade para preto, seguido de ~0,8 s de preto. Isso aparecia a cada loop e na troca `1-2` → `1-1`, e os pop-ups continuavam acesos sobre a imagem preta. **Resolvido:** `outPoint` em `media-sources.json` corta esse trecho nas variantes geradas (as fontes não mudam). Com isso, o vídeo da Etapa 4 passa a ter 27,7 s × narração de 29,78 s, e `loopMinNarrationRemaining: 3` segura o último quadro por ~2 s em vez de fazer um ciclo inteiro extra. |
 | A3 | Loop por fração de segundo | Na Etapa 4, o vídeo tem 29,6 s e a narração 29,78 s. Pela regra pura, faltariam 0,18 s de narração e o vídeo daria **um ciclo inteiro a mais (+29,6 s)**. Para evitar isso existe `loopMinNarrationRemaining`, com padrão de 1,0 s e configurável por cena: se faltar menos que isso de narração quando o vídeo acaba, ele não reinicia e a cena termina junto com a narração. Com 0, vale a regra pura. |
 
 ---

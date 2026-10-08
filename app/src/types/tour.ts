@@ -173,9 +173,9 @@ export interface TourScene {
 }
 
 export interface CreditsConfig {
-  /** Overlays (logos, textos) exibidos em pop-up reduzido ao final. Vazio = pula direto para a conclusão. */
+  /** Overlays (logos, textos) exibidos em pop-up reduzido ao final. Vazio = encerra direto (volta ao menu inicial). */
   overlays: Overlay[];
-  /** Segundos que os créditos ficam visíveis antes da tela de conclusão. */
+  /** Segundos que os créditos ficam visíveis antes de voltar ao menu inicial. */
   displaySeconds: number;
 }
 

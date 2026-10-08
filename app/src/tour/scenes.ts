@@ -98,8 +98,9 @@ export const scenes: TourScene[] = [
     id: "e3-p1",
     title: "Ponte rolante / transporte do bloco",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D1: 1-1 → 1-2, ambos obrigatórios e inteiros (34 s × narração 22 s). Sem loop.
-    media: video([clip("e3-p1-1"), clip("e3-p1-2")], { loopWhileNarrating: false }),
+    // D1: os dois clips obrigatórios e inteiros, sem loop (30,2 s × narração 22 s). Ordem da ação:
+    // 1-2 = bloco descendo do caminhão (5,9 s) → 1-1 = ponte rolante levando o bloco ao tear (24,3 s).
+    media: video([clip("e3-p1-2"), clip("e3-p1-1")], { loopWhileNarrating: false }),
     narration: "audio/e3-p1",
     initialView: { ...DEFAULT_VIEW },
     next: "e3-p2",
@@ -123,10 +124,11 @@ export const scenes: TourScene[] = [
     id: "e3-p3",
     title: "Tear multifio",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 23,0 s × narração 31,4 s → loop.
+    // D2: vídeo 21,1 s × narração 31,4 s → loop.
     media: video([clip("e3-p3")]),
     narration: "audio/e3-p3",
-    initialView: { ...DEFAULT_VIEW },
+    // De frente para o tear multifio (Delta Wire, yaw ≈ 175°), com o bloco à esquerda (yaw ≈ 90–118°).
+    initialView: { ...DEFAULT_VIEW, yaw: 155 },
     next: "e3-p4",
     autoAdvance: true,
     hotspots: [],
@@ -136,7 +138,7 @@ export const scenes: TourScene[] = [
     id: "e3-p4",
     title: "Politriz manual",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 23,2 s × narração 27,6 s → loop.
+    // D2: vídeo 21,3 s × narração 27,6 s → loop.
     media: video([clip("e3-p4")]),
     narration: "audio/e3-p4",
     initialView: { ...DEFAULT_VIEW },
@@ -149,7 +151,7 @@ export const scenes: TourScene[] = [
     id: "e3-p5",
     title: "Politriz semiautomática",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 12,8 s × narração 15,2 s → loop.
+    // D2: vídeo 11,0 s × narração 15,2 s → loop.
     media: video([clip("e3-p5")]),
     narration: "audio/e3-p5",
     initialView: { ...DEFAULT_VIEW },
@@ -162,7 +164,7 @@ export const scenes: TourScene[] = [
     id: "e3-p6",
     title: "Politriz automática",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 24,4 s × narração 43,6 s → loop. Vídeo sem áudio ambiente útil (silêncio).
+    // D2: vídeo 22,5 s × narração 43,6 s → loop. Vídeo sem áudio ambiente útil (silêncio).
     media: video([clip("e3-p6")]),
     narration: "audio/e3-p6",
     initialView: { ...DEFAULT_VIEW },
@@ -175,8 +177,9 @@ export const scenes: TourScene[] = [
     id: "e4-p1",
     title: "Área de reaproveitamento / reciclagem",
     stage: "Etapa 4 — Inovação e Sustentabilidade",
-    // Vídeo 29,6 s × narração 29,78 s → `loopMinNarrationRemaining` evita um ciclo inteiro extra (A3).
-    media: video([clip("e4-p1")]),
+    // Vídeo 27,7 s × narração 29,78 s: sobram ~2,1 s de narração no fim do vídeo — o último quadro fica
+    // parado por esse tempo em vez de um ciclo inteiro extra de 27,7 s (A3).
+    media: video([clip("e4-p1")], { loopMinNarrationRemaining: 3 }),
     narration: "audio/e4-p1",
     initialView: { ...DEFAULT_VIEW },
     next: "e5-p1",

@@ -190,6 +190,12 @@ export class PanoramaRenderer implements ViewerPort {
     return this.renderer.xr.isPresenting;
   }
 
+  /** Sai do VR imersivo (se estiver nele). */
+  exitXR(): Promise<void> {
+    const session = this.renderer.xr.getSession();
+    return session ? session.end().catch(() => {}) : Promise.resolve();
+  }
+
   dispose() {
     this.renderer.setAnimationLoop(null);
     document.removeEventListener("visibilitychange", this.onVisibility);

@@ -184,14 +184,6 @@ button {
   user-select: none;
   -webkit-user-drag: none;
 }
-.end__eyebrow {
-  margin: 0;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ui-accent);
-}
 .start__lede {
   margin: 0 0 10px;
   color: #fff;
@@ -438,44 +430,6 @@ button {
 }
 .notice--center .notice__actions {
   justify-content: center;
-}
-
-/* ── Conclusão ─────────────────────────── */
-.end {
-  position: absolute;
-  left: 50%;
-  bottom: calc(24px + var(--safe-b));
-  transform: translateX(-50%);
-  width: min(480px, calc(100vw - 24px));
-  padding: 22px 22px 20px;
-  border-radius: var(--radius);
-  background: var(--ui-surface);
-  color: var(--ui-text);
-  box-shadow: var(--ui-shadow);
-  text-align: center;
-  display: grid;
-  gap: 10px;
-  justify-items: center;
-  z-index: 15;
-  animation: rise 0.6s ease-out;
-}
-@keyframes rise {
-  from {
-    transform: translate(-50%, 16px);
-    opacity: 0;
-  }
-}
-.end__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(20px, 4vw, 26px);
-  line-height: 1.2;
-}
-.end__body {
-  margin: 0 0 6px;
-  color: var(--ui-muted);
-  font-size: 14px;
 }
 
 /* ── Pop-ups ───────────────────────────── */

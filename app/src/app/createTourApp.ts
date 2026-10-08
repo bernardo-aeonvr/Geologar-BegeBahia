@@ -137,18 +137,23 @@ export async function createTourApp(container: HTMLElement) {
     // a mesma vista em que a pessoa vai entrar, escurecida. Ao iniciar, o motor só clareia a
     // mesma textura (sem corte), porque ela já está no cache do preloader.
     const first = tour.scenes.find((s) => s.id === tour.firstScene)!;
-    if (first.media.type === "image")
-      void preloader.loadPanorama(first.media.src).then(
-        (tex) => {
-          if (store.get().phase !== "idle") return; // o tour já começou
-          renderer.showTexture(tex, "image");
-          renderer.applyInitialView(first.initialView);
-          void renderer.fadeTo(START_PREVIEW_LEVEL, 900);
-        },
-        () => {},
-      );
-    else video.prepare(resolver.url(first.media.clips[0].src));
-    if (first.narration) void preloader.loadNarration(first.narration);
+    const loader = preloader;
+    const tourEngine = engine;
+    const showStartPreview = () => {
+      if (first.media.type === "image")
+        void loader.loadPanorama(first.media.src).then(
+          (tex) => {
+            if (store.get().phase !== "idle") return; // o tour já começou
+            renderer.showTexture(tex, "image");
+            renderer.applyInitialView(first.initialView);
+            void renderer.fadeTo(START_PREVIEW_LEVEL, 900);
+          },
+          () => {},
+        );
+      else video.prepare(resolver.url(first.media.clips[0].src));
+      if (first.narration) void loader.loadNarration(first.narration);
+    };
+    showStartPreview();
 
     return {
       engine,
@@ -163,6 +168,13 @@ export async function createTourApp(container: HTMLElement) {
       /** Deve ser chamado DENTRO do gesto do usuário (clique/toque). */
       music,
       unlockAudio: () => bus.unlock([narration.el, ...video.elements, ...(music ? [music.el] : [])]),
+      /** Fim do tour: escurece, sai do VR, zera o motor (fase "idle") e remonta o fundo do menu inicial. */
+      returnToStart: async () => {
+        await renderer.fadeTo(0, appConfig.fadeOutMs);
+        await renderer.exitXR();
+        tourEngine.resetToIdle();
+        showStartPreview();
+      },
       dispose,
     };
   } catch (e) {

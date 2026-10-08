@@ -31,7 +31,7 @@ viewer/SpatialOverlays.ts
 **Princípios:**
 - **A narração é a fonte de verdade.** O pop-up visível, e o slide dentro dele, é sempre uma função do tempo atual da narração: `tempo → intervalo → imagem`. Não existe `setTimeout` de sequência. Por isso pausa, seek, voltar, reiniciar a narração, perder o foco e atrasos de áudio não dessincronizam nada.
 - **Mudança de ponto:** a store zera `activeOverlays` e `overlaySlides` na transição, os painéis da cena anterior saem com fade e as texturas que não serão mais usadas são liberadas. O relógio de cues de cada cena é cancelado junto com o `sceneToken`, então duas timelines não ficam ativas ao mesmo tempo.
-- **Recomeçar:** `viewer.clear()` limpa todos os painéis, texturas e vídeos.
+- **Fim do tour / volta ao menu:** `viewer.clear()` limpa todos os painéis, texturas e vídeos.
 - **Asset ausente:** o id não existe no manifest, então a url fica `null` e nada é exibido. Não há placeholder e o tour não quebra.
 - **Falha de carregamento** (404 ou imagem corrompida): é registrada no console (`[spatial] asset-failed`), o painel some silenciosamente e o tour segue.
 - **Pré-carregamento:** ao entrar numa cena, todas as imagens dos pop-ups da cena atual e da próxima são baixadas, decodificadas e enviadas à GPU (`renderer.initTexture`). Na troca de slide a textura já está pronta, sem piscar e sem quadro vazio.
@@ -129,7 +129,8 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 | Animação do corte | −32° | −11° | 48° | **No chão da pedreira, em primeiro plano**, como um bloco sendo cortado, à esquerda, sem tampar o operador que corta o bloco real ao fundo (+5° a +15°) (pedido do cliente) |
 | Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Céu à esquerda, logo depois da animação |
 | Aplicações | 30° | 14° | 42° | Céu à direita da vista final |
-| (já existentes) Fissuras, Água, Politrizes, Produtos | −42° a 36° | 8–16° | 42° | Ver `app/src/tour/popups.ts` |
+| Água (tear multifio) | 133° | 6° | 28° | Ao lado do bloco, no vão entre ele e o tear multifio; a cena abre de frente para o tear (`initialView.yaw` 155°) (pedido do cliente) |
+| (já existentes) Fissuras, Politrizes, Produtos | −42° a −32° | 8–16° | 42° | Ver `app/src/tour/popups.ts` |
 
 **Referência da experiência antiga:** o export do 3DVista (`Geologar-BegeBahia` e `Assets/3dVista`, um `.vtp` proprietário) foi consultado só como referência de intenção. Os conteúdos novos não existiam lá, e os painéis antigos eram HUD de tela, não âncoras no 360. Nenhuma coordenada foi copiada.
 
