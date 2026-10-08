@@ -19,6 +19,9 @@ import type { SpatialOverlaySpec } from "../viewer/SpatialOverlays";
 
 const log = createLogger("app");
 
+/** Brilho da vista inicial atrás do menu (0 = preto, 1 = normal). */
+const START_PREVIEW_LEVEL = 0.6;
+
 export async function createTourApp(container: HTMLElement) {
   setLogLevel(appConfig.debug);
   const store = createTourStore();
@@ -130,9 +133,20 @@ export async function createTourApp(container: HTMLElement) {
       unsubscribeMusic = store.subscribe(() => m.apply(musicTarget(store.get())));
     }
 
-    // Adianta a primeira cena enquanto o usuário vê a tela inicial.
+    // Adianta a primeira cena enquanto o usuário vê a tela inicial — e a usa como FUNDO do menu:
+    // a mesma vista em que a pessoa vai entrar, escurecida. Ao iniciar, o motor só clareia a
+    // mesma textura (sem corte), porque ela já está no cache do preloader.
     const first = tour.scenes.find((s) => s.id === tour.firstScene)!;
-    if (first.media.type === "image") void preloader.loadPanorama(first.media.src).catch(() => {});
+    if (first.media.type === "image")
+      void preloader.loadPanorama(first.media.src).then(
+        (tex) => {
+          if (store.get().phase !== "idle") return; // o tour já começou
+          renderer.showTexture(tex, "image");
+          renderer.applyInitialView(first.initialView);
+          void renderer.fadeTo(START_PREVIEW_LEVEL, 900);
+        },
+        () => {},
+      );
     else video.prepare(resolver.url(first.media.clips[0].src));
     if (first.narration) void preloader.loadNarration(first.narration);
 

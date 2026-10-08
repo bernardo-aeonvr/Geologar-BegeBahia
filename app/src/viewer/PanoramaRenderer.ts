@@ -141,7 +141,8 @@ export class PanoramaRenderer implements ViewerPort {
     this.controls.set({ yaw: 0, pitch: view.pitch, fov: view.fov });
   }
 
-  fadeTo(level: 0 | 1, ms: number): Promise<void> {
+  /** 0 = preto, 1 = normal; valores intermediários escurecem (ex.: prévia da tela inicial). */
+  fadeTo(level: number, ms: number): Promise<void> {
     this.cancelFade();
     if (ms <= 0 || this.level === level || document.hidden) {
       this.level = level;

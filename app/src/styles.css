@@ -15,6 +15,10 @@
   --tap: 46px;
   --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  /* Paleta da marca Geologar (logo): azul-petróleo e marinho. */
+  --brand: #12706d;
+  --brand-strong: #0e5a58;
+  --brand-navy: #0c243c;
   --safe-t: env(safe-area-inset-top, 0px);
   --safe-r: env(safe-area-inset-right, 0px);
   --safe-b: env(safe-area-inset-bottom, 0px);
@@ -141,10 +145,18 @@ button {
   display: grid;
   place-items: center;
   padding: calc(24px + var(--safe-t)) calc(20px + var(--safe-r)) calc(24px + var(--safe-b)) calc(20px + var(--safe-l));
+  /* Fundo = a vista inicial do 1º panorama, renderizada pelo viewer e escurecida (createTourApp);
+     este véu reforça a leitura do texto no centro sem esconder a paisagem. */
   background:
-    radial-gradient(120% 90% at 50% 110%, rgba(217, 196, 160, 0.22), transparent 60%),
-    linear-gradient(180deg, #16120e 0%, #0d0b09 100%);
+    radial-gradient(70% 60% at 50% 50%, rgba(6, 14, 22, 0.55), rgba(6, 14, 22, 0.15) 70%, transparent),
+    linear-gradient(180deg, rgba(6, 14, 22, 0.25), rgba(6, 14, 22, 0.45));
   z-index: 30;
+  animation: start-in 0.8s ease-out both;
+}
+@keyframes start-in {
+  from {
+    opacity: 0;
+  }
 }
 .start__inner {
   max-width: 560px;
@@ -154,7 +166,13 @@ button {
   align-items: center;
   gap: 18px;
 }
-.start__eyebrow,
+.start__logo {
+  width: clamp(120px, 26vw, 176px);
+  height: auto;
+  filter: drop-shadow(0 6px 22px rgba(0, 0, 0, 0.45));
+  user-select: none;
+  -webkit-user-drag: none;
+}
 .end__eyebrow {
   margin: 0;
   font-size: 12px;
@@ -162,18 +180,11 @@ button {
   text-transform: uppercase;
   color: var(--stone);
 }
-.start__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(44px, 11vw, 84px);
-  line-height: 0.95;
-  letter-spacing: -0.01em;
-  color: var(--stone-strong);
-}
 .start__lede {
   margin: 0 0 10px;
-  color: var(--ink-soft);
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7), 0 2px 18px rgba(0, 0, 0, 0.5);
+  font-weight: 500;
   font-size: clamp(15px, 2.2vw, 18px);
   line-height: 1.5;
   max-width: 44ch;
@@ -182,6 +193,17 @@ button {
   min-height: 54px;
   padding: 0 28px;
   font-size: 16px;
+  background: var(--brand);
+  color: #fff;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.btn--start:disabled {
+  background: rgba(18, 112, 109, 0.7);
+}
+@media (hover: hover) {
+  .btn--start:not(:disabled):hover {
+    background: var(--brand-strong);
+  }
 }
 .start__hints {
   list-style: none;
@@ -191,7 +213,8 @@ button {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px 22px;
-  color: var(--ink-faint);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.75);
   font-size: 13px;
 }
 .start__hints li {

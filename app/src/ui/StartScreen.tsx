@@ -17,9 +17,8 @@ export function StartScreen({ status, vr = false, errorMessage, onStart, onRetry
   return (
     <div className="start" role="dialog" aria-labelledby="start-title">
       <div className="start__inner">
-        <p className="start__eyebrow">Geologar · tour virtual 360°</p>
-        <h1 id="start-title" className="start__title">
-          Bege Bahia
+        <h1 id="start-title" style={{ margin: 0 }}>
+          <img className="start__logo" src={`${import.meta.env.BASE_URL}brand/logo-geologar.png`} alt="Geologar" draggable={false} />
         </h1>
         <p className="start__lede">Do sertão baiano para o mundo: a jornada de uma rocha, da pedreira em Ourolândia até a serraria.</p>
 
