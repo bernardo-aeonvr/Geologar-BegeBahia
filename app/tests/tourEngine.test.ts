@@ -243,6 +243,23 @@ describe("TourEngine", () => {
     expect(h.narration.url).toBe("blob:audio/a");
   });
 
+  it("troca de clip com `view` reorienta a vista (só no primeiro ciclo)", async () => {
+    const scene = vid("v", ["c1", "c2"], null, { loopWhileNarrating: true, loopMinNarrationRemaining: 0 });
+    if (scene.media.type === "video") scene.media.clips[1].view = { yaw: -32 };
+    const h = createHarness(tourOf([scene]));
+    await h.engine.start();
+    await flush();
+    expect(h.viewer.views).toHaveLength(1); // initialView da cena
+    h.video.endClip(); // c1 → c2
+    await flush();
+    expect(h.viewer.views.at(-1)).toEqual({ yaw: -32, pitch: 0, fov: 75 });
+    h.video.endClip(); // c2 → c1 (ciclo 1)
+    await flush();
+    h.video.endClip(); // c1 → c2 (ciclo 1): não reorienta
+    await flush();
+    expect(h.viewer.views).toHaveLength(2);
+  });
+
   it("fim do tour → volta ao estado inicial (menu) e um novo início funciona", async () => {
     const h = createHarness(tourOf([img("a", "b"), img("b", null)]));
     await h.engine.start();

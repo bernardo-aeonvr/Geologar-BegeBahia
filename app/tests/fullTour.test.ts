@@ -104,18 +104,19 @@ describe("Tour completo (13 cenas, automático)", () => {
     // Caso C (D1): 1-2 (caminhão) + 1-1 (ponte rolante → tear) inteiros, nessa ordem, apesar da narração de 22 s.
     expect(byId["e3-p1"].clips).toEqual(["e3-p1-2", "e3-p1-1"]);
     expect(r(byId["e3-p1"].seconds)).toBe(30.24);
-    // Caso A (D2): loops até a narração acabar + término do ciclo atual.
+    // Tear e politrizes: loop enquanto a narração toca e avanço no FIM DA NARRAÇÃO (sem terminar o ciclo).
     expect(byId["e3-p3"]).toMatchObject({ cycles: 1 });
-    expect(r(byId["e3-p3"].seconds)).toBe(42.32); // 2 × 21,16
-    expect(r(byId["e3-p4"].seconds)).toBe(42.64); // 2 × 21,32
-    expect(r(byId["e3-p5"].seconds)).toBe(22); // 2 × 11,0
-    expect(r(byId["e3-p6"].seconds)).toBe(45.12); // 2 × 22,56
+    expect(r(byId["e3-p2"].seconds)).toBe(16.98); // vídeo 18,12 s não espera terminar
+    expect(r(byId["e3-p3"].seconds)).toBe(31.4);
+    expect(r(byId["e3-p4"].seconds)).toBe(27.56);
+    expect(r(byId["e3-p5"].seconds)).toBe(15.23);
+    expect(r(byId["e3-p6"].seconds)).toBe(43.57);
     // A3: faltam ~2 s de narração (< loopMinNarrationRemaining 3 da cena) → segura o último quadro; termina com a narração.
     expect(byId["e4-p1"].cycles).toBe(0);
     expect(r(byId["e4-p1"].seconds)).toBe(29.78);
 
-    // Duração total do tour (sem os fades): ~7 min 30 s.
+    // Duração total do tour (sem os fades): ~6 min 55 s.
     const total = logs.reduce((a, l) => a + l.seconds, 0);
-    expect(total).toBeCloseTo(450.09, 1);
+    expect(total).toBeCloseTo(414.63, 1);
   });
 });

@@ -11,8 +11,8 @@
 | # | Tema | Decisão |
 |---|---|---|
 | D1 | Etapa 3 · Ponto 1 | Usar **os dois vídeos** inteiros, sem cortes. A cena só avança depois que os dois terminarem, mesmo com a narração (22 s) já encerrada. **Revisado (2026-10-08):** a ordem é `1-2` → `1-1`, que é a ordem da ação: primeiro o bloco desce do caminhão, depois a ponte rolante o leva até o tear. |
-| D2 | Vídeo mais curto que a narração | `loop` enquanto a narração toca. Quando a narração termina, **o ciclo atual do vídeo é concluído** e só então há o fade para a próxima cena. `hold` não é usado. |
-| D3 | Áudio ambiente dos vídeos | Mantido, **baixo por baixo da narração**, com `ambientVolume` inicial de **0,15**, configurável por cena e por clip. Vídeo sem ambiente útil (Etapa 3 · Ponto 6) fica em silêncio, sem ruído artificial. |
+| D2 | Vídeo mais curto que a narração | `loop` enquanto a narração toca. Quando a narração termina, **o ciclo atual do vídeo é concluído** e só então há o fade para a próxima cena. `hold` não é usado. **Revisado (2026-10-08):** no tear (Etapa 3 · P2–P3) e nas politrizes (P4–P6), a cena avança **assim que a narração termina**, sem completar o ciclo. |
+| D3 | Áudio ambiente dos vídeos | Mantido, **baixo por baixo da narração**, com `ambientVolume` inicial de **0,15**, configurável por cena e por clip. Vídeo sem ambiente útil (Etapa 3 · Ponto 6) fica em silêncio, sem ruído artificial. **Revisado (2026-10-08):** o 0,15 fixo deixava as máquinas a ~13 dB da voz e cobria a narração (principalmente no tear antigo). Agora cada clip é nivelado por loudness em −35 LUFS, ~22 dB abaixo da narração (`AMBIENT_LUFS` em `scenes.ts`). |
 | D4 | Stack | **Vite + TypeScript + React + Three.js**. O Three.js é usado diretamente, dentro de um componente React e sem R3F, para manter controle explícito de textura, `VideoTexture`, descarte, preload, renderer, WebXR e memória de GPU. |
 | D5 | Materiais visuais que faltam | Não inventar substitutos. Implementar só a infraestrutura (`cues`, `hotspots`, `overlays`, `credits`), com arrays vazios até os materiais chegarem. |
 | D6 | "aguarda" × "guarda" | O áudio atual da Etapa 5 fica. A diferença está aceita nesta versão. |

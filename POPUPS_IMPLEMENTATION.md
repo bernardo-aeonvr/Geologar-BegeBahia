@@ -69,9 +69,9 @@ Os tempos foram medidos por **transcrição com timestamp de cada palavra** (fas
 | E2 · P2 (14,68 s) | "O fio diamantado trouxe mais precisão…" | Animação do corte (vídeo 9,04 s) | 0,3 → 9,35 s |
 | E2 · P2 | "…reduziu perdas, aumentou o aproveitamento…" | Helicoidal × diamantado (ausente) | 9,4 s → fim |
 | E3 · P3 (31,40 s) | "…e a sustentabilidade também evoluiu…" | Água | 15,8 s → fim |
-| E3 · P4 (27,56 s) | "A primeira é totalmente manual…" | Politrizes manuais | 19,5 s → fim |
-| E3 · P5 (15,23 s) | "…o processo é semiautomático…" | Politrizes semi-automáticas | 1,8 s → fim |
-| E3 · P6 (43,57 s) | "…totalmente automatizado…" | Politrizes automáticas | 1,2 → 16,2 s |
+| E3 · P4 (27,56 s) | "A primeira é totalmente manual…" | Politrizes manuais | 0 s → fim (desde o começo, pedido do cliente) |
+| E3 · P5 (15,23 s) | "…o processo é semiautomático…" | Politrizes semi-automáticas | 0 s → fim (desde o começo) |
+| E3 · P6 (43,57 s) | "…totalmente automatizado…" | Politrizes automáticas | 0 → 16,2 s (desde o começo) |
 | E3 · P6 | "Durante o corte… pó fino… polipropileno…" | Compósito (ausente) | 16,4 s → fim |
 | E4 (29,78 s) | "…pode resultar em ladrilhos, placas… e moledos…" | Moledo / Placas / Ladrilho | 8,7 s → fim |
 | E5 (43,49 s) | "Do sertão baiano para o mundo…" → antes de "Agora… observe ao seu redor" | Aplicações (sequência) | 0,3 → 27,8 s |

@@ -564,6 +564,8 @@ export class TourEngine {
       const texture = await this.d.video.loadClip(index, url, this.clipOptions(rt, index, true));
       if (!this.isCurrent(rt, "video:clip-loaded")) return;
       this.d.viewer.showTexture(texture, "video");
+      const view = media.clips[index].view;
+      if (view && cycle === 0 && index > 0) this.d.viewer.applyInitialView({ ...rt.scene.initialView, ...view });
       if (this.d.store.get().phase === "paused") {
         rt.playOnResume = true;
       } else {

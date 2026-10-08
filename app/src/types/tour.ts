@@ -30,6 +30,11 @@ export interface VideoClip {
   required: boolean;
   /** Sobrescreve `ambientVolume` da cena para este clip. */
   ambientVolume?: number;
+  /**
+   * Enquadramento ao ENTRAR neste clip (troca de clip = corte de câmera). Vale só no primeiro ciclo;
+   * o primeiro clip usa o `initialView` da cena. Campos omitidos vêm do `initialView` da cena.
+   */
+  view?: Partial<InitialView>;
 }
 
 export interface VideoSceneMedia {

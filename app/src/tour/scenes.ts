@@ -15,6 +15,22 @@ import { popupsFor } from "./popups";
 const DEFAULT_VIEW = { yaw: 0, pitch: 0, fov: 75 };
 const AMBIENT = 0.15;
 
+/**
+ * Áudio ambiente nivelado por loudness: cada clip recebe o ganho que o leva a AMBIENT_TARGET_LUFS.
+ * Com 0,15 fixo, o som das máquinas (tear antigo −9,8 LUFS) ficava ~13 dB abaixo da voz (≈ −12 LUFS),
+ * pouco para ruído de banda larga, e cobria a narração. Medido com ffmpeg ebur128 nas variantes.
+ */
+const AMBIENT_TARGET_LUFS = -35;
+const AMBIENT_LUFS: Record<string, number> = {
+  "e2-p2": -14.9, "e3-p1-1": -11.1, "e3-p1-2": -10.5, "e3-p2": -9.8, "e3-p3": -8.9,
+  "e3-p4": -13.5, "e3-p5": -12.1, "e4-p1": -9.3, // e3-p6: sem áudio útil (−70 LUFS)
+};
+const ambientFor = (id: string): number | undefined =>
+  id in AMBIENT_LUFS ? Math.round(10 ** ((AMBIENT_TARGET_LUFS - AMBIENT_LUFS[id]) / 20) * 1000) / 1000 : undefined;
+
+/** Tear e politrizes: a cena segue assim que a narração termina, sem esperar o vídeo (pedido do cliente). */
+const ADVANCE_ON_NARRATION_END = { requireAllClipsOnce: false, finishCurrentClipAfterNarration: false } as const;
+
 /** Vídeo padrão do roteiro (D1/D2): clips inteiros, loop enquanto a narração toca, termina o ciclo atual. */
 function video(clips: VideoClip[], overrides: Partial<VideoSceneMedia> = {}): VideoSceneMedia {
   return {
@@ -28,7 +44,10 @@ function video(clips: VideoClip[], overrides: Partial<VideoSceneMedia> = {}): Vi
   };
 }
 
-const clip = (id: string, required = true): VideoClip => ({ id, src: `video/${id}`, required });
+const clip = (id: string, required = true, extra: Partial<VideoClip> = {}): VideoClip => {
+  const ambientVolume = ambientFor(id);
+  return { id, src: `video/${id}`, required, ...(ambientVolume !== undefined ? { ambientVolume } : {}), ...extra };
+};
 
 
 export const scenes: TourScene[] = [
@@ -99,10 +118,11 @@ export const scenes: TourScene[] = [
     title: "Ponte rolante / transporte do bloco",
     stage: "Etapa 3 — Serraria e Tecnologia",
     // D1: os dois clips obrigatórios e inteiros, sem loop (30,2 s × narração 22 s). Ordem da ação:
-    // 1-2 = bloco descendo do caminhão (5,9 s) → 1-1 = ponte rolante levando o bloco ao tear (24,3 s).
-    media: video([clip("e3-p1-2"), clip("e3-p1-1")], { loopWhileNarrating: false }),
+    // 1-2 = bloco saindo do caminhão (5,9 s) → 1-1 = ponte rolante levando o bloco ao tear (24,3 s).
+    // A câmera muda de lugar entre os clips: cada um abre olhando para o bloco.
+    media: video([clip("e3-p1-2"), clip("e3-p1-1", true, { view: { yaw: -32 } })], { loopWhileNarrating: false }),
     narration: "audio/e3-p1",
-    initialView: { ...DEFAULT_VIEW },
+    initialView: { ...DEFAULT_VIEW, yaw: 140 }, // o caminhão com o bloco sendo içado
     next: "e3-p2",
     autoAdvance: true,
     hotspots: [],
@@ -112,7 +132,8 @@ export const scenes: TourScene[] = [
     id: "e3-p2",
     title: "Tear tradicional",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    media: video([clip("e3-p2")]),
+    // Vídeo 18,1 s × narração 17,0 s → avança no fim da narração.
+    media: video([clip("e3-p2")], ADVANCE_ON_NARRATION_END),
     narration: "audio/e3-p2",
     initialView: { ...DEFAULT_VIEW },
     next: "e3-p3",
@@ -124,8 +145,8 @@ export const scenes: TourScene[] = [
     id: "e3-p3",
     title: "Tear multifio",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 21,1 s × narração 31,4 s → loop.
-    media: video([clip("e3-p3")]),
+    // Vídeo 21,1 s × narração 31,4 s → loop; avança no fim da narração.
+    media: video([clip("e3-p3")], ADVANCE_ON_NARRATION_END),
     narration: "audio/e3-p3",
     // De frente para o tear multifio (Delta Wire, yaw ≈ 175°), com o bloco à esquerda (yaw ≈ 90–118°).
     initialView: { ...DEFAULT_VIEW, yaw: 155 },
@@ -138,8 +159,8 @@ export const scenes: TourScene[] = [
     id: "e3-p4",
     title: "Politriz manual",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 21,3 s × narração 27,6 s → loop.
-    media: video([clip("e3-p4")]),
+    // Vídeo 21,3 s × narração 27,6 s → loop; avança no fim da narração.
+    media: video([clip("e3-p4")], ADVANCE_ON_NARRATION_END),
     narration: "audio/e3-p4",
     initialView: { ...DEFAULT_VIEW },
     next: "e3-p5",
@@ -151,10 +172,10 @@ export const scenes: TourScene[] = [
     id: "e3-p5",
     title: "Politriz semiautomática",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 11,0 s × narração 15,2 s → loop.
-    media: video([clip("e3-p5")]),
+    // Vídeo 11,0 s × narração 15,2 s → loop; avança no fim da narração.
+    media: video([clip("e3-p5")], ADVANCE_ON_NARRATION_END),
     narration: "audio/e3-p5",
-    initialView: { ...DEFAULT_VIEW },
+    initialView: { ...DEFAULT_VIEW, yaw: -55 }, // a ponte da politriz (yaw ≈ −67°) à frente e o pop-up (−36°) à direita, inteiro
     next: "e3-p6",
     autoAdvance: true,
     hotspots: [],
@@ -164,8 +185,8 @@ export const scenes: TourScene[] = [
     id: "e3-p6",
     title: "Politriz automática",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // D2: vídeo 22,5 s × narração 43,6 s → loop. Vídeo sem áudio ambiente útil (silêncio).
-    media: video([clip("e3-p6")]),
+    // Vídeo 22,5 s × narração 43,6 s → loop; avança no fim da narração. Sem áudio ambiente útil (silêncio).
+    media: video([clip("e3-p6")], ADVANCE_ON_NARRATION_END),
     narration: "audio/e3-p6",
     initialView: { ...DEFAULT_VIEW },
     next: "e4-p1",

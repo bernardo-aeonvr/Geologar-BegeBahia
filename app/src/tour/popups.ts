@@ -186,7 +186,7 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       id: "politriz-manual",
       image: "popups/e3-p4-politriz-manual",
       alt: "Politrizes manuais: polimento e posicionamento de chapas feitos por um operador",
-      start: 19.5,
+      start: 0, // polimento: pop-up desde o começo da cena (pedido do cliente)
       position: { yaw: -40, pitch: 14, width: W },
     },
   ],
@@ -196,18 +196,18 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       id: "politriz-semiauto",
       image: "popups/e3-p5-politriz-semiauto",
       alt: "Politrizes semiautomáticas: uma máquina realiza o polimento e o operador faz o posicionamento da chapa",
-      start: 1.8,
+      start: 0, // polimento: pop-up desde o começo da cena (pedido do cliente)
       position: { yaw: -36, pitch: 12, width: W },
     },
   ],
   "e3-p6": [
     {
-      // "…totalmente automatizado" até antes de "Durante o corte… pó fino".
+      // Desde o começo até antes de "Durante o corte… pó fino".
       type: "single",
       id: "politriz-automatica",
       image: "popups/e3-p6-politriz-automatica",
       alt: "Politrizes automáticas: todo o processo é realizado por uma máquina, reduzindo o desperdício de material",
-      start: 1.2,
+      start: 0, // polimento: pop-up desde o começo da cena (pedido do cliente)
       end: 16.2,
       position: { yaw: -42, pitch: 16, width: W },
     },
