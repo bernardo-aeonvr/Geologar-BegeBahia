@@ -158,8 +158,9 @@ export async function createTourApp(container: HTMLElement) {
         void navigator.serviceWorker.getRegistrations().then((regs) => regs.forEach((r) => void r.unregister()));
         void caches.keys().then((names) => names.filter((n) => n.startsWith("geologar-")).forEach((n) => void caches.delete(n)));
       } else {
-        // Quem já baixou (ou parou no meio): confere o que está no aparelho e completa o que faltar.
-        void navigator.serviceWorker.getRegistration().then((reg) => reg && offline.start(offlineItems));
+        // Quem já baixou: só CONFERE o que está no aparelho (tudo salvo / atualização disponível).
+        // Nada é baixado sem a pessoa pedir.
+        void navigator.serviceWorker.getRegistration().then((reg) => reg && offline.check(offlineItems));
       }
     }
 
@@ -181,6 +182,17 @@ export async function createTourApp(container: HTMLElement) {
       if (first.narration) void loader.loadNarration(first.narration);
     };
     showStartPreview();
+
+    /** Instala o service worker (se ainda não houver) e baixa o que falta. */
+    const startDownload = () => {
+      void navigator.serviceWorker
+        .register(`${import.meta.env.BASE_URL}sw.js`, { scope: import.meta.env.BASE_URL })
+        .then(() => offline.start(offlineItems))
+        .then(
+          () => log.info("offline", { ...offline.store.get() }),
+          (e: unknown) => log.warn("offline:falhou", { error: String(e) }),
+        );
+    };
 
     return {
       engine,
@@ -208,13 +220,21 @@ export async function createTourApp(container: HTMLElement) {
        */
       startOfflineDownload: () => {
         if (!offlineSupported) return;
-        void navigator.serviceWorker
-          .register(`${import.meta.env.BASE_URL}sw.js`, { scope: import.meta.env.BASE_URL })
-          .then(() => offline.start(offlineItems))
-          .then(
-            () => log.info("offline", { ...offline.store.get() }),
-            (e: unknown) => log.warn("offline:falhou", { error: String(e) }),
-          );
+        startDownload();
+      },
+      /** "Baixar novamente": apaga o que está salvo e baixa tudo de novo. */
+      redownloadOffline: async () => {
+        if (!offlineSupported) return;
+        await offline.clear();
+        startDownload();
+      },
+      /** "Apagar": remove a mídia salva e o service worker; o app volta a usar só a internet. */
+      removeOffline: async () => {
+        await offline.clear();
+        if (!offlineSupported) return;
+        for (const name of await caches.keys()) if (name.startsWith("geologar-")) await caches.delete(name);
+        for (const reg of await navigator.serviceWorker.getRegistrations()) await reg.unregister();
+        log.info("offline:removido");
       },
       returnToStart: async () => {
         await renderer.fadeTo(0, appConfig.fadeOutMs);

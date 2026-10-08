@@ -27,6 +27,7 @@ export type DownloadStatus =
   | "downloading"
   | "done" // tudo no aparelho
   | "partial" // terminou com falhas (o que falhou continua pela rede)
+  | "update" // já baixada, mas há arquivos novos/alterados (atualização da experiência)
   | "unsupported" // sem service worker / Cache Storage
   | "no-space"; // cota insuficiente
 
@@ -37,9 +38,11 @@ export interface DownloadState {
   doneFiles: number;
   totalFiles: number;
   failed: number;
+  /** Bytes que faltam baixar (atualização / download incompleto). */
+  missingBytes: number;
 }
 
-const INITIAL: DownloadState = { status: "idle", doneBytes: 0, totalBytes: 0, doneFiles: 0, totalFiles: 0, failed: 0 };
+const INITIAL: DownloadState = { status: "idle", doneBytes: 0, totalBytes: 0, doneFiles: 0, totalFiles: 0, failed: 0, missingBytes: 0 };
 
 /** Ids de mídia na ordem em que o tour os usa (sem repetição). Música logo após a primeira cena. */
 export function mediaDownloadOrder(tour: TourDefinition): string[] {
@@ -76,7 +79,7 @@ export interface MediaCacheDeps {
 
 export class MediaCache {
   readonly store: Store<DownloadState> = createStore<DownloadState>({ ...INITIAL });
-  private running = false;
+  private current: Promise<void> | null = null;
   private abort = new AbortController();
 
   constructor(private deps: MediaCacheDeps) {}
@@ -85,17 +88,44 @@ export class MediaCache {
    * Baixa o que falta (o que já está no aparelho é pulado). Ignorado enquanto outro download roda;
    * depois de terminar, pode ser chamado de novo (ex.: "tentar de novo" após falha ou falta de espaço).
    */
-  async start(items: DownloadItem[]): Promise<void> {
-    if (this.running) return;
-    this.running = true;
-    try {
-      await this.run(items);
-    } finally {
-      this.running = false;
-    }
+  start(items: DownloadItem[]): Promise<void> {
+    if (this.current) return this.current;
+    const signal = this.abort.signal;
+    this.current = this.run(items, signal).finally(() => (this.current = null));
+    return this.current;
   }
 
-  private async run(items: DownloadItem[]): Promise<void> {
+  /**
+   * Só CONFERE o que está no aparelho, sem baixar nem apagar (ao abrir a página):
+   * nada salvo → "idle"; tudo salvo → "done"; salvo em parte ou de outra versão → "update".
+   */
+  async check(items: DownloadItem[]): Promise<void> {
+    const { caches } = this.deps;
+    if (!caches) return void this.store.set({ status: "unsupported" });
+    if (!(await caches.has(MEDIA_CACHE))) return void this.store.set({ ...INITIAL });
+    const cache = await caches.open(MEDIA_CACHE);
+    const wanted = new Set(items.map((i) => i.url));
+    const keys = (await cache.keys()).map((r) => r.url);
+    const have = new Set(keys.filter((u) => wanted.has(u)));
+    const stale = keys.length - have.size;
+    const totalBytes = items.reduce((a, i) => a + i.bytes, 0);
+    const doneBytes = items.filter((i) => have.has(i.url)).reduce((a, i) => a + i.bytes, 0);
+    const base = { totalBytes, doneBytes, totalFiles: items.length, doneFiles: have.size, failed: 0, missingBytes: totalBytes - doneBytes };
+    if (keys.length === 0) this.store.set({ ...INITIAL });
+    else if (have.size === items.length && stale === 0) this.store.set({ ...base, status: "done" });
+    else this.store.set({ ...base, status: "update" });
+  }
+
+  /** Para o download em andamento (se houver) e apaga tudo o que foi salvo. */
+  async clear(): Promise<void> {
+    this.abort.abort();
+    this.abort = new AbortController();
+    await this.current?.catch(() => {});
+    await this.deps.caches?.delete(MEDIA_CACHE);
+    this.store.set({ ...INITIAL });
+  }
+
+  private async run(items: DownloadItem[], signal: AbortSignal): Promise<void> {
     const { caches } = this.deps;
     if (!caches || !(await this.deps.serviceWorkerReady())) {
       this.store.set({ status: "unsupported" });
@@ -113,7 +143,7 @@ export class MediaCache {
     const missing = items.filter((i) => !have.has(i.url));
     const totalBytes = items.reduce((a, i) => a + i.bytes, 0);
     const haveBytes = items.filter((i) => have.has(i.url)).reduce((a, i) => a + i.bytes, 0);
-    this.store.set({ totalBytes, totalFiles: items.length, doneBytes: haveBytes, doneFiles: have.size, failed: 0 });
+    this.store.set({ totalBytes, totalFiles: items.length, doneBytes: haveBytes, doneFiles: have.size, failed: 0, missingBytes: totalBytes - haveBytes });
     if (missing.length === 0) {
       this.store.set({ status: "done" });
       return;
@@ -128,28 +158,29 @@ export class MediaCache {
 
     this.store.set({ status: "downloading" });
     const failed: DownloadItem[] = [];
-    await this.runQueue(cache, missing, failed);
+    await this.runQueue(cache, missing, failed, signal);
     // Segunda tentativa para o que falhou (rede oscilou).
     const retry = failed.splice(0);
-    if (retry.length && !this.abort.signal.aborted) await this.runQueue(cache, retry, failed);
-    if (this.abort.signal.aborted) return;
-    this.store.set({ status: failed.length ? "partial" : "done", failed: failed.length });
+    if (retry.length && !signal.aborted) await this.runQueue(cache, retry, failed, signal);
+    if (signal.aborted) return;
+    const missingBytes = failed.reduce((a, i) => a + i.bytes, 0);
+    this.store.set({ status: failed.length ? "partial" : "done", failed: failed.length, missingBytes });
   }
 
   dispose(): void {
     this.abort.abort();
   }
 
-  private async runQueue(cache: Cache, queue: DownloadItem[], failed: DownloadItem[]) {
+  private async runQueue(cache: Cache, queue: DownloadItem[], failed: DownloadItem[], signal: AbortSignal) {
     let next = 0;
     const worker = async () => {
-      while (next < queue.length && !this.abort.signal.aborted) {
+      while (next < queue.length && !signal.aborted) {
         const item = queue[next++];
         try {
-          await this.download(cache, item);
+          await this.download(cache, item, signal);
           this.store.set((s) => ({ doneFiles: s.doneFiles + 1 }));
         } catch {
-          if (!this.abort.signal.aborted) failed.push(item);
+          if (!signal.aborted) failed.push(item);
         }
       }
     };
@@ -157,11 +188,12 @@ export class MediaCache {
   }
 
   /** Baixa um arquivo inteiro para o cache, contando o progresso enquanto os bytes chegam. */
-  private async download(cache: Cache, item: DownloadItem) {
-    const res = await this.deps.fetch(item.url, { signal: this.abort.signal, cache: "no-store" });
+  private async download(cache: Cache, item: DownloadItem, signal: AbortSignal) {
+    const res = await this.deps.fetch(item.url, { signal, cache: "no-store" });
     if (!res.ok || res.status !== 200) throw new Error(`HTTP ${res.status}`);
     let counted = 0;
     const count = (n: number) => {
+      if (signal.aborted) return; // apagado/cancelado: o progresso já foi zerado
       counted += n;
       this.store.set((s) => ({ doneBytes: s.doneBytes + n }));
     };
@@ -183,7 +215,7 @@ export class MediaCache {
       // Ajusta a contagem ao tamanho do manifest (Content-Encoding/estimativas).
       if (counted !== item.bytes) this.store.set((s) => ({ doneBytes: s.doneBytes - counted + item.bytes }));
     } catch (e) {
-      this.store.set((s) => ({ doneBytes: s.doneBytes - counted }));
+      if (!signal.aborted) this.store.set((s) => ({ doneBytes: s.doneBytes - counted }));
       await cache.delete(item.url).catch(() => false);
       throw e;
     }
