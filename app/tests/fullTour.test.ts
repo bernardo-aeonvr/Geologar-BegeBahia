@@ -98,8 +98,8 @@ describe("Tour completo (13 cenas, automático)", () => {
 
     // Imagem: dura exatamente a narração.
     expect(r(byId["intro"].seconds)).toBe(39.97);
-    // Caso B: vídeo (42,6) maior que narração (14,7) → vídeo inteiro.
-    expect(r(byId["e2-p2"].seconds)).toBe(42.6);
+    // e2-p2: configurada para avançar no fim da narração (14,68 s), sem esperar o vídeo de 42,6 s.
+    expect(r(byId["e2-p2"].seconds)).toBe(14.68);
     // Caso C (D1): 1-1 + 1-2 inteiros, nessa ordem, apesar da narração de 22 s.
     expect(byId["e3-p1"].clips).toEqual(["e3-p1-1", "e3-p1-2"]);
     expect(r(byId["e3-p1"].seconds)).toBe(34);
@@ -113,8 +113,8 @@ describe("Tour completo (13 cenas, automático)", () => {
     expect(byId["e4-p1"].cycles).toBe(0);
     expect(r(byId["e4-p1"].seconds)).toBe(29.78);
 
-    // Duração total do tour (sem os fades): ~8 min 18 s.
+    // Duração total do tour (sem os fades): ~7 min 50 s.
     const total = logs.reduce((a, l) => a + l.seconds, 0);
-    expect(total).toBeCloseTo(498.37, 1);
+    expect(total).toBeCloseTo(470.45, 1);
   });
 });

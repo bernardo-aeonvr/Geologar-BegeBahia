@@ -126,8 +126,8 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 | Bege × Travertino | 32° | 13° | 42° | Acima das casas à direita; a estrada fica livre no centro e o caminhão à esquerda |
 | Calcrete × Bege (reservado) | 32° | 15° | 42° | Céu à direita, oposto às fotomicrografias |
 | Fotomicrografias | −32° | 15° | 44° | Céu à esquerda; a cava da pedreira fica livre (mais largo para os detalhes) |
-| Animação do corte | −30° | 12° | 30° | À esquerda do operador e do tripé do fio, que estão entre 0° e 25° |
-| Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Mesmo lugar da animação, logo depois dela |
+| Animação do corte | −16° | −6° | 34° | **No chão da pedreira**, como um bloco sendo cortado, à esquerda do operador real e ao lado dos blocos de verdade (pedido do cliente) |
+| Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Céu à esquerda, logo depois da animação |
 | Aplicações | 30° | 14° | 42° | Céu à direita da vista final |
 | (já existentes) Fissuras, Água, Politrizes, Produtos | −42° a 36° | 8–16° | 42° | Ver `app/src/tour/popups.ts` |
 
@@ -139,6 +139,7 @@ Ver [`MISSING_POPUPS.md`](MISSING_POPUPS.md): Calcrete × Bege Bahia, fio helico
 
 ## Decisões tomadas
 
+1. **Etapa 2 · Ponto 2 avança no fim da narração:** a pedido do cliente, a cena não espera o vídeo 360 de 42,6 s terminar (`finishCurrentClipAfterNarration: false`, `requireAllClipsOnce: false` em `scenes.ts`). A animação fica no chão, como um bloco sendo cortado.
 1. **Animação do corte como vídeo com chroma key:** o roteiro pede "manter a animação". O arquivo entregue é um vídeo sobre fundo verde, e removê-lo em tempo real (shader) é o uso previsto desse tipo de asset. O arquivo original não é alterado. Toca uma passada inteira (9,04 s), alinhada a "O fio diamantado trouxe…", sem repetir para não terminar no meio de um corte.
 2. **Recorte do `1_Salvador…`:** o PNG não tem transparência e tem faixas pretas de exportação nas laterais. O app mostra só a área do cartão, sem deformar nem mudar cores. É configurável e removível.
 3. **Arquivos de `Arrumar/` não usados:** são rascunhos (sem transparência, com selos "IMAGEM 03–06") das mesmas fotomicrografias que existem em versão final.

@@ -26,7 +26,7 @@
 | # | Tema | Situação |
 |---|---|---|
 | A1 | **GitHub Pages do repositório** | O Pages do repo **já está ativo** e serve o tour 3DVista antigo (build legado, a partir de `main /`). Um repositório tem **um só site Pages**, então publicar a versão nova nele **substitui o site antigo**. Mudar a origem para "GitHub Actions" exige permissão de **admin**, e a conta `BernardoHille` tem só `push`. É preciso decidir entre substituir o site atual (com o dono do repo alterando a origem do Pages) ou publicar em outro repositório/URL. O build já está pronto para qualquer uma das duas. |
-| A2 | Etapa 2 · Ponto 2 inteiro (42,6 s) | Pela regra do caso B, o vídeo toca até o fim: 28 s além da narração. Por volta dos 40 s, **o operador aparece na frente da câmera**. |
+| A2 | Etapa 2 · Ponto 2 inteiro (42,6 s) — **resolvido:** a cena agora avança no fim da narração | Pela regra do caso B, o vídeo toca até o fim: 28 s além da narração. Por volta dos 40 s, **o operador aparece na frente da câmera**. |
 | A3 | Loop por fração de segundo | Na Etapa 4, o vídeo tem 29,6 s e a narração 29,78 s. Pela regra pura, faltariam 0,18 s de narração e o vídeo daria **um ciclo inteiro a mais (+29,6 s)**. Para evitar isso existe `loopMinNarrationRemaining`, com padrão de 1,0 s e configurável por cena: se faltar menos que isso de narração quando o vídeo acaba, ele não reinicia e a cena termina junto com a narração. Com 0, vale a regra pura. |
 
 ---

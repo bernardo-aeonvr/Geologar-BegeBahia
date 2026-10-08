@@ -84,8 +84,9 @@ export const scenes: TourScene[] = [
     id: "e2-p2",
     title: "Corte do bloco de Bege Bahia",
     stage: "Etapa 2 — Extração na Pedreira",
-    // Vídeo 42,6 s × narração 14,7 s → vídeo continua até o fim (ver A2 na auditoria).
-    media: video([clip("e2-p2")]),
+    // Vídeo 42,6 s × narração 14,7 s: aqui a cena AVANÇA quando a narração termina, sem esperar o
+    // vídeo 360 acabar (decisão do cliente; resolve A2 — operador na frente da câmera aos ~40 s).
+    media: video([clip("e2-p2", false)], { requireAllClipsOnce: false, finishCurrentClipAfterNarration: false }),
     narration: "audio/e2-p2",
     initialView: { ...DEFAULT_VIEW },
     next: "e3-p1",
