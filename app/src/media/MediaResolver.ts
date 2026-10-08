@@ -42,7 +42,7 @@ export class MediaResolver {
     const wanted = this.profiles[a.kind] ?? "web";
     for (const p of FALLBACK[wanted]) {
       const v = a.variants[p];
-      if (v) return { id, url: this.urlFor(v), profile: p, variant: v };
+      if (v) return { id, url: this.urlFor(v.file), profile: p, variant: v };
     }
     throw new Error(`Mídia "${id}" não tem variantes no manifest.json`);
   }
@@ -51,15 +51,9 @@ export class MediaResolver {
     return this.resolve(id).url;
   }
 
-  /**
-   * URL com versão (`?v=`): o cache offline (service worker) guarda por URL completa, então uma
-   * variante regenerada com o MESMO nome de arquivo (ex.: vídeo recodificado) nunca sai velha do cache.
-   */
-  private urlFor(v: MediaVariant): string {
+  private urlFor(file: string): string {
     const base = new URL(this.baseUrl, typeof document !== "undefined" ? document.baseURI : "http://localhost/");
-    const url = new URL(v.file, base);
-    url.searchParams.set("v", `${v.settingsHash ?? "0"}-${v.bytes}`);
-    return url.toString();
+    return new URL(file, base).toString();
   }
 }
 

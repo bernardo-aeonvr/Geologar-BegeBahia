@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import { useEffect } from "react";
 import type { TourScene } from "../types/tour";
 import { IconClose } from "./Icons";
 
@@ -7,12 +7,10 @@ interface Props {
   currentId: string | null;
   onPick(id: string): void;
   onClose(): void;
-  /** Rodapé do painel (ex.: progresso do download para o aparelho). */
-  footer?: ReactNode;
 }
 
 /** Lista de cenas para navegação manual (interrompe a cena atual imediatamente). */
-export function SceneMenu({ scenes, currentId, onPick, onClose, footer }: Props) {
+export function SceneMenu({ scenes, currentId, onPick, onClose }: Props) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
@@ -45,7 +43,6 @@ export function SceneMenu({ scenes, currentId, onPick, onClose, footer }: Props)
             );
           })}
         </ol>
-        {footer}
       </div>
     </div>
   );
