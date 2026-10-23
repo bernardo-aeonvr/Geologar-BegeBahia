@@ -16,15 +16,15 @@ Os testes avisam se um asset reservado chegou e o `pending` ficou esquecido, e t
 ---
 
 ## Etapa 1 — Ponto 2 (Parte de cima da pedreira)
-**Esperado:** "Calcrete × Bege Bahia" (comparação visual).
+**Esperado:** "Calcrete × Mármore" (comparação visual). Na revisão de 2026-10 do roteiro, era "Calcrete × Bege Bahia".
 
 **Status:** asset não encontrado. Intervalo reservado.
 
-**Trecho do roteiro:** "Imagens complementares: Calcrete x Bege Bahia" / "Apresentar as imagens como comparação visual simples, sem interação."
+**Trecho do roteiro:** "Imagens complementares: Calcrete x Marmore" / "Apresentar as imagens como comparação visual simples, sem interação."
 
 **Narração:** "Ele é um calcrete, uma rocha sedimentar formada em ambiente continental." → **4,1 s – 12,0 s**. Logo depois começa a sequência das fotomicrografias.
 
-**Arquivo sugerido:** `popup_calcrete_x_bege_bahia.png` → id `popups/g2-calcrete-x-bege`.
+**Arquivo sugerido:** `popup_calcrete_x_marmore.png` → id `popups/g2-calcrete-x-marmore`.
 
 **Posição reservada:** yaw 32°, pitch 15°, largura 42°.
 

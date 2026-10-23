@@ -67,7 +67,7 @@ describe("configuração dos pop-ups", () => {
 
   it("popupsFor gera um overlay ancorado e um cue de narração por pop-up", () => {
     const { overlays, cues } = popupsFor("e1-p2");
-    expect(overlays.map((o) => o.id)).toEqual(["calcrete-x-bege", "fotomicrografias"]);
+    expect(overlays.map((o) => o.id)).toEqual(["calcrete-x-marmore", "fotomicrografias"]);
     expect(overlays.every((o) => o.anchor && o.bare)).toBe(true);
     expect(cues.every((c) => c.timeline === "narration")).toBe(true);
     expect(overlays[1].slides).toHaveLength(4);

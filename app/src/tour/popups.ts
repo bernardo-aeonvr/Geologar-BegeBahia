@@ -102,13 +102,13 @@ export const popupTimeline: Record<string, PopupDef[]> = {
     {
       // "Ele é um calcrete, uma rocha sedimentar formada em ambiente continental." (4,1–12,0 s)
       type: "single",
-      id: "calcrete-x-bege",
-      image: "popups/g2-calcrete-x-bege",
-      alt: "Comparação: calcrete e Bege Bahia",
+      id: "calcrete-x-marmore",
+      image: "popups/g2-calcrete-x-marmore",
+      alt: "Comparação: calcrete e mármore",
       start: 4.1,
       end: 12.0,
       position: { yaw: 32, pitch: 15, width: W },
-      pending: "Comparação visual Calcrete × Bege Bahia",
+      pending: "Comparação visual Calcrete × Mármore (roteiro revisado)",
     },
     {
       // Fotomicrografias (Santos et al., 2020): uma por frase, a partir do fim do trecho do calcrete.
@@ -175,7 +175,7 @@ export const popupTimeline: Record<string, PopupDef[]> = {
       id: "agua",
       image: "popups/e3-p3-agua",
       alt: "Consumo de água por bloco: tear tradicional 200.000 litros; tear moderno 13.000 litros",
-      start: 15.8,
+      start: 15.2, // narração corrigida ("um dia para horas") ficou 0,6 s mais curta antes deste ponto
       // Ao lado do bloco, no vão entre ele (yaw ≈ 118°) e o tear multifio (yaw ≈ 148°).
       position: { yaw: 133, pitch: 6, width: 28 },
     },

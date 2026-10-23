@@ -12,7 +12,7 @@ import { createHarness, flush } from "./fakes";
 
 const NARRATION: Record<string, number> = {
   "audio/e0-intro": 39.967, "audio/e1-p1": 45.714, "audio/e1-p2": 44.565, "audio/e2-p1": 31.451,
-  "audio/e2-p2": 14.681, "audio/e3-p1": 22.152, "audio/e3-p2": 16.98, "audio/e3-p3": 31.399,
+  "audio/e2-p2": 14.681, "audio/e3-p1": 22.152, "audio/e3-p2": 16.98, "audio/e3-p3": 30.797,
   "audio/e3-p4": 27.559, "audio/e3-p5": 15.229, "audio/e3-p6": 43.572, "audio/e4-p1": 29.78,
   "audio/e5-p1": 43.494,
 };
@@ -107,7 +107,7 @@ describe("Tour completo (13 cenas, automático)", () => {
     // Tear e politrizes: loop enquanto a narração toca e avanço no FIM DA NARRAÇÃO (sem terminar o ciclo).
     expect(byId["e3-p3"]).toMatchObject({ cycles: 1 });
     expect(r(byId["e3-p2"].seconds)).toBe(16.98); // vídeo 18,12 s não espera terminar
-    expect(r(byId["e3-p3"].seconds)).toBe(31.4);
+    expect(r(byId["e3-p3"].seconds)).toBe(30.8);
     expect(r(byId["e3-p4"].seconds)).toBe(27.56);
     expect(r(byId["e3-p5"].seconds)).toBe(15.23);
     expect(r(byId["e3-p6"].seconds)).toBe(43.57);
@@ -117,6 +117,6 @@ describe("Tour completo (13 cenas, automático)", () => {
 
     // Duração total do tour (sem os fades): ~6 min 55 s.
     const total = logs.reduce((a, l) => a + l.seconds, 0);
-    expect(total).toBeCloseTo(414.63, 1);
+    expect(total).toBeCloseTo(414.03, 1);
   });
 });

@@ -23,7 +23,7 @@
   "audio/e2-p2":        { "kind": "audio", "source": "Narracao/Etapa 2 Ponto 2.MP3" },
   "audio/e3-p1":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 1.MP3" },
   "audio/e3-p2":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 2.MP3" },
-  "audio/e3-p3":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 3.MP3" },
+  "audio/e3-p3":        { "kind": "audio", "source": "Narracao/derivados/Etapa 3 Ponto 3 (corrigido 1 dia para horas).mp3" },
   "audio/e3-p4":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 4.MP3" },
   "audio/e3-p5":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 5.MP3" },
   "audio/e3-p6":        { "kind": "audio", "source": "Narracao/Etapa 3 Ponto 6.MP3" },

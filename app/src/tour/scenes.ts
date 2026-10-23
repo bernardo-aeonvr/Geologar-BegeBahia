@@ -145,7 +145,7 @@ export const scenes: TourScene[] = [
     id: "e3-p3",
     title: "Tear multifio",
     stage: "Etapa 3 — Serraria e Tecnologia",
-    // Vídeo 21,1 s × narração 31,4 s → loop; avança no fim da narração.
+    // Vídeo 21,1 s × narração 30,8 s (corrigida: "de um dia para horas") → loop; avança no fim da narração.
     media: video([clip("e3-p3")], ADVANCE_ON_NARRATION_END),
     narration: "audio/e3-p3",
     // De frente para o tear multifio (Delta Wire, yaw ≈ 175°), com o bloco à esquerda (yaw ≈ 90–118°).

@@ -43,7 +43,7 @@ viewer/SpatialOverlays.ts
 |---|---|---|
 | Introdução | "Imagens complementares: Distância Salvador → Ourolândia" | popup isolado `salvador-ourolandia` |
 | E1 · P1 | "pop-up: Travertino Romano × Bege Bahia, durante a comparação" | popup isolado `bege-x-travertino` |
-| E1 · P2 | "Calcrete × Bege Bahia" | reservado (`calcrete-x-bege`, **asset ausente**) |
+| E1 · P2 | "Calcrete × Mármore" | reservado (`calcrete-x-marmore`, **asset ausente**) |
 | E1 · P2 | "Imagem microscópica da textura" | **sequência** `fotomicrografias` (4 slides) |
 | E2 · P1 | (fissuras, cavidades e heterogeneidades) | popup isolado `fissuras` (experiência original) |
 | E2 · P2 | "Manter a animação que demonstra o corte do bloco" | **vídeo** `fio-cortando-pedra` (chroma key) |
@@ -63,12 +63,12 @@ Os tempos foram medidos por **transcrição com timestamp de cada palavra** (fas
 |---|---|---|---|
 | Intro (39,97 s) | "Bem-vindo a uma jornada imersiva." → "…direto da cidade de Ourolândia, no coração do sertão baiano." | Salvador → Ourolândia | 17,1 s → fim |
 | E1 · P1 (45,71 s) | "…o material lembrava o famoso travertino romano…" | Bege × Travertino | 35,5 s → fim |
-| E1 · P2 (44,56 s) | "Ele é um calcrete, uma rocha sedimentar…" | Calcrete × Bege (ausente) | 4,1 → 12,0 s |
+| E1 · P2 (44,56 s) | "Ele é um calcrete, uma rocha sedimentar…" | Calcrete × Mármore (ausente) | 4,1 → 12,0 s |
 | E1 · P2 | "Ao longo de milhares de anos…" → "…textura brechoide." | Fotomicrografias (sequência) | 12,0 s → fim |
 | E2 · P1 (31,45 s) | "Fissuras, cavidades…" → antes de "No passado…" | Fissuras | 9,0 → 19,8 s |
 | E2 · P2 (14,68 s) | "O fio diamantado trouxe mais precisão…" | Animação do corte (vídeo 9,04 s) | 0,3 → 9,35 s |
 | E2 · P2 | "…reduziu perdas, aumentou o aproveitamento…" | Helicoidal × diamantado (ausente) | 9,4 s → fim |
-| E3 · P3 (31,40 s) | "…e a sustentabilidade também evoluiu…" | Água | 15,8 s → fim |
+| E3 · P3 (30,80 s, narração corrigida) | "…e a sustentabilidade também evoluiu…" | Água | 15,2 s → fim |
 | E3 · P4 (27,56 s) | "A primeira é totalmente manual…" | Politrizes manuais | 0 s → fim (desde o começo, pedido do cliente) |
 | E3 · P5 (15,23 s) | "…o processo é semiautomático…" | Politrizes semi-automáticas | 0 s → fim (desde o começo) |
 | E3 · P6 (43,57 s) | "…totalmente automatizado…" | Politrizes automáticas | 0 → 16,2 s (desde o começo) |
@@ -85,7 +85,7 @@ Os tempos foram medidos por **transcrição com timestamp de cada palavra** (fas
 | `salvador-ourolandia` | `1_Salvador to Ourolândia_ 406 km.png` → versão derivada com alpha correto (`derivados/…_alpha.png`) | Intro 17,1 s → fim |
 | `bege-x-travertino` | `2_BegeBahiaXTravertinoRomano.png` | E1 · P1 35,5 s → fim |
 | `fio-cortando-pedra` | `7_fio_cortando_pedra.mp4` (vídeo 1920×1080, chroma key verde) | E2 · P2 0,3 → 9,35 s |
-| `agua` | `8_comparacao_agua.png` (= `T_popup_…_Etapa3_ponto3_Vreduzida.png`) | E3 · P3 15,8 s → fim |
+| `agua` | `8_comparacao_agua.png` (= `T_popup_…_Etapa3_ponto3_Vreduzida.png`) | E3 · P3 15,2 s → fim |
 | `fissuras`, `politriz-*`, `produtos` | `Popups (experiencia original)/` | ver tabela acima |
 
 **Vídeo sincronizado:** o tempo do vídeo é sempre `narration.currentTime − 0,3 s`. Se a diferença passar de 0,25 s, o vídeo é reposicionado. Ele pausa junto com o tour e, num seek, salta para o quadro certo. O fundo verde é removido no shader: chroma key em CbCr, calibrado no próprio vídeo (o fundo fica em d≈0, as bordas de transição ainda verdes vão até d≈0,40, e os pixels da pedra e do fio têm sempre d≥0,49), então a chave é transparente até 0,36 e opaca a partir de 0,48. Há também um despill: o verde de um pixel nunca passa do maior entre vermelho e azul, o que tira o halo sem afetar a pedra marrom. Só a região onde a animação acontece é exibida (x 23–81% do quadro, medida em todos os quadros), sem deformar.
@@ -101,7 +101,7 @@ Etapa 1 · Ponto 2: um único painel em yaw −32°, pitch 15°, largura 44°. F
 | 3 | `6_Fotomicrografia_do_Bege_Bahia_03.png` | 31,5 s | 39,0 s | "O resultado é uma rocha com cerca de 98% de carbonato, baixa sílica…" |
 | 4 | `6_Fotomicrografia_do_Bege_Bahia_04.png` | 39,0 s | fim (44,56 s) | "…e uma estética única, marcada por tons suaves e **textura brechoide**." |
 
-**Critério:** cada slide começa numa fronteira de frase da narração. O slide 4 ("Imagem microscópica do Bege Bahia", com clastos arredondados) coincide com "textura brechoide", a única correspondência semântica direta. Os slides 1 a 3 são painéis de fotomicrografia sem tema específico, então seguem a ordem dos arquivos, uma frase cada. A sequência começa aos 12,0 s porque o trecho anterior ("Ele é um calcrete…", 4,1–12,0 s) é a janela reservada da comparação Calcrete × Bege Bahia, também prevista no roteiro para este ponto.
+**Critério:** cada slide começa numa fronteira de frase da narração. O slide 4 ("Imagem microscópica do Bege Bahia", com clastos arredondados) coincide com "textura brechoide", a única correspondência semântica direta. Os slides 1 a 3 são painéis de fotomicrografia sem tema específico, então seguem a ordem dos arquivos, uma frase cada. A sequência começa aos 12,0 s porque o trecho anterior ("Ele é um calcrete…", 4,1–12,0 s) é a janela reservada da comparação Calcrete × Mármore, também prevista no roteiro para este ponto.
 
 ## Sequência de aplicações do Bege Bahia
 
@@ -138,7 +138,7 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 |---|---|---|---|---|
 | Salvador → Ourolândia | 30° | 14° | 40° | Céu à direita; o centro da cena é o campo de rocha da introdução |
 | Bege × Travertino | 32° | 13° | 42° | Acima das casas à direita; a estrada fica livre no centro e o caminhão à esquerda |
-| Calcrete × Bege (reservado) | 32° | 15° | 42° | Céu à direita, oposto às fotomicrografias |
+| Calcrete × Mármore (reservado) | 32° | 15° | 42° | Céu à direita, oposto às fotomicrografias |
 | Fotomicrografias | −32° | 15° | 44° | Céu à esquerda; a cava da pedreira fica livre (mais largo para os detalhes) |
 | Animação do corte | −32° | −11° | 48° | **No chão da pedreira, em primeiro plano**, como um bloco sendo cortado, à esquerda, sem tampar o operador que corta o bloco real ao fundo (+5° a +15°) (pedido do cliente) |
 | Helicoidal × diamantado (reservado) | −30° | 12° | 42° | Céu à esquerda, logo depois da animação |
@@ -152,7 +152,7 @@ Escolhidas sobre os quadros de cada cena com uma grade de yaw/pitch, sempre **de
 
 ## Assets ausentes
 
-Ver [`MISSING_POPUPS.md`](MISSING_POPUPS.md): Calcrete × Bege Bahia, fio helicoidal × diamantado, compósito com resíduo, créditos e logos, "outros produtos" e aplicação em cozinha.
+Ver [`MISSING_POPUPS.md`](MISSING_POPUPS.md): Calcrete × Mármore, fio helicoidal × diamantado, compósito com resíduo, créditos e logos, "outros produtos" e aplicação em cozinha.
 
 ## Decisões tomadas
 

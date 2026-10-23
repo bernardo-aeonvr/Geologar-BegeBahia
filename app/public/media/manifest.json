@@ -199,29 +199,29 @@
     },
     "audio/e3-p3": {
       "kind": "audio",
-      "source": "Narracao/Etapa 3 Ponto 3.MP3",
-      "sourceBytes": 754250,
+      "source": "Narracao/derivados/Etapa 3 Ponto 3 (corrigido 1 dia para horas).mp3",
+      "sourceBytes": 740457,
       "variants": {
         "web": {
           "file": "audio/e3-p3.mp3",
-          "bytes": 754250,
-          "duration": 31.399,
+          "bytes": 740457,
+          "duration": 30.797,
           "hasAudio": true,
-          "settingsHash": "92da553131c6"
+          "settingsHash": "873c7c6a56db"
         },
         "mobile": {
           "file": "audio/e3-p3.mp3",
-          "bytes": 754250,
-          "duration": 31.399,
+          "bytes": 740457,
+          "duration": 30.797,
           "hasAudio": true,
-          "settingsHash": "92da553131c6"
+          "settingsHash": "873c7c6a56db"
         },
         "high": {
           "file": "audio/e3-p3.mp3",
-          "bytes": 754250,
-          "duration": 31.399,
+          "bytes": 740457,
+          "duration": 30.797,
           "hasAudio": true,
-          "settingsHash": "92da553131c6"
+          "settingsHash": "873c7c6a56db"
         }
       }
     },
@@ -1411,7 +1411,7 @@
       }
     }
   },
-  "generatedAt": "2026-10-08T19:25:22.426Z",
+  "generatedAt": "2026-10-23T15:29:25.944Z",
   "profiles": {
     "image": [
       "web",

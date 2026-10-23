@@ -28,6 +28,7 @@
 | A1 | **GitHub Pages do repositório** | O Pages do repo **já está ativo** e serve o tour 3DVista antigo (build legado, a partir de `main /`). Um repositório tem **um só site Pages**, então publicar a versão nova nele **substitui o site antigo**. Mudar a origem para "GitHub Actions" exige permissão de **admin**, e a conta `BernardoHille` tem só `push`. É preciso decidir entre substituir o site atual (com o dono do repo alterando a origem do Pages) ou publicar em outro repositório/URL. O build já está pronto para qualquer uma das duas. |
 | A2 | Etapa 2 · Ponto 2 inteiro (42,6 s) — **resolvido:** a cena agora avança no fim da narração | Pela regra do caso B, o vídeo toca até o fim: 28 s além da narração. Por volta dos 40 s, **o operador aparece na frente da câmera**. |
 | A4 | Fade para preto embutido nos vídeos | Todos os vídeos da Etapa 3 e da Etapa 4 terminam com cerca de 1 s de fade para preto, seguido de ~0,8 s de preto. Isso aparecia a cada loop e na troca `1-2` → `1-1`, e os pop-ups continuavam acesos sobre a imagem preta. **Resolvido:** `outPoint` em `media-sources.json` corta esse trecho nas variantes geradas (as fontes não mudam). Com isso, o vídeo da Etapa 4 passa a ter 27,7 s × narração de 29,78 s, e `loopMinNarrationRemaining: 3` segura o último quadro por ~2 s em vez de fazer um ciclo inteiro extra. |
+| A5 | Correção de narração (roteiro revisado, 2026-10) | Na Etapa 3 · Ponto 3, a frase "O tempo de corte caiu de cerca de cinco dias para menos de vinte horas" passou a ser "…de cerca de um dia para horas". O trecho foi trocado pelo áudio `Narracao/CorrecaoParaHoras.MP3`, encaixado nas pausas do original e nivelado em loudness, no derivado `Narracao/derivados/Etapa 3 Ponto 3 (corrigido 1 dia para horas).mp3`. O original não foi alterado. A narração passou de 31,40 s para 30,80 s, e o popup da água foi adiantado para 15,2 s. |
 | A3 | Loop por fração de segundo | Na Etapa 4, o vídeo tem 29,6 s e a narração 29,78 s. Pela regra pura, faltariam 0,18 s de narração e o vídeo daria **um ciclo inteiro a mais (+29,6 s)**. Para evitar isso existe `loopMinNarrationRemaining`, com padrão de 1,0 s e configurável por cena: se faltar menos que isso de narração quando o vídeo acaba, ele não reinicia e a cena termina junto com a narração. Com 0, vale a regra pura. |
 
 ---
@@ -267,7 +268,7 @@ Decisão D2: `loop` enquanto a narração toca, concluindo o ciclo atual antes d
 |---|---|---|
 | Introdução | Imagem "Distância Salvador → Ourolândia" | ausente |
 | Etapa 1 · Ponto 1 | Pop-up Travertino Romano × Bege Bahia, durante a comparação | ausente |
-| Etapa 1 · Ponto 2 | Calcrete × Bege Bahia; imagem microscópica (opcional) | ausente |
+| Etapa 1 · Ponto 2 | Calcrete × Mármore (roteiro revisado; antes "× Bege Bahia"); imagem microscópica (opcional) | ausente |
 | Etapa 2 · Ponto 2 | "Manter a animação já existente que demonstra o corte do bloco" | **não está no vídeo novo** (frames conferidos) |
 | Etapa 2 · Ponto 2 | Fio helicoidal × fio diamantado (opcional) | ausente |
 | Etapa 3 · Ponto 3 | "Manter a comparação/animação de consumo de água" (200.000 L × 13.000 L) | aparece no PDF p.8 como sobreposição do 3DVista; **não está no vídeo novo** |
